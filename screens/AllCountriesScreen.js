@@ -5,6 +5,7 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import Filters from "../components/Filters";
 import SeasonFilter from "../components/SeasonFilter";
+import BottomTabs from "../components/BottomTabs";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -33,7 +34,7 @@ export default function AllCountriesScreen() {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <CustomSearchBar
         query={query}
         setQuery={setQuery}
@@ -42,6 +43,7 @@ export default function AllCountriesScreen() {
       />
       <Filters />
       <SeasonFilter season={season} setSeason={setSeason} />
+      <BottomTabs />
     </View>
   );
 }
