@@ -14,7 +14,7 @@ export default function SeasonFilter({ season, setSeason }) {
     <View style={{ alignItems: "center", marginTop: 5 }}>
       <View>
         <DropDownPicker
-          containerStyle={{ width: "21%" }}
+          containerStyle={{ width: "25%" }}
           maxHeight={100}
           placeholder="2022"
           open={open}
