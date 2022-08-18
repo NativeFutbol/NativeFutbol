@@ -1,35 +1,56 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeScreen from "../screens/HomeScreen";
+import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
+import AccountScreen from "../screens/AccountScreen";
 
-export default class FooterTabs extends Component {
-  render() {
-    return (
-      <View
-        style={{
-          flexDirection: "row",
-          margin: 10,
-          marginHorizontal: 30,
-          justifyContent: "space-between",
+const Tab = createBottomTabNavigator();
+
+export default function FooterTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarActiveTintColor: "#e91e63",
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: "Home",
+          tabBarIcon: () => <Icon icon="home" />,
         }}
-      >
-        <Icon icon="home" text="Home" />
-        <Icon icon="chart-bar" text="Stats" />
-        <Icon icon="user" text="Account" />
-      </View>
-    );
-  }
+      />
+      <Tab.Screen
+        name="Stats"
+        component={AllCountriesScreen}
+        options={{
+          tabBarLabel: "Stats",
+          tabBarIcon: () => <Icon icon="chart-bar" />,
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={AccountScreen}
+        options={{
+          tabBarLabel: "Account",
+          tabBarIcon: () => <Icon icon="user" />,
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
 const Icon = (props) => (
   <TouchableOpacity>
-    <View>
-      <FontAwesome5
-        name={props.icon}
-        size={25}
-        style={{ marginBottom: 3, alignSelf: "center" }}
-      />
-      <Text>{props.text}</Text>
-    </View>
+    <FontAwesome5
+      name={props.icon}
+      size={25}
+      style={{ marginBottom: 3, alignSelf: "center" }}
+    />
   </TouchableOpacity>
 );
