@@ -8,6 +8,7 @@ import SeasonFilter from "../components/SeasonFilter";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
+  const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
 
   const getCountries = () => {
@@ -40,7 +41,7 @@ export default function AllCountriesScreen() {
         onSubmit={getCountries}
       />
       <Filters />
-      <SeasonFilter />
+      <SeasonFilter season={season} setSeason={setSeason} />
     </View>
   );
 }
