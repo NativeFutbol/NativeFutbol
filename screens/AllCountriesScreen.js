@@ -4,6 +4,7 @@ import CustomSearchBar from "../components/CustomSearchBar";
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import Filters from "../components/Filters";
+import SeasonFilter from "../components/SeasonFilter";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -39,6 +40,7 @@ export default function AllCountriesScreen() {
         onSubmit={getCountries}
       />
       <Filters />
+      <SeasonFilter />
     </View>
   );
 }
