@@ -66,7 +66,11 @@ export default function AllPlayersScreen() {
 
   return (
     <SafeAreaView>
-      <View>
+      <View
+        style={{
+          zIndex: 5000,
+        }}
+      >
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
