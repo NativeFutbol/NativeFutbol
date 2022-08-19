@@ -6,8 +6,11 @@ import {
   StyleSheet,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Filters() {
+  const navigation = useNavigation();
+
   return (
     <View
       style={{
@@ -19,22 +22,24 @@ export default function Filters() {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.container}>
           <View style={styles.filterOptions}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("AllCountries")}
+            >
               <Text style={styles.text}>Countries</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.filterOptions}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("AllLeagues")}>
               <Text style={styles.text}>Leagues</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.filterOptions}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("AllTeams")}>
               <Text style={styles.text}>Teams</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.filterOptions}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("AllPlayers")}>
               <Text style={styles.text}>Players</Text>
             </TouchableOpacity>
           </View>
