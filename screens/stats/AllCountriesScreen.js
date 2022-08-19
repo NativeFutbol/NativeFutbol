@@ -1,11 +1,11 @@
-import { View, Text, SafeAreaView } from "react-native";
-import React, { useState } from "react";
-import CustomSearchBar from "../components/CustomSearchBar";
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import Filters from "../components/Filters";
-import SeasonFilter from "../components/SeasonFilter";
-import BottomTabs from "../components/BottomTabs";
+import { View, Text, SafeAreaView } from "react-native";
+import React, { useState } from "react";
+
+import CustomSearchBar from "../../components/CustomSearchBar";
+import Filters from "../../components/Filters";
+import SeasonFilter from "../../components/SeasonFilter";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -13,7 +13,6 @@ export default function AllCountriesScreen() {
   const [filter, setFilter] = useState("countries");
 
   const getCountries = () => {
-    console.log("allcoun", FOOTBALL_API_KEY);
     const options = {
       method: "GET",
       url: `https://v3.football.api-sports.io/${filter}?search=${query}`,
@@ -34,16 +33,17 @@ export default function AllCountriesScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-      <CustomSearchBar
-        query={query}
-        setQuery={setQuery}
-        placeholder="Search countries..."
-        onSubmit={getCountries}
-      />
-      <Filters />
-      <SeasonFilter season={season} setSeason={setSeason} />
-      <BottomTabs />
-    </View>
+    <SafeAreaView>
+      <View>
+        <CustomSearchBar
+          query={query}
+          setQuery={setQuery}
+          placeholder="Search countries..."
+          onSubmit={getCountries}
+        />
+        <Filters />
+        <SeasonFilter season={season} setSeason={setSeason} />
+      </View>
+    </SafeAreaView>
   );
 }
