@@ -2,6 +2,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 import HomeScreen from "../screens/HomeScreen";
 import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
 import AccountScreen from "../screens/AccountScreen";

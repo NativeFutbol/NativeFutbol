@@ -7,12 +7,12 @@ import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 
-export default function AllCountriesScreen() {
+export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("countries");
+  const [filter, setFilter] = useState("teams");
 
-  const getCountries = () => {
+  const getTeams = () => {
     const options = {
       method: "GET",
       url: `https://v3.football.api-sports.io/${filter}?search=${query}`,
@@ -38,8 +38,8 @@ export default function AllCountriesScreen() {
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
-          placeholder="Search countries..."
-          onSubmit={getCountries}
+          placeholder="Search teams..."
+          onSubmit={getTeams}
         />
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />

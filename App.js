@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
-import AllCountriesScreen from "./screens/stats/AllCountriesScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./screens/HomeScreen";
-import AccountScreen from "./screens/AccountScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import BottomTabs from "./components/BottomTabs";
+
+import AllCountriesScreen from "./screens/stats/AllCountriesScreen";
+import HomeScreen from "./screens/HomeScreen";
+import AccountScreen from "./screens/AccountScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
