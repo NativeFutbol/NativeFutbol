@@ -66,7 +66,11 @@ export default function AllLeaguesScreen() {
 
   return (
     <SafeAreaView>
-      <View>
+      <View
+        style={{
+          zIndex: 5000,
+        }}
+      >
         <CustomSearchBar
           query={query}
           setQuery={setQuery}

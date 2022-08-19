@@ -1,7 +1,7 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -12,13 +12,6 @@ export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
-  const [countries, setCountries] = useState([
-    "England",
-    "France",
-    "Germany",
-    "Italy",
-    "Spain",
-  ]);
 
   const dummydata = [
     {
@@ -43,6 +36,10 @@ export default function AllCountriesScreen() {
     },
   ];
 
+  useEffect(() => {
+    getCountries();
+  });
+
   const getCountries = () => {
     const searchUrl =
       query === ""
@@ -61,11 +58,7 @@ export default function AllCountriesScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(
-          response.data.response.filter((country) =>
-            countries.includes(country.name)
-          )
-        );
+        console.log(response.data.response);
       })
       .catch(function (error) {
         console.error(error);
@@ -74,7 +67,11 @@ export default function AllCountriesScreen() {
 
   return (
     <SafeAreaView>
-      <View>
+      <View
+        style={{
+          zIndex: 5000,
+        }}
+      >
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
