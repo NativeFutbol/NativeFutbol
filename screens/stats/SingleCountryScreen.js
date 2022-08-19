@@ -8,12 +8,42 @@ import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 
-export default function AllLeaguesScreen() {
+export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("leagues");
+  const [filter, setFilter] = useState("countries");
+  const [countries, setCountries] = useState([
+    "England",
+    "France",
+    "Germany",
+    "Italy",
+    "Spain",
+  ]);
 
   const dummydata = [
+    {
+      name: "kevin",
+      flag: "https://media.api-sports.io/football/leagues/801.png",
+      id: 1,
+    },
+    {
+      name: "connor",
+      flag: "https://media.api-sports.io/football/players/1.png",
+      id: 2,
+    },
+    {
+      name: "alexis",
+      flag: "https://media.api-sports.io/football/leagues/214.png",
+      id: 3,
+    },
+    {
+      name: "fei",
+      flag: "https://media.api-sports.io/football/teams/165.png",
+      id: 4,
+    },
+  ];
+
+  const dummydata2 = [
     {
       league: {
         name: "fei",
@@ -44,10 +74,15 @@ export default function AllLeaguesScreen() {
     },
   ];
 
-  const getLeagues = () => {
+  const getCountries = () => {
+    const searchUrl =
+      query === ""
+        ? `https://v3.football.api-sports.io/${filter}`
+        : `https://v3.football.api-sports.io/${filter}?search=${query}`;
+
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/${filter}?search=${query}`,
+      url: searchUrl,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -57,7 +92,11 @@ export default function AllLeaguesScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
+        console.log(
+          response.data.response.filter((country) =>
+            countries.includes(country.name)
+          )
+        );
       })
       .catch(function (error) {
         console.error(error);
@@ -70,13 +109,12 @@ export default function AllLeaguesScreen() {
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
-          placeholder="Search leagues..."
-          onSubmit={getLeagues}
+          placeholder="Search countries..."
+          onSubmit={getCountries}
         />
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
-      <CategoryList data={dummydata} filter={filter} />
     </SafeAreaView>
   );
 }

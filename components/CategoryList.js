@@ -1,0 +1,75 @@
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { SvgUri } from "react-native-svg";
+import React from "react";
+import { useNavigation } from "@react-navigation/native";
+
+export default function CategoryList({ data, filter }) {
+  const navigation = useNavigation();
+  const navigationName =
+    filter === "countries"
+      ? "SingleCountry"
+      : filter === "leagues"
+      ? "SingleLeague"
+      : filter === "teams"
+      ? "SingleTeam"
+      : "SinglePlayer";
+
+  return (
+    <FlatList
+      numColumns={2}
+      keyExtractor={(item, index) => item.id || index}
+      data={data}
+      renderItem={({ item }) => (
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => navigation.navigate(navigationName)}>
+            <Image
+              style={styles.image}
+              source={{
+                uri:
+                  item.flag ||
+                  item.league.logo ||
+                  item.team.logo ||
+                  item.player.photo,
+                height: 100,
+                width: 100,
+              }}
+            />
+            <Text
+              style={{ alignSelf: "center", fontSize: 18, fontWeight: "bold" }}
+            >
+              {item.name ||
+                item.league.name ||
+                item.team.name ||
+                item.player.name}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: 150,
+    width: 200,
+    borderWidth: 2,
+    borderRadius: 10,
+    justifyContent: "center",
+    margin: 5,
+    backgroundColor: "white",
+  },
+  image: {
+    alignSelf: "center",
+    height: 100,
+    width: 100,
+  },
+});

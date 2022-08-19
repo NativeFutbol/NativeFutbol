@@ -9,6 +9,10 @@ import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
 import AllLeaguesScreen from "../screens/stats/AllLeaguesScreen";
 import AllTeamsScreen from "../screens/stats/AllTeamsScreen";
 import AllPlayersScreen from "../screens/stats/AllPlayersScreen";
+import SingleCountryScreen from "../screens/stats/SingleCountryScreen";
+import SingleLeagueScreen from "../screens/stats/SingleLeagueScreen";
+import SingleTeamScreen from "../screens/stats/SingleTeamScreen";
+import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import AccountScreen from "../screens/AccountScreen";
 
 const Tab = createBottomTabNavigator();
@@ -19,8 +23,12 @@ const StatsStack = () => {
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="AllCountries" component={AllCountriesScreen} />
       <Stack.Screen name="AllLeagues" component={AllLeaguesScreen} />
-      <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
       <Stack.Screen name="AllTeams" component={AllTeamsScreen} />
+      <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
+      <Stack.Screen name="SingleCountry" component={SingleCountryScreen} />
+      <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
+      <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
+      <Stack.Screen name="SinglePlayer" component={SinglePlayerScreen} />
     </Stack.Navigator>
   );
 };
