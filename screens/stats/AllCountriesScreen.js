@@ -58,7 +58,7 @@ export default function AllCountriesScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.response);
+        // console.log(response.data.response);
       })
       .catch(function (error) {
         console.error(error);
