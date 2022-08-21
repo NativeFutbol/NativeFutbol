@@ -14,6 +14,7 @@ import SingleLeagueScreen from "../screens/stats/SingleLeagueScreen";
 import SingleTeamScreen from "../screens/stats/SingleTeamScreen";
 import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import AccountScreen from "../screens/AccountScreen";
+import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const StatsStack = () => {
       <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
       <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
       <Stack.Screen name="SinglePlayer" component={SinglePlayerScreen} />
+      <Stack.Screen name="LeagueStandings" component={LeagueStandingsScreen} />
     </Stack.Navigator>
   );
 };

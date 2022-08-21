@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -8,6 +8,7 @@ import SeasonFilter from "../../components/SeasonFilter";
 import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import { useNavigation } from "@react-navigation/native";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -21,6 +22,8 @@ export default function SingleLeagueScreen() {
 
   const [league, setLeague] = useState({ id: leagueId, name: "", logo: "" });
   const [teams, setTeams] = useState([]);
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     getStandings();
@@ -119,13 +122,36 @@ export default function SingleLeagueScreen() {
       <Filters />
       <SeasonFilter season={season} setSeason={setSeason} />
 
-      <View style={styles.imageContainer}>
-        {league.logo === "" ? (
-          <></>
-        ) : (
-          <Image source={{ uri: league.logo, width: 50, height: 50 }} />
-        )}
-        <Text>{league.name}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginHorizontal: 30,
+        }}
+      >
+        <View style={styles.imageContainer}>
+          {league.logo === "" ? (
+            <></>
+          ) : (
+            <Image source={{ uri: league.logo, width: 50, height: 50 }} />
+          )}
+          <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
+        </View>
+
+        <TouchableOpacity
+          style={{
+            marginRight: 30,
+            backgroundColor: "#32a88b",
+            borderRadius: 20,
+            padding: 5,
+          }}
+          onPress={() => navigation.navigate("LeagueStandings")}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 15, color: "white" }}>
+            Standings
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <CategoryList data={teams} filter="teams" />
