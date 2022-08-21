@@ -9,6 +9,8 @@ import {
 import { SvgUri } from "react-native-svg";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { setSingleScreenData } from "../store/singleScreenData";
+import { useDispatch } from "react-redux";
 
 export default function CategoryList({ data, filter }) {
   const navigation = useNavigation();
@@ -21,6 +23,8 @@ export default function CategoryList({ data, filter }) {
       ? "SingleTeam"
       : "SinglePlayer";
 
+  const dispatch = useDispatch();
+
   return (
     <FlatList
       numColumns={2}
@@ -28,26 +32,35 @@ export default function CategoryList({ data, filter }) {
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => navigation.navigate(navigationName)}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate(navigationName);
+              dispatch(setSingleScreenData(item));
+            }}
+          >
             <Image
               style={styles.image}
               source={{
                 uri:
-                  item.flag ||
-                  item.league.logo ||
-                  item.team.logo ||
-                  item.player.photo,
+                  item?.flag ||
+                  item?.league?.logo ||
+                  item?.team?.logo ||
+                  item?.player?.photo,
                 height: 100,
                 width: 100,
               }}
             />
             <Text
-              style={{ alignSelf: "center", fontSize: 18, fontWeight: "bold" }}
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
             >
-              {item.name ||
-                item.league.name ||
-                item.team.name ||
-                item.player.name}
+              {item?.name ||
+                item?.league?.name ||
+                item?.team?.name ||
+                item?.player?.name}
             </Text>
           </TouchableOpacity>
         </View>
