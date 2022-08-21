@@ -12,6 +12,7 @@ export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
+  const [data, setData] = useState([]);
 
   const dummydata = [
     {
@@ -38,9 +39,9 @@ export default function AllCountriesScreen() {
 
   useEffect(() => {
     getCountries();
-  });
+  }, [query]);
 
-  const getCountries = () => {
+  const getCountries = async () => {
     const searchUrl =
       query === ""
         ? `https://v3.football.api-sports.io/${filter}`
@@ -55,10 +56,10 @@ export default function AllCountriesScreen() {
       },
     };
 
-    axios
+    await axios
       .request(options)
       .then(function (response) {
-        console.log(response.data.response);
+        setData(response.data.response);
       })
       .catch(function (error) {
         console.error(error);
@@ -82,7 +83,7 @@ export default function AllCountriesScreen() {
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
       <View>
-        <CategoryList data={dummydata} filter={filter} />
+        <CategoryList data={data} filter={filter} />
       </View>
     </SafeAreaView>
   );
