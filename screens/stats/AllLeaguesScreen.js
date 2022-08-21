@@ -1,53 +1,39 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 export default function AllLeaguesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("leagues");
 
-  const dummydata = [
-    {
-      league: {
-        name: "fei",
-        logo: "https://media.api-sports.io/football/leagues/801.png",
-        id: 1,
-      },
-    },
-    {
-      league: {
-        name: "alexis",
-        logo: "https://media.api-sports.io/football/players/1.png",
-        id: 2,
-      },
-    },
-    {
-      league: {
-        name: "connor",
-        logo: "https://media.api-sports.io/football/leagues/214.png",
-        id: 3,
-      },
-    },
-    {
-      league: {
-        name: "kevin",
-        logo: "https://media.api-sports.io/football/teams/165.png",
-        id: 4,
-      },
-    },
-  ];
+  const [leagueData, setLeagueData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const topFiveLeagues = [61, 135, 78, 140, 39];
+
+  useEffect(() => {
+    getLeagues();
+  }, []);
 
   const getLeagues = () => {
+    setIsLoading(true);
+
+    const searchUrl =
+      query === ""
+        ? `https://v3.football.api-sports.io/${filter}?season=${season}`
+        : `https://v3.football.api-sports.io/${filter}?search=${query}`;
+
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/${filter}?search=${query}`,
+      url: searchUrl,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -57,12 +43,21 @@ export default function AllLeaguesScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
+        const leagues = response.data.response.filter((league) => {
+          return topFiveLeagues.includes(league.league.id);
+        });
+
+        setLeagueData(leagues);
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <SafeAreaView>
@@ -80,7 +75,7 @@ export default function AllLeaguesScreen() {
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
-      <CategoryList data={dummydata} filter={filter} />
+      <CategoryList data={leagueData} filter={filter} />
     </SafeAreaView>
   );
 }
