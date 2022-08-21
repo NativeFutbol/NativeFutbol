@@ -17,7 +17,7 @@ export default function SingleLeagueScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const singleLeagueData = useSelector((state) => state.singleScreenData);
-  const leagueId = singleLeagueData?.league?.id;
+  const leagueId = singleLeagueData.league?.league?.id;
 
   const [league, setLeague] = useState({ id: leagueId, name: "", logo: "" });
   const [teams, setTeams] = useState([]);
@@ -64,7 +64,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTeams();
-  }, []);
+  }, [season]);
 
   const getTeams = () => {
     setIsLoading(true);
@@ -100,6 +100,10 @@ export default function SingleLeagueScreen() {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   // console.log(teams[0]?.team?.logo);
   // console.log(teams[0]?.team?.name);
