@@ -42,6 +42,10 @@ const StatsStack = () => {
 
           return {
             title: name + " - " + season,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
             headerRight: () => {
               return (
                 <View>
@@ -55,42 +59,50 @@ const StatsStack = () => {
       <Stack.Screen
         name="LeagueGoals"
         component={LeagueGoals}
-        // options={({ route }) => {
-        //   const season = route.params.season;
-        //   const name = route.params.name;
-        //   const logo = route.params.logo;
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
 
-        //   return {
-        //     title: name + " - " + season,
-        //     headerRight: () => {
-        //       return (
-        //         <View>
-        //           <Image source={{ uri: logo, width: 30, height: 30 }} />
-        //         </View>
-        //       );
-        //     },
-        //   };
-        // }}
+          return {
+            title: name + " Top Scorers " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
       />
       <Stack.Screen
         name="LeagueAssists"
         component={LeagueAssists}
-        // options={({ route }) => {
-        //   const season = route.params.season;
-        //   const name = route.params.name;
-        //   const logo = route.params.logo;
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
 
-        //   return {
-        //     title: name + " - " + season,
-        //     headerRight: () => {
-        //       return (
-        //         <View>
-        //           <Image source={{ uri: logo, width: 30, height: 30 }} />
-        //         </View>
-        //       );
-        //     },
-        //   };
-        // }}
+          return {
+            title: name + " Top Assists " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
       />
     </Stack.Navigator>
   );
