@@ -14,6 +14,7 @@ import SingleLeagueScreen from "../screens/stats/SingleLeagueScreen";
 import SingleTeamScreen from "../screens/stats/SingleTeamScreen";
 import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import AccountScreen from "../screens/AccountScreen";
+import SinglePlayer from "../screens/stats/SinglePlayer";
 import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
@@ -31,7 +32,7 @@ const StatsStack = () => {
       <Stack.Screen name="SingleCountry" component={SingleCountryScreen} />
       <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
       <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
-      <Stack.Screen name="SinglePlayer" component={SinglePlayerScreen} />
+      <Stack.Screen name="SinglePlayer" component={SinglePlayer} />
       <Stack.Screen
         name="LeagueStandings"
         component={LeagueStandingsScreen}
