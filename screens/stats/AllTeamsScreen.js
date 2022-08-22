@@ -65,7 +65,7 @@ export default function AllTeamsScreen() {
           <View>
             <LeagueFilter league={league} setLeague={setLeague} />
           </View>
-          <View style={{ marginRight: 385 }}>
+          <View style={{ marginRight: 370, width: "28%" }}>
             <SeasonFilter season={season} setSeason={setSeason} />
           </View>
         </View>
