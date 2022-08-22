@@ -29,7 +29,7 @@ export default function CategoryList({ data, filter }) {
     <FlatList
       numColumns={2}
       keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={<View style={{ height: 300 }} />}
+      ListFooterComponent={<View style={{ height: 500 }} />}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
