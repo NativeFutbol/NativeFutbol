@@ -11,6 +11,7 @@ import LoadingOverlay from "../../components/LoadingOverlay";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setstandingsData } from "../../store/standingsData";
+import LeagueInfoButtons from "../../components/LeagueInfoButtons";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -30,7 +31,6 @@ export default function SingleLeagueScreen() {
   });
   const [teams, setTeams] = useState([]);
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -152,19 +152,19 @@ export default function SingleLeagueScreen() {
           <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
         </View>
 
-        <TouchableOpacity
-          style={{
-            marginRight: 30,
-            backgroundColor: "#32a88b",
-            borderRadius: 20,
-            padding: 5,
-          }}
-          onPress={() => navigation.navigate("LeagueStandings", league)}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 15, color: "white" }}>
-            Standings
-          </Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <LeagueInfoButtons
+            data={league}
+            text="Standings"
+            screen="LeagueStandings"
+          />
+          <LeagueInfoButtons data={league} text="Goals" screen="LeagueGoals" />
+          <LeagueInfoButtons
+            data={league}
+            text="Assists"
+            screen="LeagueAssists"
+          />
+        </View>
       </View>
 
       <CategoryList data={teams} filter="teams" />
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: "center",
     alignItems: "center",
-    margin: 15,
+    margin: 5,
+    marginRight: 25,
   },
 });
