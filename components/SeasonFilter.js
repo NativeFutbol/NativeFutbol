@@ -12,17 +12,19 @@ export default function SeasonFilter({ season, setSeason }) {
   ]);
   return (
     <View style={{ alignItems: "center", marginTop: 5 }}>
-      <DropDownPicker
-        containerStyle={{ width: "25%" }}
-        maxHeight={100}
-        placeholder="2022"
-        open={open}
-        value={season}
-        items={items}
-        setOpen={setOpen}
-        setValue={setSeason}
-        setItems={setItems}
-      />
+      <View style={{ backgroundColor: "pink" }}>
+        <DropDownPicker
+          containerStyle={{ width: 180 }}
+          maxHeight={100}
+          placeholder="2022"
+          open={open}
+          value={season}
+          items={items}
+          setOpen={setOpen}
+          setValue={setSeason}
+          setItems={setItems}
+        />
+      </View>
     </View>
   );
 }
