@@ -1,6 +1,8 @@
 import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSeasonYear } from "../store/season";
 
 export default function SeasonFilter({ season, setSeason }) {
   const [open, setOpen] = useState(false);
@@ -10,6 +12,10 @@ export default function SeasonFilter({ season, setSeason }) {
     { label: "2020", value: "2020" },
     { label: "2019", value: "2019" },
   ]);
+
+  const dispatch = useDispatch();
+  dispatch(setSeasonYear(season));
+
   return (
     <View style={{ alignItems: "center", marginTop: 5 }}>
       <View style={{ backgroundColor: "pink" }}>

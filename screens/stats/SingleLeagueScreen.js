@@ -11,6 +11,7 @@ import LoadingOverlay from "../../components/LoadingOverlay";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setstandingsData } from "../../store/standingsData";
+import LeagueInfoButtons from "../../components/LeagueInfoButtons";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -22,10 +23,17 @@ export default function SingleLeagueScreen() {
   const singleLeagueData = useSelector((state) => state.singleScreenData);
   const leagueId = singleLeagueData.league?.league?.id;
 
-  const [league, setLeague] = useState({ id: leagueId, name: "", logo: "" });
+  // const seasonYear = useSelector((state) => state.season);
+
+  const [league, setLeague] = useState({
+    id: leagueId,
+    season,
+    name: "",
+    logo: "",
+  });
+
   const [teams, setTeams] = useState([]);
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -52,6 +60,7 @@ export default function SingleLeagueScreen() {
             ...prev,
             name: response.data.response[0].league.name,
             logo: response.data.response[0].league.logo,
+            season: season,
           };
         });
 
@@ -119,7 +128,7 @@ export default function SingleLeagueScreen() {
   // console.log(teams[0]?.team?.name);
 
   return (
-    <View>
+    <View style={{ zIndex: 9999 }}>
       <CustomSearchBar
         query={query}
         setQuery={setQuery}
@@ -135,6 +144,7 @@ export default function SingleLeagueScreen() {
           justifyContent: "space-between",
           alignItems: "center",
           marginHorizontal: 30,
+          zIndex: -1,
         }}
       >
         <View style={styles.imageContainer}>
@@ -146,22 +156,24 @@ export default function SingleLeagueScreen() {
           <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
         </View>
 
-        <TouchableOpacity
-          style={{
-            marginRight: 30,
-            backgroundColor: "#32a88b",
-            borderRadius: 20,
-            padding: 5,
-          }}
-          onPress={() => navigation.navigate("LeagueStandings")}
-        >
-          <Text style={{ fontWeight: "bold", fontSize: 15, color: "white" }}>
-            Standings
-          </Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: "row" }}>
+          <LeagueInfoButtons
+            data={league}
+            text="Standings"
+            screen="LeagueStandings"
+          />
+          <LeagueInfoButtons data={league} text="Goals" screen="LeagueGoals" />
+          <LeagueInfoButtons
+            data={league}
+            text="Assists"
+            screen="LeagueAssists"
+          />
+        </View>
       </View>
 
-      <CategoryList data={teams} filter="teams" />
+      <View style={{ zIndex: -1 }}>
+        <CategoryList data={teams} filter="teams" />
+      </View>
     </View>
   );
 }
@@ -170,6 +182,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     justifyContent: "center",
     alignItems: "center",
-    margin: 15,
+    margin: 5,
+    marginRight: 25,
   },
 });
