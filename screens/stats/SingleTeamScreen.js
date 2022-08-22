@@ -8,22 +8,25 @@ import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import singleScreenData from "../../store/singleScreenData";
+import { useSelector } from "react-redux";
 
 export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
-  const [teamId, setTeamId] = useState("50");
-  const [singleTeamData, setSingleTeamData] = useState([]);
-
+  const [singleTeamInfo, setSingleTeamInfo] = useState([]);
+  const singleTeamData = useSelector((state) => state.singleScreenData).team
+    ?.team;
+  console.log("singleteamid", singleTeamData.id);
+  console.log("season", season);
   useEffect(() => {
     getTeamInfo();
-  }, []);
+  }, [singleTeamData.id]);
 
   const getTeamInfo = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/players?team=${teamId}&season=${season}`,
+      url: `https://v3.football.api-sports.io/players/squads?team=${singleTeamData.id}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -33,8 +36,8 @@ export default function AllTeamsScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
-        setSingleTeamData(response.data.response);
+        setSingleTeamInfo(response.data.response[0].players);
+        console.log(response.data.response[0].players);
       })
       .catch(function (error) {
         console.error(error);
@@ -43,7 +46,7 @@ export default function AllTeamsScreen() {
 
   return (
     <SafeAreaView>
-      <View>
+      <View style={{ zIndex: 9000 }}>
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
@@ -51,9 +54,11 @@ export default function AllTeamsScreen() {
           onSubmit={getTeamInfo}
         />
         <Filters />
-        <SeasonFilter season={season} setSeason={setSeason} />
+        <View>
+          <SeasonFilter season={season} setSeason={setSeason} />
+        </View>
       </View>
-      <CategoryList data={singleTeamData} filter={filter} />
+      <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
   );
 }
