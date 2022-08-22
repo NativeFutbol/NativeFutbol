@@ -23,12 +23,15 @@ export default function SingleLeagueScreen() {
   const singleLeagueData = useSelector((state) => state.singleScreenData);
   const leagueId = singleLeagueData.league?.league?.id;
 
+  // const seasonYear = useSelector((state) => state.season);
+
   const [league, setLeague] = useState({
     id: leagueId,
     season,
     name: "",
     logo: "",
   });
+
   const [teams, setTeams] = useState([]);
 
   const dispatch = useDispatch();
@@ -57,6 +60,7 @@ export default function SingleLeagueScreen() {
             ...prev,
             name: response.data.response[0].league.name,
             logo: response.data.response[0].league.logo,
+            season: season,
           };
         });
 
@@ -167,7 +171,9 @@ export default function SingleLeagueScreen() {
         </View>
       </View>
 
-      <CategoryList data={teams} filter="teams" />
+      <View style={{ zIndex: -1 }}>
+        <CategoryList data={teams} filter="teams" />
+      </View>
     </View>
   );
 }

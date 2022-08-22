@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
-import styled from "styled-components/native";
 
 export default function LeagueStandingsScreen() {
   const leagueStandingsData = useSelector((state) => state.standingsData);
