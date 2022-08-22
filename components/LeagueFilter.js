@@ -2,25 +2,26 @@ import { View, Text } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import React, { useState } from "react";
 
-export default function SeasonFilter({ season, setSeason }) {
+export default function LeagueFilter({ league, setLeague }) {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState([
-    { label: "2022", value: "2022" },
-    { label: "2021", value: "2021" },
-    { label: "2020", value: "2020" },
-    { label: "2019", value: "2019" },
+    { label: "Premier League", value: 39 },
+    { label: "Bundesliga", value: 78 },
+    { label: "Ligue 1", value: 61 },
+    { label: "La Liga", value: 140 },
+    { label: "Serie A", value: 135 },
   ]);
   return (
     <View style={{ alignItems: "center", marginTop: 5 }}>
       <DropDownPicker
-        containerStyle={{ width: "37%" }}
+        containerStyle={{ width: 100 }}
         maxHeight={100}
-        placeholder="2022"
+        placeholder="Premier League"
         open={open}
-        value={season}
+        value={league}
         items={items}
         setOpen={setOpen}
-        setValue={setSeason}
+        setValue={setLeague}
         setItems={setItems}
       />
     </View>

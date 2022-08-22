@@ -34,7 +34,7 @@ export default function CategoryList({ data, filter }) {
         <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(navigationName);
+              navigation.navigate(navigationName, item);
               dispatch(setSingleScreenData(item));
             }}
           >
