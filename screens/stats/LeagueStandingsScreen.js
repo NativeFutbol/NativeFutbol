@@ -13,7 +13,7 @@ import styled from "styled-components/native";
 export default function LeagueStandingsScreen() {
   const leagueStandingsData = useSelector((state) => state.standingsData);
 
-  //   console.log(leagueStandingsData[0]);
+  // console.log(leagueStandingsData[0]);
 
   return (
     <View style={{ flexGrow: 1 }}>

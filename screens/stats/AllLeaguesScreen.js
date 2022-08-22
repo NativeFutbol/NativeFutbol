@@ -60,7 +60,7 @@ export default function AllLeaguesScreen() {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View
         style={{
           zIndex: 5000,
@@ -76,6 +76,6 @@ export default function AllLeaguesScreen() {
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
       <CategoryList data={leagueData} filter={filter} />
-    </SafeAreaView>
+    </View>
   );
 }

@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -30,7 +30,26 @@ const StatsStack = () => {
       <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
       <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
       <Stack.Screen name="SinglePlayer" component={SinglePlayerScreen} />
-      <Stack.Screen name="LeagueStandings" component={LeagueStandingsScreen} />
+      <Stack.Screen
+        name="LeagueStandings"
+        component={LeagueStandingsScreen}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: name + " - " + season,
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 30, height: 30 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
     </Stack.Navigator>
   );
 };

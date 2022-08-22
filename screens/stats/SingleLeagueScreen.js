@@ -22,7 +22,12 @@ export default function SingleLeagueScreen() {
   const singleLeagueData = useSelector((state) => state.singleScreenData);
   const leagueId = singleLeagueData.league?.league?.id;
 
-  const [league, setLeague] = useState({ id: leagueId, name: "", logo: "" });
+  const [league, setLeague] = useState({
+    id: leagueId,
+    season,
+    name: "",
+    logo: "",
+  });
   const [teams, setTeams] = useState([]);
 
   const navigation = useNavigation();
@@ -119,7 +124,7 @@ export default function SingleLeagueScreen() {
   // console.log(teams[0]?.team?.name);
 
   return (
-    <View>
+    <View style={{ zIndex: 9999 }}>
       <CustomSearchBar
         query={query}
         setQuery={setQuery}
@@ -135,6 +140,7 @@ export default function SingleLeagueScreen() {
           justifyContent: "space-between",
           alignItems: "center",
           marginHorizontal: 30,
+          zIndex: -1,
         }}
       >
         <View style={styles.imageContainer}>
@@ -153,7 +159,7 @@ export default function SingleLeagueScreen() {
             borderRadius: 20,
             padding: 5,
           }}
-          onPress={() => navigation.navigate("LeagueStandings")}
+          onPress={() => navigation.navigate("LeagueStandings", league)}
         >
           <Text style={{ fontWeight: "bold", fontSize: 15, color: "white" }}>
             Standings
