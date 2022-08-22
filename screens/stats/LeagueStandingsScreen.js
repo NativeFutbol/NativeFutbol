@@ -32,7 +32,10 @@ export default function LeagueStandingsScreen() {
         renderItem={({ item }) => {
           return (
             <View style={styles.header}>
-              <Image source={item.team.logo} style={styles.logo} />
+              <Image
+                source={{ uri: item.team.logo, width: 50, height: 50 }}
+                style={styles.logo}
+              />
               <Text style={styles.team}>{item.team.name}</Text>
               <Text style={styles.stat}>{item.all.played}</Text>
               <Text style={styles.stat}>{item.all.win}</Text>

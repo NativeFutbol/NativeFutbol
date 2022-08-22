@@ -8,10 +8,11 @@ import SeasonFilter from "../../components/SeasonFilter";
 import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { setstandingsData } from "../../store/standingsData";
 import LeagueInfoButtons from "../../components/LeagueInfoButtons";
+import { setTopScorersData } from "../../store/topScorersData";
+import { setTopAssistsData } from "../../store/topAssistsData";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -66,15 +67,65 @@ export default function SingleLeagueScreen() {
 
         setIsLoading(false);
 
-        // console.log(response.data.response[0].league.name);
-        // console.log(response.data.response[0].league.logo);
-        // console.log(response.data.response[0].league.standings[0][0].team.name);
-        // console.log(response.data.response[0].league.standings[0]);
-        // console.log(response.data);
-
         dispatch(
           setstandingsData(response.data.response[0].league.standings[0])
         );
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    getTopScorers();
+  }, [season]);
+
+  const getTopScorers = () => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/players/topscorers?season=${season}&league=${leagueId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setIsLoading(false);
+
+        dispatch(setTopScorersData(response.data.response));
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    getTopAssists();
+  }, [season]);
+
+  const getTopAssists = () => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/players/topassists?season=${season}&league=${leagueId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setIsLoading(false);
+
+        dispatch(setTopAssistsData(response.data.response));
       })
       .catch(function (error) {
         console.error(error);
@@ -87,11 +138,6 @@ export default function SingleLeagueScreen() {
 
   const getTeams = () => {
     setIsLoading(true);
-
-    // const searchUrl =
-    //   query === ""
-    //     ? `https://v3.football.api-sports.io/teams?season=${season}&league=${leagueId}`
-    //     : `https://v3.football.api-sports.io/teams?search=${query}`;
 
     const options = {
       method: "GET",
@@ -123,9 +169,6 @@ export default function SingleLeagueScreen() {
   if (isLoading) {
     return <LoadingOverlay />;
   }
-
-  // console.log(teams[0]?.team?.logo);
-  // console.log(teams[0]?.team?.name);
 
   return (
     <View style={{ zIndex: 9999 }}>
