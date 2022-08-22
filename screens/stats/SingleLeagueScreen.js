@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -8,6 +8,9 @@ import SeasonFilter from "../../components/SeasonFilter";
 import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setstandingsData } from "../../store/standingsData";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -17,14 +20,17 @@ export default function SingleLeagueScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const singleLeagueData = useSelector((state) => state.singleScreenData);
-  const leagueId = singleLeagueData?.league?.id;
+  const leagueId = singleLeagueData.league?.league?.id;
 
   const [league, setLeague] = useState({ id: leagueId, name: "", logo: "" });
   const [teams, setTeams] = useState([]);
 
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getStandings();
-  }, []);
+  }, [season]);
 
   const getStandings = () => {
     setIsLoading(true);
@@ -54,8 +60,12 @@ export default function SingleLeagueScreen() {
         // console.log(response.data.response[0].league.name);
         // console.log(response.data.response[0].league.logo);
         // console.log(response.data.response[0].league.standings[0][0].team.name);
-
+        // console.log(response.data.response[0].league.standings[0]);
         // console.log(response.data);
+
+        dispatch(
+          setstandingsData(response.data.response[0].league.standings[0])
+        );
       })
       .catch(function (error) {
         console.error(error);
@@ -64,7 +74,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTeams();
-  }, []);
+  }, [season]);
 
   const getTeams = () => {
     setIsLoading(true);
@@ -101,6 +111,10 @@ export default function SingleLeagueScreen() {
       });
   };
 
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
+
   // console.log(teams[0]?.team?.logo);
   // console.log(teams[0]?.team?.name);
 
@@ -115,13 +129,36 @@ export default function SingleLeagueScreen() {
       <Filters />
       <SeasonFilter season={season} setSeason={setSeason} />
 
-      <View style={styles.imageContainer}>
-        {league.logo === "" ? (
-          <></>
-        ) : (
-          <Image source={{ uri: league.logo, width: 50, height: 50 }} />
-        )}
-        <Text>{league.name}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginHorizontal: 30,
+        }}
+      >
+        <View style={styles.imageContainer}>
+          {league.logo === "" ? (
+            <></>
+          ) : (
+            <Image source={{ uri: league.logo, width: 50, height: 50 }} />
+          )}
+          <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
+        </View>
+
+        <TouchableOpacity
+          style={{
+            marginRight: 30,
+            backgroundColor: "#32a88b",
+            borderRadius: 20,
+            padding: 5,
+          }}
+          onPress={() => navigation.navigate("LeagueStandings")}
+        >
+          <Text style={{ fontWeight: "bold", fontSize: 15, color: "white" }}>
+            Standings
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <CategoryList data={teams} filter="teams" />
