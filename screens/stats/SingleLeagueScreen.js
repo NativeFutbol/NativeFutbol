@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { setstandingsData } from "../../store/standingsData";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -24,10 +26,11 @@ export default function SingleLeagueScreen() {
   const [teams, setTeams] = useState([]);
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getStandings();
-  }, []);
+  }, [season]);
 
   const getStandings = () => {
     setIsLoading(true);
@@ -57,8 +60,12 @@ export default function SingleLeagueScreen() {
         // console.log(response.data.response[0].league.name);
         // console.log(response.data.response[0].league.logo);
         // console.log(response.data.response[0].league.standings[0][0].team.name);
-
+        // console.log(response.data.response[0].league.standings[0]);
         // console.log(response.data);
+
+        dispatch(
+          setstandingsData(response.data.response[0].league.standings[0])
+        );
       })
       .catch(function (error) {
         console.error(error);
