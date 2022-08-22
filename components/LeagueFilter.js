@@ -12,9 +12,9 @@ export default function LeagueFilter({ league, setLeague }) {
     { label: "Serie A", value: 135 },
   ]);
   return (
-    <View style={{ alignItems: "center", marginTop: 5 }}>
+    <View style={{ width: "40%", alignItems: "center", marginTop: 5 }}>
       <DropDownPicker
-        containerStyle={{ width: 100 }}
+        containerStyle={{ width: 180 }}
         maxHeight={100}
         placeholder="Premier League"
         open={open}

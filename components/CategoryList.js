@@ -28,7 +28,8 @@ export default function CategoryList({ data, filter }) {
   return (
     <FlatList
       numColumns={2}
-      keyExtractor={(item, index) => item.id || index}
+      keyExtractor={(item, index) => index.toString()}
+      ListFooterComponent={<View style={{ height: 500 }} />}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
@@ -45,7 +46,8 @@ export default function CategoryList({ data, filter }) {
                   item?.flag ||
                   item?.league?.logo ||
                   item?.team?.logo ||
-                  item?.player?.photo,
+                  item?.player?.photo ||
+                  item?.photo,
                 height: 100,
                 width: 100,
               }}
