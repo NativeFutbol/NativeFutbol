@@ -1,6 +1,6 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
@@ -20,6 +20,7 @@ import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
 import { SvgUri } from "react-native-svg";
+import MyTeamsScreen from "../screens/MyTeamsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -209,7 +210,7 @@ export default function FooterTabs() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#e91e63",
-        headerShown: false,
+        headerShown: true,
       }}
     >
       <Tab.Screen
@@ -230,6 +231,27 @@ export default function FooterTabs() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="stats-chart" color={color} size={size} />
           ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="MyTeam"
+        component={MyTeamsScreen}
+        options={{
+          tabBarLabel: "My Team",
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="soccer-field"
+              color={color}
+              size={size}
+            />
+          ),
+          title: "My Dream Team",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tab.Screen
