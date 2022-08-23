@@ -26,8 +26,6 @@ export default function AllCountriesScreen() {
     getLeagues();
   }, []);
 
-  console.log(singleCountryData.country);
-
   const getLeagues = () => {
     setIsLoading(true);
 
