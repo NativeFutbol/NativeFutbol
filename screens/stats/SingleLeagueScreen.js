@@ -14,10 +14,11 @@ import LeagueInfoButtons from "../../components/LeagueInfoButtons";
 import { setTopScorersData } from "../../store/topScorersData";
 import { setTopAssistsData } from "../../store/topAssistsData";
 import { setMostCardsData } from "../../store/mostCardsData";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
+  // const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("leagues");
 
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,7 @@ export default function SingleLeagueScreen() {
   const singleLeagueData = useSelector((state) => state.singleScreenData);
   const leagueId = singleLeagueData.league?.league?.id;
 
-  // const seasonYear = useSelector((state) => state.season);
+  const season = useSelector((state) => state.season);
 
   const [league, setLeague] = useState({
     id: leagueId,
@@ -236,7 +237,8 @@ export default function SingleLeagueScreen() {
         onSubmit={getTeams}
       />
       <Filters />
-      <SeasonFilter season={season} setSeason={setSeason} />
+      {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
+      <SeasonFilterV2 />
 
       <View
         style={{

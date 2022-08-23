@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const seasonSlice = createSlice({
   name: "season",
-  initialState: "",
+  initialState: "2022",
   reducers: {
     setSeasonYear: (state, action) => {
       return action.payload;
