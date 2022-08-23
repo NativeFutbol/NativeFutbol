@@ -7,40 +7,31 @@ import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
 
-  const dummydata = [
-    {
-      name: "kevin",
-      flag: "https://media.api-sports.io/football/leagues/801.png",
-      id: 1,
-    },
-    {
-      name: "connor",
-      flag: "https://media.api-sports.io/football/players/1.png",
-      id: 2,
-    },
-    {
-      name: "alexis",
-      flag: "https://media.api-sports.io/football/leagues/214.png",
-      id: 3,
-    },
-    {
-      name: "fei",
-      flag: "https://media.api-sports.io/football/teams/165.png",
-      id: 4,
-    },
+  const [countriesData, setCountriesData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const topFiveLeaguesCountries = [
+    "France",
+    "Italy",
+    "Germany",
+    "Spain",
+    "England",
   ];
 
   useEffect(() => {
     getCountries();
-  });
+  }, []);
 
-  const getCountries = () => {
+  const getCountries = async () => {
+    setIsLoading(true);
+
     const searchUrl =
       query === ""
         ? `https://v3.football.api-sports.io/${filter}`
@@ -55,15 +46,24 @@ export default function AllCountriesScreen() {
       },
     };
 
-    axios
+    await axios
       .request(options)
       .then(function (response) {
-        // console.log(response.data.response);
+        const countries = response.data.response.filter((country) =>
+          topFiveLeaguesCountries.includes(country.name)
+        );
+
+        setCountriesData(countries);
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <SafeAreaView>
@@ -82,7 +82,7 @@ export default function AllCountriesScreen() {
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
       <View>
-        <CategoryList data={dummydata} filter={filter} />
+        <CategoryList data={countriesData} filter={filter} />
       </View>
     </SafeAreaView>
   );
