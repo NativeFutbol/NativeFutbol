@@ -9,6 +9,7 @@ import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import { useSelector } from "react-redux";
+import { SvgUri } from "react-native-svg";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -24,6 +25,8 @@ export default function AllCountriesScreen() {
   useEffect(() => {
     getLeagues();
   }, []);
+
+  console.log(singleCountryData.country);
 
   const getLeagues = () => {
     setIsLoading(true);
@@ -74,6 +77,17 @@ export default function AllCountriesScreen() {
         />
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />
+      </View>
+
+      <View style={styles.imageContainer}>
+        {singleCountryData.country.flag === "" ? (
+          <></>
+        ) : (
+          <SvgUri width={50} height={50} uri={singleCountryData.country.flag} />
+        )}
+        <Text style={{ fontWeight: "bold" }}>
+          {singleCountryData.country.name}
+        </Text>
       </View>
 
       <CategoryList data={leagueData} filter={filter} />
