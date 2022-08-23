@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
+import PlayersList from "../components/PlayerList";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -37,9 +38,14 @@ export default function MyTeamsScreen() {
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
-        <TouchableOpacity onPress={() => sheetRef.current?.close()}>
-          <Text>Close</Text>
+        <TouchableOpacity
+          onPress={() => sheetRef.current?.close()}
+          style={{ alignItems: "flex-end", marginRight: 30 }}
+        >
+          <Text style={{ fontSize: 15, fontWeight: "bold" }}>Close</Text>
         </TouchableOpacity>
+
+        <PlayersList />
       </BottomSheet>
     </View>
   );
