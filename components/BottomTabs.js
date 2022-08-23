@@ -18,6 +18,7 @@ import SinglePlayer from "../screens/stats/SinglePlayer";
 import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
+import LeagueCards from "../screens/stats/LeagueCards";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -91,6 +92,30 @@ const StatsStack = () => {
 
           return {
             title: name + " Top Assists " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="LeagueCards"
+        component={LeagueCards}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: name + " Red/Yellow Cards " + " - " + season,
             headerTitleStyle: {
               fontSize: 13,
               fontWeight: "bold",
