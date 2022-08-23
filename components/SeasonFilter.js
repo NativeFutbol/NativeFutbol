@@ -13,8 +13,8 @@ export default function SeasonFilter({ season, setSeason }) {
     { label: "2019", value: "2019" },
   ]);
 
-  const dispatch = useDispatch();
-  dispatch(setSeasonYear(season));
+  // const dispatch = useDispatch();
+  // dispatch(setSeasonYear(season));
 
   return (
     <View style={{ alignItems: "center", marginTop: 5 }}>
