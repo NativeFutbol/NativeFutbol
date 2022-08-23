@@ -33,7 +33,7 @@ export default function SeasonFilterV2() {
               marginRight: 10,
             }}
           >
-            Year:
+            Season:
           </Text>
         </View>
         <ModalDropdown
