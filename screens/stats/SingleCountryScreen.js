@@ -1,6 +1,6 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
@@ -19,60 +19,6 @@ export default function AllCountriesScreen() {
     "Italy",
     "Spain",
   ]);
-
-  const dummydata = [
-    {
-      name: "kevin",
-      flag: "https://media.api-sports.io/football/leagues/801.png",
-      id: 1,
-    },
-    {
-      name: "connor",
-      flag: "https://media.api-sports.io/football/players/1.png",
-      id: 2,
-    },
-    {
-      name: "alexis",
-      flag: "https://media.api-sports.io/football/leagues/214.png",
-      id: 3,
-    },
-    {
-      name: "fei",
-      flag: "https://media.api-sports.io/football/teams/165.png",
-      id: 4,
-    },
-  ];
-
-  const dummydata2 = [
-    {
-      league: {
-        name: "fei",
-        logo: "https://media.api-sports.io/football/leagues/801.png",
-        id: 1,
-      },
-    },
-    {
-      league: {
-        name: "alexis",
-        logo: "https://media.api-sports.io/football/players/1.png",
-        id: 2,
-      },
-    },
-    {
-      league: {
-        name: "connor",
-        logo: "https://media.api-sports.io/football/leagues/214.png",
-        id: 3,
-      },
-    },
-    {
-      league: {
-        name: "kevin",
-        logo: "https://media.api-sports.io/football/teams/165.png",
-        id: 4,
-      },
-    },
-  ];
 
   const getCountries = () => {
     const searchUrl =
@@ -103,6 +49,8 @@ export default function AllCountriesScreen() {
       });
   };
 
+  console.log(country);
+
   return (
     <SafeAreaView>
       <View>
@@ -115,6 +63,22 @@ export default function AllCountriesScreen() {
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
+      {/* <View style={styles.imageContainer}>
+        {league.logo === "" ? (
+          <></>
+        ) : (
+          <Image source={{ uri: league.logo, width: 100, height: 100 }} />
+        )}
+        <Text>{league.name}</Text>
+      </View> */}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 15,
+  },
+});
