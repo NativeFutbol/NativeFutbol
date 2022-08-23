@@ -29,6 +29,7 @@ export default function LeagueStandingsScreen() {
 
       <FlatList
         data={leagueStandingsData}
+        ListFooterComponent={<View style={{ height: 50 }} />}
         renderItem={({ item }) => {
           return (
             <View style={styles.header}>

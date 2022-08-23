@@ -13,6 +13,7 @@ import { setstandingsData } from "../../store/standingsData";
 import LeagueInfoButtons from "../../components/LeagueInfoButtons";
 import { setTopScorersData } from "../../store/topScorersData";
 import { setTopAssistsData } from "../../store/topAssistsData";
+import { setMostCardsData } from "../../store/mostCardsData";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
@@ -133,6 +134,62 @@ export default function SingleLeagueScreen() {
   };
 
   useEffect(() => {
+    getTopRedCards();
+  }, [season]);
+
+  const getTopRedCards = () => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/players/topredcards?season=${season}&league=${leagueId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setIsLoading(false);
+
+        dispatch(setMostCardsData(response.data));
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    getTopYellowCards();
+  }, [season]);
+
+  const getTopYellowCards = () => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/players/topyellowcards?season=${season}&league=${leagueId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setIsLoading(false);
+
+        dispatch(setMostCardsData(response.data));
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
     getTeams();
   }, [season]);
 
@@ -199,18 +256,38 @@ export default function SingleLeagueScreen() {
           <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
         </View>
 
-        <View style={{ flexDirection: "row" }}>
-          <LeagueInfoButtons
-            data={league}
-            text="Standings"
-            screen="LeagueStandings"
-          />
-          <LeagueInfoButtons data={league} text="Goals" screen="LeagueGoals" />
-          <LeagueInfoButtons
-            data={league}
-            text="Assists"
-            screen="LeagueAssists"
-          />
+        <View>
+          <View style={{ flexDirection: "row" }}>
+            <LeagueInfoButtons
+              data={league}
+              text="Standings"
+              screen="LeagueStandings"
+            />
+            <LeagueInfoButtons
+              data={league}
+              text="Goals"
+              screen="LeagueGoals"
+            />
+            <LeagueInfoButtons
+              data={league}
+              text="Assists"
+              screen="LeagueAssists"
+            />
+          </View>
+
+          <View
+            style={{
+              marginTop: 8,
+              width: "60%",
+              alignItems: "center",
+            }}
+          >
+            <LeagueInfoButtons
+              data={league}
+              text="Red/Yellow Cards"
+              screen="LeagueCards"
+            />
+          </View>
         </View>
       </View>
 

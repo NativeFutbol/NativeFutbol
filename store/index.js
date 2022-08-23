@@ -4,6 +4,7 @@ import standingsDataReducer from "./standingsData";
 import seasonReducer from "./season";
 import topScorersReducer from "./topScorersData";
 import topAssistsReducer from "./topAssistsData";
+import mostCardsReducer from "./mostCardsData";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     season: seasonReducer,
     topScorersData: topScorersReducer,
     topAssistsData: topAssistsReducer,
+    mostCardsData: mostCardsReducer,
   },
 });
