@@ -90,6 +90,7 @@ function DisplayPlayer(props) {
     },
   });
 
+  // May have to switch to an api call
   useEffect(() => {
     console.log(
       "player    ",
@@ -125,69 +126,125 @@ function DisplayPlayer(props) {
   return (
     <View style={styles.background}>
       <View style={styles.playerInfo}>
-        <View style={styles.playerImageBorder}>
-          <Image
-            style={styles.playerImage}
-            source={{
-              width: "100%",
-              height: "100%",
-              uri: player.photo,
-            }}
-          />
-        </View>
-        <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-          {player.name}
-        </Text>
-        <View style={styles.infoBar}>
-          <ScrollView horizontal={true}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 20, width: 50 }}>
-                {" "}
-                Age:{" "}
-              </Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 16 }}>
-                  {player.age}{" "}
-                </Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 20, width: 80 }}>
-                Weight:
-              </Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 16 }}>
-                  {player.age}
-                </Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 20, width: 50 }}>
-                Height:
-              </Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 16 }}>
-                  {player.age}
-                </Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row" }}>
+        <View style={styles.playerImages}>
+          <View style={styles.playerImageBorder}>
+            <Image
+              style={styles.playerImage}
+              source={{
+                width: "100%",
+                height: "100%",
+                uri: player.photo,
+              }}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <View style={styles.border}>
               <Image
-                style={styles.statImage}
+                style={styles.playerLogos}
+                source={{
+                  width: "100%",
+                  height: "100%",
+                  uri: statistics.league.logo,
+                }}
+              />
+              <Text
+                style={{
+                  width: 80,
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                }}
+              >
+                {statistics.league.name}
+              </Text>
+            </View>
+            <View style={styles.border}>
+              <Image
+                style={styles.playerLogos}
                 source={{
                   width: "100%",
                   height: "100%",
                   uri: statistics.team.logo,
                 }}
               />
-              <View style={{ justifyContent: "center", width: 100 }}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
-                  {statistics.team.name}
+              <Text
+                style={{
+                  width: 80,
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                }}
+              >
+                {statistics.team.name}
+              </Text>
+            </View>
+          </View>
+        </View>
+        <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+          {player.name}
+        </Text>
+        <View style={styles.infoBar}>
+          <ScrollView horizontal={true}>
+            <View style={styles.infoBox}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  textAlign: "center",
+                }}
+              >
+                {" "}
+                Age:
+              </Text>
+              <View style={{ width: 50, alignItems: "center" }}>
+                <Text style={{ textAlign: "center", fontSize: 16 }}>
+                  {player.age}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Weight:</Text>
+              <View style={{ width: 50, alignItems: "center" }}>
+                <Text style={{ textAlign: "center", fontSize: 16 }}>
+                  {player.weight}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Height:</Text>
+              <View style={{ width: 50, alignItems: "center" }}>
+                <Text style={{ textAlign: "center", fontSize: 14 }}>
+                  {player.height}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+              <View style={{ width: 50, alignItems: "center" }}>
+                <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  {player?.birth?.date}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.infoBox}>
+              <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                Nationality:
+              </Text>
+              <View style={{ width: 50, alignItems: "center" }}>
+                <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  {player.nationality}
                 </Text>
               </View>
             </View>
           </ScrollView>
         </View>
+        <View
+          style={{
+            height: "43%",
+            width: "100%",
+            borderRadius: 10,
+            backgroundColor: "white",
+            marginTop: 5,
+          }}
+        ></View>
       </View>
     </View>
   );
@@ -205,8 +262,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   playerImageBorder: {
-    width: "70%",
-    height: "45%",
+    width: "50%",
+    height: "100%",
     borderStyle: "solid",
     borderRadius: 10,
     borderWidth: 4,
@@ -214,8 +271,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
   },
+  playerImages: {
+    width: "100%",
+    height: "35%",
+    flexDirection: "row",
+  },
   playerImage: {
     borderRadius: 10,
+  },
+  playerLogos: {
+    height: 100,
+    width: 100,
   },
   infoBar: {
     marginTop: 10,
@@ -224,10 +290,18 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderRadius: 10,
     backgroundColor: "white",
+    alignItems: "baseline",
   },
-  statImage: {
-    height: 85,
-    width: 85,
+  infoBox: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 80,
+    marginHorizontal: 5,
+  },
+  border: {
+    flex: 1,
+    flexDirection: "row",
   },
 });
 export default DisplayPlayer;
