@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -14,6 +14,10 @@ import SingleLeagueScreen from "../screens/stats/SingleLeagueScreen";
 import SingleTeamScreen from "../screens/stats/SingleTeamScreen";
 import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import AccountScreen from "../screens/AccountScreen";
+import SinglePlayer from "../screens/stats/SinglePlayer";
+import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
+import LeagueGoals from "../screens/stats/LeagueGoals";
+import LeagueAssists from "../screens/stats/LeagueAssists";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -28,7 +32,79 @@ const StatsStack = () => {
       <Stack.Screen name="SingleCountry" component={SingleCountryScreen} />
       <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
       <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
-      <Stack.Screen name="SinglePlayer" component={SinglePlayerScreen} />
+      <Stack.Screen name="SinglePlayer" component={SinglePlayer} />
+      <Stack.Screen
+        name="LeagueStandings"
+        component={LeagueStandingsScreen}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: name + " - " + season,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 30, height: 30 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="LeagueGoals"
+        component={LeagueGoals}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: name + " Top Scorers " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="LeagueAssists"
+        component={LeagueAssists}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: name + " Top Assists " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
     </Stack.Navigator>
   );
 };

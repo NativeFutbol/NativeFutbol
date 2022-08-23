@@ -28,13 +28,14 @@ export default function CategoryList({ data, filter }) {
   return (
     <FlatList
       numColumns={2}
-      keyExtractor={(item, index) => item.id || index}
+      keyExtractor={(item, index) => index.toString()}
+      ListFooterComponent={<View style={{ height: 500 }} />}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(navigationName);
+              navigation.navigate(navigationName, item);
               dispatch(setSingleScreenData(item));
             }}
           >
@@ -58,7 +59,6 @@ export default function CategoryList({ data, filter }) {
                 }}
               />
             )}
-
             <Text
               style={{
                 alignSelf: "center",
