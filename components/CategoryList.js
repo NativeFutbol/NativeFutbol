@@ -39,19 +39,26 @@ export default function CategoryList({ data, filter }) {
               dispatch(setSingleScreenData(item));
             }}
           >
-            <Image
-              style={styles.image}
-              source={{
-                uri:
-                  item?.flag ||
-                  item?.league?.logo ||
-                  item?.team?.logo ||
-                  item?.player?.photo ||
-                  item?.photo,
-                height: 100,
-                width: 100,
-              }}
-            />
+            {filter === "countries" ? (
+              <SvgUri
+                style={styles.image}
+                width={100}
+                height={100}
+                uri={item.flag}
+              />
+            ) : (
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    item?.league?.logo ||
+                    item?.team?.logo ||
+                    item?.player?.photo,
+                  height: 100,
+                  width: 100,
+                }}
+              />
+            )}
             <Text
               style={{
                 alignSelf: "center",

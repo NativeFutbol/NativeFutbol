@@ -1,83 +1,37 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, SafeAreaView } from "react-native";
-import React, { useState } from "react";
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
+import LoadingOverlay from "../../components/LoadingOverlay";
+import { useSelector } from "react-redux";
+import { SvgUri } from "react-native-svg";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("countries");
-  const [countries, setCountries] = useState([
-    "England",
-    "France",
-    "Germany",
-    "Italy",
-    "Spain",
-  ]);
+  const [filter, setFilter] = useState("leagues");
+  const [leagueData, setLeagueData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const dummydata = [
-    {
-      name: "kevin",
-      flag: "https://media.api-sports.io/football/leagues/801.png",
-      id: 1,
-    },
-    {
-      name: "connor",
-      flag: "https://media.api-sports.io/football/players/1.png",
-      id: 2,
-    },
-    {
-      name: "alexis",
-      flag: "https://media.api-sports.io/football/leagues/214.png",
-      id: 3,
-    },
-    {
-      name: "fei",
-      flag: "https://media.api-sports.io/football/teams/165.png",
-      id: 4,
-    },
-  ];
+  const singleCountryData = useSelector((state) => state.singleScreenData);
 
-  const dummydata2 = [
-    {
-      league: {
-        name: "fei",
-        logo: "https://media.api-sports.io/football/leagues/801.png",
-        id: 1,
-      },
-    },
-    {
-      league: {
-        name: "alexis",
-        logo: "https://media.api-sports.io/football/players/1.png",
-        id: 2,
-      },
-    },
-    {
-      league: {
-        name: "connor",
-        logo: "https://media.api-sports.io/football/leagues/214.png",
-        id: 3,
-      },
-    },
-    {
-      league: {
-        name: "kevin",
-        logo: "https://media.api-sports.io/football/teams/165.png",
-        id: 4,
-      },
-    },
-  ];
+  const topFiveLeagues = [61, 135, 78, 140, 39];
 
-  const getCountries = () => {
+  useEffect(() => {
+    getLeagues();
+  }, []);
+
+  const getLeagues = () => {
+    setIsLoading(true);
+
     const searchUrl =
       query === ""
-        ? `https://v3.football.api-sports.io/${filter}`
+        ? `https://v3.football.api-sports.io/${filter}?season=${season}`
         : `https://v3.football.api-sports.io/${filter}?search=${query}`;
 
     const options = {
@@ -92,16 +46,23 @@ export default function AllCountriesScreen() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(
-          response.data.response.filter((country) =>
-            countries.includes(country.name)
-          )
+        const leagues = response.data.response.filter(
+          (league) =>
+            topFiveLeagues.includes(league.league.id) &&
+            singleCountryData.country.name === league.country.name
         );
+
+        setLeagueData(leagues);
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <SafeAreaView>
@@ -110,11 +71,32 @@ export default function AllCountriesScreen() {
           query={query}
           setQuery={setQuery}
           placeholder="Search countries..."
-          onSubmit={getCountries}
+          onSubmit={getLeagues}
         />
         <Filters />
         <SeasonFilter season={season} setSeason={setSeason} />
       </View>
+
+      <View style={styles.imageContainer}>
+        {singleCountryData.country.flag === "" ? (
+          <></>
+        ) : (
+          <SvgUri width={50} height={50} uri={singleCountryData.country.flag} />
+        )}
+        <Text style={{ fontWeight: "bold" }}>
+          {singleCountryData.country.name}
+        </Text>
+      </View>
+
+      <CategoryList data={leagueData} filter={filter} />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 15,
+  },
+});

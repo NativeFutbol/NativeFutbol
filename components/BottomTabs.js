@@ -19,6 +19,7 @@ import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
+import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 
 const Tab = createBottomTabNavigator();
@@ -31,10 +32,78 @@ const StatsStack = () => {
       <Stack.Screen name="AllLeagues" component={AllLeaguesScreen} />
       <Stack.Screen name="AllTeams" component={AllTeamsScreen} />
       <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
-      <Stack.Screen name="SingleCountry" component={SingleCountryScreen} />
-      <Stack.Screen name="SingleLeague" component={SingleLeagueScreen} />
-      <Stack.Screen name="SingleTeam" component={SingleTeamScreen} />
-      <Stack.Screen name="SinglePlayer" component={SinglePlayer} />
+      <Stack.Screen
+        name="SingleCountry"
+        component={SingleCountryScreen}
+        options={({ route }) => {
+          const name = route.params.name;
+          const flag = route.params.flag;
+
+          return {
+            title: name,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return <SvgUri uri={flag} width={30} height={30} />;
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="SingleLeague"
+        component={SingleLeagueScreen}
+        options={({ route }) => {
+          const name = route.params.league.name;
+          const logo = route.params.league.logo;
+
+          return {
+            title: name,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return <Image source={{ uri: logo, width: 30, height: 30 }} />;
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="SingleTeam"
+        component={SingleTeamScreen}
+        options={({ route }) => {
+          const name = route.params.team.name;
+          const logo = route.params.team.logo;
+
+          return {
+            title: name,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return <Image source={{ uri: logo, width: 30, height: 30 }} />;
+            },
+          };
+        }}
+      />
+      <Stack.Screen
+        name="SinglePlayer"
+        component={SinglePlayer}
+        options={({ route }) => {
+          const name = route.params.player.name;
+
+          return {
+            title: name,
+            headerTitleStyle: {
+              fontSize: 18,
+              fontWeight: "bold",
+            },
+          };
+        }}
+      />
       <Stack.Screen
         name="LeagueStandings"
         component={LeagueStandingsScreen}
