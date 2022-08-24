@@ -8,6 +8,7 @@ import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 
 export default function AllLeaguesScreen() {
   const [query, setQuery] = useState("");
@@ -60,7 +61,7 @@ export default function AllLeaguesScreen() {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <View
         style={{
           zIndex: 5000,
@@ -73,9 +74,11 @@ export default function AllLeaguesScreen() {
           onSubmit={getLeagues}
         />
         <Filters />
-        <SeasonFilter season={season} setSeason={setSeason} />
+        {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
+
+        <SeasonFilterV2 />
       </View>
       <CategoryList data={leagueData} filter={filter} />
-    </SafeAreaView>
+    </View>
   );
 }

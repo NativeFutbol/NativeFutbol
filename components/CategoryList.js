@@ -28,28 +28,37 @@ export default function CategoryList({ data, filter }) {
   return (
     <FlatList
       numColumns={2}
-      keyExtractor={(item, index) => item.id || index}
+      keyExtractor={(item, index) => index.toString()}
+      ListFooterComponent={<View style={{ height: 500 }} />}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate(navigationName);
+              navigation.navigate(navigationName, item);
               dispatch(setSingleScreenData(item));
             }}
           >
-            <Image
-              style={styles.image}
-              source={{
-                uri:
-                  item?.flag ||
-                  item?.league?.logo ||
-                  item?.team?.logo ||
-                  item?.player?.photo,
-                height: 100,
-                width: 100,
-              }}
-            />
+            {filter === "countries" ? (
+              <SvgUri
+                style={styles.image}
+                width={100}
+                height={100}
+                uri={item.flag}
+              />
+            ) : (
+              <Image
+                style={styles.image}
+                source={{
+                  uri:
+                    item?.league?.logo ||
+                    item?.team?.logo ||
+                    item?.player?.photo,
+                  height: 100,
+                  width: 100,
+                }}
+              />
+            )}
             <Text
               style={{
                 alignSelf: "center",
