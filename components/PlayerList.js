@@ -5,24 +5,34 @@ import Player from "./Player";
 import LoadingOverlay from "./LoadingOverlay";
 import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const PlayersList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [players, setPlayers] = useState([]);
+  const [totalPage, setTotalPage] = useState(1);
 
-  const season = 2022;
-  const leagueId = 39;
+  const myTeamFilters = useSelector((state) => state.myTeamFilters);
+  const season = myTeamFilters?.season;
+  const leagueId = myTeamFilters?.league;
+  const teamId = myTeamFilters?.team;
+  const position = myTeamFilters?.position;
 
   useEffect(() => {
     getPlayers();
-  }, []);
+  }, [season, leagueId, teamId, position]);
 
-  const getPlayers = () => {
+  const getPlayers = (page = 1) => {
     setIsLoading(true);
+
+    const FOOTBALL_API_URL = `https://v3.football.api-sports.io`;
+    const url = teamId
+      ? `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}&team=${teamId}&page=${page}`
+      : `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}&page=${page}`;
 
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/players?season=${season}&league=${leagueId}`,
+      url: url,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -34,8 +44,17 @@ const PlayersList = () => {
       .then(function (response) {
         setIsLoading(false);
 
-        // dispatch(setMostCardsData(response.data));
-        setPlayers(response.data.response);
+        setTotalPage(response.data.paging.total);
+
+        const players = position
+          ? response.data.response.filter(
+              (player) =>
+                player?.statistics[0]?.games?.position.toLowerCase() ===
+                position.toLowerCase()
+            )
+          : response.data.response;
+
+        setPlayers(players);
       })
       .catch(function (error) {
         console.error(error);
