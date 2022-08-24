@@ -20,12 +20,12 @@ export default function AccountScreen() {
   const [userInfo, setUserInfo] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState("");
-  const [favTeam, setFavTeam] = useState("N/A");
-  const [favPlayer, setFavPlayer] = useState("N/A");
-  const [pfpUrl, setPfpUrl] = useState("");
+  const [firstName, setFirstName] = useState(userInfo?.firstName);
+  const [lastName, setLastName] = useState(userInfo?.lastName);
+  const [country, setCountry] = useState(userInfo?.country);
+  const [favTeam, setFavTeam] = useState(userInfo?.favTeam);
+  const [favPlayer, setFavPlayer] = useState(userInfo?.favPlayer);
+  const [pfpUrl, setPfpUrl] = useState(userInfo?.pfpUrl);
 
   const user = auth?.currentUser;
   console.log(userInfo);
@@ -36,21 +36,39 @@ export default function AccountScreen() {
       .get()
       .then((snapshot) => {
         setUserInfo(snapshot.data());
+        setFirstName(userInfo?.firstName);
+        setLastName(userInfo?.lastName);
+        setCountry(userInfo?.country);
+        setFavTeam(userInfo?.favTeam);
+        setFavPlayer(userInfo?.favPlayer);
+        setPfpUrl(userInfo?.pfpUrl);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [isLoggedIn, modalVisible]);
 
   const handleUpdate = () => {
-    db.collection("User Information").doc(`${user.uid}`).set({
-      firstName,
-      lastName,
-      country,
-      favPlayer,
-      favTeam,
-      pfpUrl,
-    });
+    if (!firstName) {
+      alert("Please enter a first name!");
+    } else if (!lastName) {
+      alert("Please enter a last name!");
+    } else if (!country) {
+      alert("Please enter a country!");
+    } else if (!favTeam) {
+      setFavTeam("N/A");
+    } else if (!favPlayer) {
+      setFavPlayer("N/A");
+    } else {
+      db.collection("User Information").doc(`${user.uid}`).set({
+        firstName,
+        lastName,
+        country,
+        favPlayer,
+        favTeam,
+        pfpUrl,
+      });
 
-    setModalVisible(!modalVisible);
+      setModalVisible(!modalVisible);
+    }
   };
 
   const handleDelete = () => {
