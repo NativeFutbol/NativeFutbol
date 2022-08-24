@@ -1,14 +1,27 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
 import PlayersList from "../components/PlayerList";
 import DropDownFilter from "../components/DropDownFilter";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTeams } from "../store/myTeamFilterOptions";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
   const playerListRef = useRef(null);
   const filterPlayerListRef = useRef(null);
+
+  const myTeamFilters = useSelector((state) => state.myTeamFilters);
+  const seasonAndLeague = {
+    season: myTeamFilters?.season,
+    league: myTeamFilters?.league,
+  };
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchTeams(seasonAndLeague));
+  }, [dispatch, seasonAndLeague]);
 
   const selectPlayers = () => {
     playerListRef.current?.expand();

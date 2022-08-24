@@ -5,6 +5,8 @@ import seasonReducer from "./season";
 import topScorersReducer from "./topScorersData";
 import topAssistsReducer from "./topAssistsData";
 import mostCardsReducer from "./mostCardsData";
+import myTeamFiltersReducer from "./myTeamFilters";
+import myTeamFilterOptionsReducer from "./myTeamFilterOptions";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +16,7 @@ export const store = configureStore({
     topScorersData: topScorersReducer,
     topAssistsData: topAssistsReducer,
     mostCardsData: mostCardsReducer,
+    myTeamFilters: myTeamFiltersReducer,
+    myTeamFilterOptions: myTeamFilterOptionsReducer,
   },
 });

@@ -1,14 +1,24 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { setSeasonYear } from "../store/season";
+import { setMyTeamFilters } from "../store/myTeamFilters";
 import { Ionicons } from "@expo/vector-icons";
+import { fetchTeams } from "../store/myTeamFilterOptions";
 
 export default function DropDownFilter({ values, label }) {
-  const dispatch = useDispatch();
+  // const myTeamFilters = useSelector((state) => state.myTeamFilters);
 
-  //   const season = useSelector((state) => state.season);
+  const myTeamsFilterOptions = useSelector(
+    (state) => state.myTeamFilterOptions
+  );
+
+  const seasonOptions = myTeamsFilterOptions?.season;
+  const leagueOptions = myTeamsFilterOptions?.league;
+  const teamOptions = myTeamsFilterOptions?.team;
+  const positionOptions = myTeamsFilterOptions?.position;
+
+  console.log(teamOptions);
 
   return (
     <View
@@ -20,7 +30,7 @@ export default function DropDownFilter({ values, label }) {
         borderWidth: 1,
         padding: 5,
         borderRadius: 20,
-        width: "60%",
+        width: "65%",
       }}
     >
       <View>
@@ -46,7 +56,7 @@ export default function DropDownFilter({ values, label }) {
           fontWeight: "bold",
           textAlign: "center",
         }}
-        //   onSelect={(idx, value) => dispatch(setSeasonYear(value))}
+        // onSelect={(idx, value) => dispatch(setMyTeamFilters(value))}
         renderRightComponent={() => (
           <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
         )}
