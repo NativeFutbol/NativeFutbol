@@ -99,9 +99,7 @@ export default function LoginRegister() {
   const [country, setCountry] = useState("");
   const [favTeam, setFavTeam] = useState("N/A");
   const [favPlayer, setFavPlayer] = useState("N/A");
-  const [pfpUrl, setPfpUrl] = useState(
-    "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
-  );
+  const [pfpUrl, setPfpUrl] = useState("");
   const ref = useRef();
 
   const scrollX = React.useRef(new Animated.Value(0)).current;

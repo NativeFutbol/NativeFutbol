@@ -7,6 +7,7 @@ import {
   View,
   Alert,
   Image,
+  Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,11 +18,19 @@ import LoginRegisterScreen from "./LoginRegisterScreen";
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [favTeam, setFavTeam] = useState("N/A");
+  const [favPlayer, setFavPlayer] = useState("N/A");
+  const [pfpUrl, setPfpUrl] = useState("");
 
   const user = auth?.currentUser;
   console.log(userInfo);
 
-  useEffect(() => {
+  const updates = useEffect(() => {
     db.collection("User Information")
       .doc(user?.uid)
       .get()
@@ -30,6 +39,19 @@ export default function AccountScreen() {
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handleUpdate = () => {
+    db.collection("User Information").doc(`${user.uid}`).set({
+      firstName,
+      lastName,
+      country,
+      favPlayer,
+      favTeam,
+      pfpUrl,
+    });
+
+    setModalVisible(!modalVisible);
+  };
 
   const handleDelete = () => {
     Alert.alert(
@@ -85,13 +107,100 @@ export default function AccountScreen() {
       <View style={styles.container}>
         <Text style={styles.title}>Hey, {userInfo?.firstName}!</Text>
         <Image
-          source={require("../assets/default_pfp.png")}
+          source={
+            userInfo?.pfpUrl
+              ? userInfo.pfpUrl
+              : require("../assets/default_pfp.png")
+          }
           style={{
             margin: 10,
             width: 200,
             height: 200,
           }}
         />
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(!modalVisible)}
+        >
+          <View style={styles.modal}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="First Name"
+                value={firstName}
+                onChangeText={(text) =>
+                  setFirstName(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={(text) =>
+                  setLastName(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Country"
+                value={country}
+                onChangeText={(text) =>
+                  setCountry(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Favorite Team"
+                value={favTeam}
+                onChangeText={(text) =>
+                  setFavTeam(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Favorite Player"
+                value={favPlayer}
+                onChangeText={(text) =>
+                  setFavPlayer(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+            </View>
+
+            <TouchableOpacity
+              onPress={handleUpdate}
+              style={styles.updateButton}
+            >
+              <Text style={styles.buttonText}>Save Changes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                Alert.alert(
+                  "Discard Changes",
+                  "Are you sure you want to discard your changes?",
+                  [
+                    {
+                      text: "No",
+                      onPress: () => console.log("Cancel Pressed"),
+                      style: "cancel",
+                    },
+                    {
+                      text: "Yes",
+                      onPress: () => {
+                        setModalVisible(!modalVisible);
+                      },
+                    },
+                  ]
+                )
+              }
+              style={styles.button}
+            >
+              <Text style={styles.buttonText}>Discard Changes</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
 
         <View style={styles.accountInfo}>
           <Text style={styles.title}>Account Information</Text>
@@ -102,6 +211,12 @@ export default function AccountScreen() {
           <Text>Favorite Player: {userInfo?.favPlayer}</Text>
         </View>
 
+        <TouchableOpacity
+          onPress={() => setModalVisible(!modalVisible)}
+          style={styles.updateButton}
+        >
+          <Text style={styles.buttonText}>Edit Info</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={handleDelete} style={styles.button}>
           <Text style={styles.buttonText}>Delete account</Text>
         </TouchableOpacity>
@@ -117,11 +232,25 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
   },
+  modal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
   title: {
     fontSize: 20,
     fontWeight: "600",
   },
   accountInfo: { marginTop: 20, marginLeft: 10, alignSelf: "flex-start" },
+  updateButton: {
+    backgroundColor: "#0782F9",
+    width: "60%",
+    padding: 15,
+    borderRadius: 10,
+    alignItems: "center",
+    marginTop: 20,
+  },
   button: {
     backgroundColor: "red",
     width: "60%",
@@ -134,5 +263,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "700",
     fontSize: 16,
+  },
+  inputContainer: { width: "80%" },
+  input: {
+    backgroundColor: "white",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10,
+    marginTop: 5,
   },
 });
