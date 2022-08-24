@@ -64,6 +64,7 @@ export default function MyTeamsScreen() {
               padding: 3,
               width: "25%",
               alignItems: "center",
+              marginBottom: 10,
             }}
           >
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>Filter</Text>
@@ -79,6 +80,7 @@ export default function MyTeamsScreen() {
               padding: 3,
               width: "25%",
               alignItems: "center",
+              marginBottom: 10,
             }}
           >
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>Close</Text>

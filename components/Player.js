@@ -1,11 +1,37 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addMyPlayer, removeMyPlayer } from "../store/myPlayers";
 
 export default function Player({ player }) {
+  const dispatch = useDispatch();
+
+  let myPlayers = useSelector((state) => state.myPlayers);
+
+  const onClick = () => {
+    if (
+      myPlayers.some((myPlayer) => {
+        return +myPlayer.id === +player.player.id;
+      })
+    ) {
+      dispatch(removeMyPlayer(player.player));
+    } else {
+      dispatch(addMyPlayer(player.player));
+    }
+  };
+
+  const isSelected = myPlayers.some(
+    (myPlayer) => myPlayer.id === +player.player.id
+  );
+
   return (
     <View>
       <TouchableOpacity
-        style={[styles.container, { backgroundColor: "white" }]}
+        onPress={onClick}
+        style={[
+          styles.container,
+          { backgroundColor: isSelected ? "grey" : "white" },
+        ]}
       >
         <Image
           source={{

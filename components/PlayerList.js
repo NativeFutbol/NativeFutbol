@@ -10,9 +10,7 @@ import { useSelector } from "react-redux";
 const PlayersList = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [players, setPlayers] = useState([]);
-
-  // const season = 2022;
-  // const leagueId = 39;
+  const [totalPage, setTotalPage] = useState(1);
 
   const myTeamFilters = useSelector((state) => state.myTeamFilters);
   const season = myTeamFilters?.season;
@@ -24,13 +22,13 @@ const PlayersList = () => {
     getPlayers();
   }, [season, leagueId, teamId, position]);
 
-  const getPlayers = () => {
+  const getPlayers = (page = 1) => {
     setIsLoading(true);
 
     const FOOTBALL_API_URL = `https://v3.football.api-sports.io`;
     const url = teamId
-      ? `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}&team=${teamId}`
-      : `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}`;
+      ? `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}&team=${teamId}&page=${page}`
+      : `${FOOTBALL_API_URL}/players?season=${season}&league=${leagueId}&page=${page}`;
 
     const options = {
       method: "GET",
@@ -45,6 +43,8 @@ const PlayersList = () => {
       .request(options)
       .then(function (response) {
         setIsLoading(false);
+
+        setTotalPage(response.data.paging.total);
 
         const players = position
           ? response.data.response.filter(

@@ -1,13 +1,12 @@
-import { View, Text } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import React, { useEffect, useRef } from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyTeamFilters } from "../store/myTeamFilters";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, Feather } from "@expo/vector-icons";
 
 export default function DropDownFilter({ label }) {
   const dispatch = useDispatch();
-  // const myTeamFilters = useSelector((state) => state.myTeamFilters);
 
   const myTeamsFilterOptions = useSelector(
     (state) => state.myTeamFilterOptions
@@ -45,6 +44,9 @@ export default function DropDownFilter({ label }) {
     return null;
   };
 
+  const dropDownRef = useRef(null);
+  // console.log(dropDownRef?.current.select(-1));
+
   return (
     <View
       style={{
@@ -71,6 +73,7 @@ export default function DropDownFilter({ label }) {
         </Text>
       </View>
       <ModalDropdown
+        ref={dropDownRef}
         options={options}
         defaultValue={
           label === "season" || label === "league"
@@ -100,6 +103,22 @@ export default function DropDownFilter({ label }) {
         )}
         // showSearch={true}
       />
+
+      {label === "season" || label === "league" ? (
+        <></>
+      ) : (
+        <View>
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(setMyTeamFilters({ id: "", label }));
+              dropDownRef.current?.select(-1);
+            }}
+            style={{ marginLeft: 32 }}
+          >
+            <Feather name="x" color={"orangered"} size={16} />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
