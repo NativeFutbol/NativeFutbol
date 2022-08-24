@@ -53,7 +53,8 @@ export default function CategoryList({ data, filter }) {
                   uri:
                     item?.league?.logo ||
                     item?.team?.logo ||
-                    item?.player?.photo,
+                    item?.player?.photo ||
+                    item?.photo,
                   height: 100,
                   width: 100,
                 }}

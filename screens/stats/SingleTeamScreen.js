@@ -9,6 +9,7 @@ import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
+import CoachButton from "../../components/CoachButton";
 
 export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");
@@ -37,7 +38,6 @@ export default function AllTeamsScreen() {
       .request(options)
       .then(function (response) {
         setSingleTeamInfo(response.data.response[0].players);
-        console.log(response.data.response[0].players);
       })
       .catch(function (error) {
         console.error(error);
@@ -57,6 +57,9 @@ export default function AllTeamsScreen() {
         <View>
           <SeasonFilter season={season} setSeason={setSeason} />
         </View>
+      </View>
+      <View>
+        <CoachButton data={singleTeamInfo} text="Coach" screen="CoachInfo" />
       </View>
       <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
