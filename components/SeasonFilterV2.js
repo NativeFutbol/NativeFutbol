@@ -3,6 +3,7 @@ import React from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setSeasonYear } from "../store/season";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function SeasonFilterV2() {
   const data = ["2022", "2021", "2020", "2019"];
@@ -39,8 +40,8 @@ export default function SeasonFilterV2() {
         <ModalDropdown
           options={data}
           defaultValue={season}
-          style={{ borderBottomWidth: 1 }}
-          textStyle={{ fontSize: 15, fontWeight: "bold" }}
+          // style={{ borderBottomWidth: 1 }}
+          textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
           dropdownStyle={{}}
           dropdownTextStyle={{
             width: 100,
@@ -48,6 +49,9 @@ export default function SeasonFilterV2() {
             fontWeight: "bold",
           }}
           onSelect={(idx, value) => dispatch(setSeasonYear(value))}
+          renderRightComponent={() => (
+            <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
+          )}
           // showSearch={true}
         />
       </View>
