@@ -97,8 +97,8 @@ export default function LoginRegister() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
-  const [favTeam, setFavTeam] = useState("");
-  const [favPlayer, setFavPlayer] = useState("");
+  const [favTeam, setFavTeam] = useState("N/A");
+  const [favPlayer, setFavPlayer] = useState("N/A");
   const [pfpUrl, setPfpUrl] = useState(
     "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
   );
