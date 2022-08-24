@@ -5,12 +5,12 @@ import * as firebase from "firebase";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBzCbFZ_r1jmhnu479V8tYt4cm2dYUH9Q0",
-  authDomain: "native-futbol.firebaseapp.com",
-  projectId: "native-futbol",
-  storageBucket: "native-futbol.appspot.com",
-  messagingSenderId: "214072949766",
-  appId: "1:214072949766:web:cfbcd4bc18e0a9bebcd787",
+  apiKey: "AIzaSyDBf1ISi2747HGnPYw_i-Y2jQralDPOkMY",
+  authDomain: "native-futbol-3d27e.firebaseapp.com",
+  projectId: "native-futbol-3d27e",
+  storageBucket: "native-futbol-3d27e.appspot.com",
+  messagingSenderId: "115790908064",
+  appId: "1:115790908064:web:10c7f591c4e2f35dd1d7c5",
 };
 
 // Initialize Firebase
@@ -23,5 +23,6 @@ if (firebase.apps.length === 0) {
 }
 
 const auth = firebase.auth();
+const db = firebase.firestore(app);
 
-export { auth };
+export { auth, db };

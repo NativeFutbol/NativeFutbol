@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
@@ -94,6 +94,14 @@ const Tabs = ({ data, scrollX, onItemPress }) => {
 export default function LoginRegister() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [favTeam, setFavTeam] = useState("");
+  const [favPlayer, setFavPlayer] = useState("");
+  const [pfpUrl, setPfpUrl] = useState(
+    "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+  );
   const ref = useRef();
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -104,22 +112,34 @@ export default function LoginRegister() {
   });
 
   const handleSignUp = () => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Registered with:", user.email);
-      })
-      .catch((error) => alert(error.message));
+    if (firstName === "") {
+      alert("Please enter a first name!");
+    } else if (lastName === "") {
+      alert("Please enter a last name!");
+    } else if (country === "") {
+      alert("Please enter a country!");
+    } else {
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredentials) => {
+          const user = userCredentials.user;
+
+          db.collection("User Information").doc(`${user.uid}`).set({
+            firstName,
+            lastName,
+            country,
+            favPlayer,
+            favTeam,
+            pfpUrl,
+          });
+        })
+        .catch((error) => alert(error.message));
+    }
   };
 
   const handleLogin = () => {
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        const user = userCredentials.user;
-        console.log("Logged in with:", user.email);
-      })
       .catch((error) => alert(error.message));
   };
 
@@ -137,7 +157,7 @@ export default function LoginRegister() {
         { useNativeDriver: false }
       )}
       renderItem={({ item }) => {
-        return (
+        return item.name === "Login" ? (
           <KeyboardAvoidingView style={styles.container} behavior="padding">
             <Tabs scrollX={scrollX} data={data} onItemPress={onItemPress} />
             <View style={styles.inputContainer}>
@@ -160,12 +180,54 @@ export default function LoginRegister() {
               <TouchableOpacity onPress={handleLogin} style={styles.button}>
                 <Text style={styles.buttonText}>Login</Text>
               </TouchableOpacity>
+            </View>
+          </KeyboardAvoidingView>
+        ) : (
+          <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <Tabs scrollX={scrollX} data={data} onItemPress={onItemPress} />
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder="First Name"
+                value={firstName}
+                onChangeText={(text) =>
+                  setFirstName(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Last Name"
+                value={lastName}
+                onChangeText={(text) =>
+                  setLastName(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Country"
+                value={country}
+                onChangeText={(text) =>
+                  setCountry(text.charAt(0).toUpperCase() + text.slice(1))
+                }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Password"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                style={styles.input}
+                secureTextEntry
+              />
+            </View>
 
-              <TouchableOpacity
-                onPress={handleSignUp}
-                style={[styles.button, styles.buttonOutline]}
-              >
-                <Text style={styles.buttonOutlineText}>Register</Text>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={handleSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Register</Text>
               </TouchableOpacity>
             </View>
           </KeyboardAvoidingView>
@@ -204,19 +266,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
   },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
-  },
   buttonText: {
     color: "white",
-    fontWeight: "700",
-    fontSize: 16,
-  },
-  buttonOutlineText: {
-    color: "#0782F9",
     fontWeight: "700",
     fontSize: 16,
   },

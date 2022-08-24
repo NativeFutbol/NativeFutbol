@@ -8,12 +8,22 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 
 import LoginRegisterScreen from "./LoginRegisterScreen";
 
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState([]);
+
+  const userId = auth?.currentUser.uid;
+  db.collection("User Information")
+    .doc(userId)
+    .get()
+    .then((snapshot) => {
+      setUserInfo(snapshot.data());
+    })
+    .catch((error) => console.log(error));
 
   const handleSignOut = () => {
     auth
@@ -37,7 +47,7 @@ export default function AccountScreen() {
   ) : (
     <SafeAreaView>
       <View style={styles.container}>
-        <Text>Welcome {auth.currentUser?.email}!</Text>
+        <Text>Hey, {userInfo.firstName}!</Text>
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
           <Text style={styles.buttonText}>Sign out</Text>
         </TouchableOpacity>
