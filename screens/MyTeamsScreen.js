@@ -110,11 +110,11 @@ export default function MyTeamsScreen() {
           </TouchableOpacity>
         </View>
 
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <DropDownFilter
-            values={["2022", "2021", "2020", "2019"]}
-            label={"season"}
-          />
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <DropDownFilter label={"season"} />
+          <DropDownFilter label={"league"} />
+          <DropDownFilter label={"team"} />
+          <DropDownFilter label={"position"} />
         </View>
       </BottomSheet>
     </View>

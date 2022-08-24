@@ -5,13 +5,23 @@ const myTeamFiltersSlice = createSlice({
   initialState: {
     season: "2022",
     league: "39",
-    team: "33",
-    position: "Attacker",
+    team: "",
+    position: "",
   },
 
   reducers: {
-    setMyTeamFilters: (state, action) => {
-      return action.payload;
+    setMyTeamFilters: (state, { payload }) => {
+      if (payload.label === "season") {
+        state.season = payload.id;
+      } else if (payload.label === "league") {
+        state.league = payload.id;
+      } else if (payload.label === "team") {
+        state.team = payload.id;
+      } else if (payload.label === "position") {
+        state.position = payload.id;
+      } else {
+        return state;
+      }
     },
   },
 });

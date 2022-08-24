@@ -26,7 +26,7 @@ export const fetchTeams = createAsyncThunk("teams", async (seasonAndLeague) => {
 const myTeamFiltersOptionsSlice = createSlice({
   name: "myTeamFiltersOptions",
   initialState: {
-    season: [2022, 2021, 2020, 2019],
+    season: ["2022", "2021", "2020", "2019"],
     league: {
       39: "Premier League",
       61: "Ligue 1",
@@ -35,7 +35,7 @@ const myTeamFiltersOptionsSlice = createSlice({
       140: "La Liga",
     },
 
-    team: [],
+    team: {},
     position: ["Attacker", "Midfielder", "Defender", "Goalkeeper"],
   },
 
@@ -43,11 +43,12 @@ const myTeamFiltersOptionsSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchTeams.fulfilled, (state, { payload }) => {
-      const idAndLeagueObj = payload.map(({ team }) => {
+      const idAndLeagueObj = {};
+      payload.forEach(({ team }) => {
         const id = team.id;
         const name = team.name;
 
-        return { [id]: name };
+        return (idAndLeagueObj[id] = name);
       });
 
       state.team = idAndLeagueObj;
