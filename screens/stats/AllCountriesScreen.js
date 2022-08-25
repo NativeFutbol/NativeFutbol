@@ -2,20 +2,22 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
 
   const [countriesData, setCountriesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const season = useSelector((state) => state.season);
 
   const topFiveLeaguesCountries = [
     "France",
@@ -79,7 +81,7 @@ export default function AllCountriesScreen() {
           onSubmit={getCountries}
         />
         <Filters />
-        <SeasonFilter season={season} setSeason={setSeason} />
+        <SeasonFilterV2 />
       </View>
       <View>
         <CategoryList data={countriesData} filter={filter} />

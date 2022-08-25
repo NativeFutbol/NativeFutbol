@@ -2,29 +2,31 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { SvgUri } from "react-native-svg";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
-import { useSelector } from "react-redux";
-import { SvgUri } from "react-native-svg";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
+  // const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("leagues");
   const [leagueData, setLeagueData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const singleCountryData = useSelector((state) => state.singleScreenData);
+  const season = useSelector((state) => state.season);
 
   const topFiveLeagues = [61, 135, 78, 140, 39];
 
   useEffect(() => {
     getLeagues();
-  }, []);
+  }, [season]);
 
   const getLeagues = () => {
     setIsLoading(true);
@@ -74,7 +76,8 @@ export default function AllCountriesScreen() {
           onSubmit={getLeagues}
         />
         <Filters />
-        <SeasonFilter season={season} setSeason={setSeason} />
+        {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
+        <SeasonFilterV2 />
       </View>
 
       <View style={styles.imageContainer}>
