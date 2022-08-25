@@ -7,23 +7,23 @@ import {
   Image,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { NEWS_API_KEY } from "@env";
+import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
-import { apiNewsDummyData } from "../constants/apiNewsDummyData";
+import { apiFootballDummyData } from "../constants/apiFootballDummyData";
 import Carousel from "react-native-snap-carousel";
-import NewsCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./NewsCard";
+import GamesCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./GamesCard";
 
-export default function News() {
-  const [articles, setArticles] = useState(apiNewsDummyData);
+export default function Games() {
+  const [games, setGames] = useState(apiFootballDummyData);
 
-  const query = "";
-  const cateogry = "sports";
-  const pageSize = 20;
-  const country = "us";
+  //   const query = "";
+  //   const cateogry = "sports";
+  //   const pageSize = 20;
+  //   const country = "us";
 
-  const url = query
-    ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
-    : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
+  //   const url = query
+  //     ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
+  //     : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
 
   //   useEffect(() => {
   //     getArticles();
@@ -46,8 +46,8 @@ export default function News() {
         layout="tinder"
         layoutCardOffset={9}
         ref={isCarousel}
-        data={articles.articles}
-        renderItem={NewsCard}
+        data={games}
+        renderItem={GamesCard}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         // sliderHeight={SLIDER_WIDTH}
