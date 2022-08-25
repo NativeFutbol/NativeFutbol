@@ -220,6 +220,12 @@ export default function FooterTabs() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
+          title: "Welcome to Native Futbol!",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            textAlign: "center",
+          },
+          headerTitleAlign: "center",
         }}
       />
       <Tab.Screen

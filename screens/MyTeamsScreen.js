@@ -9,6 +9,8 @@ import { fetchTeams } from "../store/myTeamFilterOptions";
 import { resetMyPlayer } from "../store/myPlayers";
 import FormationOption from "../components/FormationOption";
 import { ScrollView } from "react-native-gesture-handler";
+import SearchBar from "react-native-dynamic-search-bar";
+import { useState } from "react";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -20,6 +22,12 @@ export default function MyTeamsScreen() {
   const seasonAndLeague = {
     season: myTeamFilters?.season,
     league: myTeamFilters?.league,
+  };
+
+  const [searchPlayerName, setSearchPlayerName] = useState("");
+
+  const searchBarChangeHanlder = (text) => {
+    setSearchPlayerName(text);
   };
 
   const dispatch = useDispatch();
@@ -64,6 +72,14 @@ export default function MyTeamsScreen() {
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
+        <View style={{ marginBottom: 20 }}>
+          <SearchBar
+            placeholder="Search by Players Name..."
+            // onPress={() => alert("onPress")}
+            onChangeText={searchBarChangeHanlder}
+            onClearPress={() => setSearchPlayerName("")}
+          />
+        </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TouchableOpacity
             onPress={() => filterPlayerListRef.current?.expand()}
@@ -113,12 +129,12 @@ export default function MyTeamsScreen() {
           </TouchableOpacity>
         </View>
 
-        <PlayersList />
+        <PlayersList searchPlayerName={searchPlayerName} />
       </BottomSheet>
 
       <BottomSheet
         ref={filterPlayerListRef}
-        index={-1}
+        index={1}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
@@ -154,7 +170,7 @@ export default function MyTeamsScreen() {
 
       <BottomSheet
         ref={filterFormationRef}
-        index={-1}
+        index={1}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
