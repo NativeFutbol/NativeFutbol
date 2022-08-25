@@ -7,16 +7,30 @@ import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
-const PlayersList = () => {
+const PlayersList = ({ searchPlayerName }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [players, setPlayers] = useState([]);
-  const [test, setTest] = useState([]);
 
   const myTeamFilters = useSelector((state) => state.myTeamFilters);
   const season = myTeamFilters?.season;
   const leagueId = myTeamFilters?.league;
   const teamId = myTeamFilters?.team;
   const position = myTeamFilters?.position;
+
+  const regex = new RegExp(`(${searchPlayerName.toLowerCase()})`);
+
+  // if (searchPlayerName && searchPlayerName !== "" && players?.length) {
+
+  //   console.log(players[0]?.player?.name.toLowerCase());
+  //   console.log(searchPlayerName);
+  //   console.log(regex.test(players[0]?.player?.name.toLowerCase()));
+
+  //   setPlayers((prev) => {
+  //     return prev.filter((player) =>
+  //       regex.test(player?.player?.name.toLowerCase())
+  //     );
+  //   });
+  // }
 
   // useEffect(() => {
   //   getPlayers();
@@ -116,7 +130,13 @@ const PlayersList = () => {
 
   return (
     <BottomSheetFlatList
-      data={players}
+      data={
+        searchPlayerName && searchPlayerName !== "" && players?.length
+          ? players.filter((player) =>
+              regex.test(player?.player?.name.toLowerCase())
+            )
+          : players
+      }
       renderItem={({ item }) => <Player player={item} />}
     />
   );
