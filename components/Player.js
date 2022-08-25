@@ -6,22 +6,33 @@ import { addMyPlayer, removeMyPlayer } from "../store/myPlayers";
 export default function Player({ player }) {
   const dispatch = useDispatch();
 
-  let myPlayers = useSelector((state) => state.myPlayers);
+  const myPlayers = useSelector((state) => state.myPlayers);
+  const myFormation = useSelector((state) => state.myFormation);
 
   const onClick = () => {
+    const numberOfPlayersOnMyPosition = myPlayers.filter((myPlayer) => {
+      return (
+        myPlayer.statistics[0].games.position.toLowerCase() ===
+        player.statistics[0].games.position.toLowerCase()
+      );
+    }).length;
+
     if (
       myPlayers.some((myPlayer) => {
-        return +myPlayer.id === +player.player.id;
+        return +myPlayer.player.id === +player.player.id;
       })
     ) {
-      dispatch(removeMyPlayer(player.player));
-    } else {
-      dispatch(addMyPlayer(player.player));
+      dispatch(removeMyPlayer(player));
+    } else if (
+      numberOfPlayersOnMyPosition <
+      myFormation[player.statistics[0].games.position]
+    ) {
+      dispatch(addMyPlayer(player));
     }
   };
 
   const isSelected = myPlayers.some(
-    (myPlayer) => myPlayer.id === +player.player.id
+    (myPlayer) => myPlayer.player.id === +player.player.id
   );
 
   return (

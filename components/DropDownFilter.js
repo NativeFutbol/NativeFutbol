@@ -45,7 +45,6 @@ export default function DropDownFilter({ label }) {
   };
 
   const dropDownRef = useRef(null);
-  // console.log(dropDownRef?.current.select(-1));
 
   return (
     <View

@@ -8,6 +8,7 @@ import mostCardsReducer from "./mostCardsData";
 import myTeamFiltersReducer from "./myTeamFilters";
 import myTeamFilterOptionsReducer from "./myTeamFilterOptions";
 import myPlayersReducer from "./myPlayers";
+import myFormationReducer from "./myFormation";
 
 export const store = configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export const store = configureStore({
     myTeamFilters: myTeamFiltersReducer,
     myTeamFilterOptions: myTeamFilterOptionsReducer,
     myPlayers: myPlayersReducer,
+    myFormation: myFormationReducer,
   },
 });
