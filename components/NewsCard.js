@@ -32,7 +32,7 @@ const NewsCard = ({ item, index }) => {
         <Text
           style={{ fontSize: 12, paddingLeft: 10, margin: 5, marginTop: 1 }}
         >
-          {moment(publishedDate.toDateString()).fromNow()}
+          {moment(publishedDate).fromNow()}
         </Text>
       </View>
     </View>
