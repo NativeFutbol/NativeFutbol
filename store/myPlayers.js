@@ -4,15 +4,19 @@ const myPlayersSlice = createSlice({
   name: "myPlayers",
   initialState: [],
   reducers: {
+    resetMyPlayer: (state, { payload }) => {
+      return [];
+    },
     addMyPlayer: (state, { payload }) => {
       state.push(payload);
     },
     removeMyPlayer: (state, { payload }) => {
-      return state.filter((player) => +player.id !== +payload.id);
+      return state.filter((player) => +player.player.id !== +payload.player.id);
     },
   },
 });
 
-export const { addMyPlayer, removeMyPlayer } = myPlayersSlice.actions;
+export const { addMyPlayer, removeMyPlayer, resetMyPlayer } =
+  myPlayersSlice.actions;
 
 export default myPlayersSlice.reducer;

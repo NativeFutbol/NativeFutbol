@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
-import { useSelector } from "react-redux";
 
 const FOOTBALL_API_URL = `https://v3.football.api-sports.io`;
 
