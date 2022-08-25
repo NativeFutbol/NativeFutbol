@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@freakycoder/react-native-bounceable": "^1.0.3",
     "@gorhom/bottom-sheet": "^4.4.3",
+    "@react-native-async-storage/async-storage": "~1.17.3",
     "@react-navigation/bottom-tabs": "^6.3.2",
     "@react-navigation/native": "^6.0.11",
     "@react-navigation/native-stack": "^6.7.0",
@@ -22,8 +24,10 @@
     "metro-react-native-babel-preset": "^0.72.1",
     "react": "18.0.0",
     "react-native": "0.69.4",
+    "react-native-animated-spinkit": "^1.5.2",
     "react-native-dotenv": "^3.3.1",
     "react-native-dropdown-picker": "^5.4.2",
+    "react-native-dynamic-search-bar": "github:WrathChaos/react-native-dynamic-search-bar#expo",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-modal-dropdown": "^1.0.2",
@@ -34,8 +38,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.2",
-    "styled-components": "^5.3.5",
-    "@react-native-async-storage/async-storage": "~1.17.3"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
