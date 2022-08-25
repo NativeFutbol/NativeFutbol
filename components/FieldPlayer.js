@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 
@@ -7,25 +7,38 @@ export default function FieldPlayer(props) {
 
   return (
     <View style={{ alignItems: "center" }}>
-      <FontAwesome5
-        name="tshirt"
-        size={35}
-        color={player ? "orangered" : "white"}
-      />
+      {player ? (
+        <Image
+          source={{
+            uri: player.player.photo,
+          }}
+          style={styles.image}
+        />
+      ) : (
+        <FontAwesome5 name="tshirt" size={20} color={"white"} />
+      )}
       <Text
         style={{
-          backgroundColor: "black",
+          backgroundColor: player ? "oreangered" : "black",
           color: "white",
           fontWeight: "bold",
-          fontSize: 12,
+          fontSize: 9,
           padding: 2,
           paddingHorizontal: 7,
         }}
       >
-        {player ? player.name : position}
+        {player ? player.player.name : position}
       </Text>
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#aaa",
+  },
+});
