@@ -7,7 +7,7 @@ import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 
-export default function AllPlayersScreen() {
+export default function SinglePlayerScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("players");

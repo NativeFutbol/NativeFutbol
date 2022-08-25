@@ -10,8 +10,10 @@ import CategoryList from "../../components/CategoryList";
 import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
 import CoachButton from "../../components/CoachButton";
+import VenueButton from "../../components/VenueButton";
+import TrophiesButton from "../../components/TrophiesButton";
 
-export default function AllTeamsScreen() {
+export default function SingleTeamScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
@@ -60,6 +62,16 @@ export default function AllTeamsScreen() {
       </View>
       <View>
         <CoachButton data={singleTeamInfo} text="Coach" screen="CoachInfo" />
+      </View>
+      <View>
+        <VenueButton data={singleTeamInfo} text="Venue" screen="Venue" />
+      </View>
+      <View>
+        <TrophiesButton
+          data={singleTeamInfo}
+          text="Trophies"
+          screen="Trophies"
+        />
       </View>
       <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
