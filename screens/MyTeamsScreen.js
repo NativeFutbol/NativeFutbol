@@ -122,7 +122,13 @@ export default function MyTeamsScreen() {
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginBottom: 40,
+          }}
+        >
           <TouchableOpacity
             onPress={() => filterPlayerListRef.current?.close()}
             style={{
