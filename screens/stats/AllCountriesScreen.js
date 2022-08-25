@@ -86,8 +86,12 @@ export default function AllCountriesScreen() {
         <SeasonFilterV2 />
       </View>
       <ScrollView>
-        <ScrollView horizontal={true}>
-          <WorldMap />
+        <ScrollView
+          horizontal={true}
+          bounces={false}
+          showsHorizontalScrollIndicator={false}
+        >
+          <WorldMap data={countriesData} />
         </ScrollView>
         <CategoryList data={countriesData} filter={filter} />
       </ScrollView>
