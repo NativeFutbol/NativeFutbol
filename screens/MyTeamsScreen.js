@@ -77,6 +77,7 @@ export default function MyTeamsScreen() {
             placeholder="Search by Players Name..."
             // onPress={() => alert("onPress")}
             onChangeText={searchBarChangeHanlder}
+            onClearPress={() => setSearchPlayerName("")}
           />
         </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
