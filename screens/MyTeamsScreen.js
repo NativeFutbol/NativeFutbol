@@ -6,11 +6,17 @@ import PlayersList from "../components/PlayerList";
 import DropDownFilter from "../components/DropDownFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTeams } from "../store/myTeamFilterOptions";
+import { resetMyPlayer } from "../store/myPlayers";
+import FormationOption from "../components/FormationOption";
+import { ScrollView } from "react-native-gesture-handler";
+import SearchBar from "react-native-dynamic-search-bar";
+import { useState } from "react";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
   const playerListRef = useRef(null);
   const filterPlayerListRef = useRef(null);
+  const filterFormationRef = useRef(null);
 
   const myTeamFilters = useSelector((state) => state.myTeamFilters);
   const seasonAndLeague = {
@@ -18,13 +24,23 @@ export default function MyTeamsScreen() {
     league: myTeamFilters?.league,
   };
 
+  const [searchPlayerName, setSearchPlayerName] = useState("");
+
+  const searchBarChangeHanlder = (text) => {
+    setSearchPlayerName(text);
+  };
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchTeams(seasonAndLeague));
   }, [dispatch, seasonAndLeague]);
 
   const selectPlayers = () => {
     playerListRef.current?.expand();
+  };
+  const selectFormation = () => {
+    filterFormationRef.current?.expand();
   };
 
   return (
@@ -41,7 +57,10 @@ export default function MyTeamsScreen() {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonContainer}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
+          <Text
+            style={{ color: "white", fontWeight: "bold" }}
+            onPress={selectFormation}
+          >
             Select Formation
           </Text>
         </TouchableOpacity>
@@ -53,12 +72,20 @@ export default function MyTeamsScreen() {
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
+        <View style={{ marginBottom: 20 }}>
+          <SearchBar
+            placeholder="Search by Players Name..."
+            // onPress={() => alert("onPress")}
+            onChangeText={searchBarChangeHanlder}
+            onClearPress={() => setSearchPlayerName("")}
+          />
+        </View>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <TouchableOpacity
             onPress={() => filterPlayerListRef.current?.expand()}
             style={{
               alignItems: "flex-start",
-              marginLeft: 30,
+              marginLeft: 15,
               borderWidth: 1,
               borderRadius: 20,
               padding: 3,
@@ -71,10 +98,25 @@ export default function MyTeamsScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity
+            onPress={() => dispatch(resetMyPlayer())}
+            style={{
+              alignItems: "flex-start",
+              borderWidth: 1,
+              borderRadius: 20,
+              padding: 3,
+              width: "25%",
+              alignItems: "center",
+              marginBottom: 10,
+            }}
+          >
+            <Text style={{ fontSize: 12, fontWeight: "bold" }}>Reset</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
             onPress={() => playerListRef.current?.close()}
             style={{
               alignItems: "flex-end",
-              marginRight: 30,
+              marginRight: 15,
               borderWidth: 1,
               borderRadius: 20,
               padding: 3,
@@ -87,16 +129,22 @@ export default function MyTeamsScreen() {
           </TouchableOpacity>
         </View>
 
-        <PlayersList />
+        <PlayersList searchPlayerName={searchPlayerName} />
       </BottomSheet>
 
       <BottomSheet
         ref={filterPlayerListRef}
-        index={-1}
+        index={1}
         snapPoints={snapPoints}
         enablePanDownToClose={true}
       >
-        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginBottom: 40,
+          }}
+        >
           <TouchableOpacity
             onPress={() => filterPlayerListRef.current?.close()}
             style={{
@@ -118,6 +166,71 @@ export default function MyTeamsScreen() {
           <DropDownFilter label={"team"} />
           <DropDownFilter label={"position"} />
         </View>
+      </BottomSheet>
+
+      <BottomSheet
+        ref={filterFormationRef}
+        index={1}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+      >
+        <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+          <TouchableOpacity
+            onPress={() => filterFormationRef.current?.close()}
+            style={{
+              marginRight: 30,
+              borderWidth: 1,
+              borderRadius: 20,
+              padding: 3,
+              width: "25%",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 12, fontWeight: "bold" }}>Close</Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView>
+          <FormationOption
+            type={"3      -      3      -      4"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      2      -      4"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      3      -      3"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"5      -      3      -      2"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      4      -      3"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      5      -      2"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      6      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      5      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"5      -      4      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      6      -      0"}
+            filterFormationRef={filterFormationRef}
+          />
+        </ScrollView>
       </BottomSheet>
     </View>
   );
