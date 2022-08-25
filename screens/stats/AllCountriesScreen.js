@@ -10,6 +10,8 @@ import SeasonFilter from "../../components/SeasonFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import WorldMap from "../../components/WorldMap";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -83,9 +85,12 @@ export default function AllCountriesScreen() {
         <Filters />
         <SeasonFilterV2 />
       </View>
-      <View>
+      <ScrollView>
+        <ScrollView horizontal={true}>
+          <WorldMap />
+        </ScrollView>
         <CategoryList data={countriesData} filter={filter} />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
