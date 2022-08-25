@@ -1,34 +1,45 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { useDispatch } from "react-redux";
+import { removeMyPlayer } from "../store/myPlayers";
 
 export default function FieldPlayer(props) {
   const { player, position } = props;
+  const dispatch = useDispatch();
+
+  const removePlayer = () => {
+    if (player) {
+      dispatch(removeMyPlayer(player));
+    }
+  };
 
   return (
-    <View style={{ alignItems: "center" }}>
-      {player ? (
-        <Image
-          source={{
-            uri: player.player.photo,
+    <View>
+      <TouchableOpacity style={{ alignItems: "center" }} onPress={removePlayer}>
+        {player ? (
+          <Image
+            source={{
+              uri: player.player.photo,
+            }}
+            style={styles.image}
+          />
+        ) : (
+          <FontAwesome5 name="tshirt" size={20} color={"white"} />
+        )}
+        <Text
+          style={{
+            backgroundColor: player ? "oreangered" : "black",
+            color: "white",
+            fontWeight: "bold",
+            fontSize: 9,
+            padding: 2,
+            paddingHorizontal: 7,
           }}
-          style={styles.image}
-        />
-      ) : (
-        <FontAwesome5 name="tshirt" size={20} color={"white"} />
-      )}
-      <Text
-        style={{
-          backgroundColor: player ? "oreangered" : "black",
-          color: "white",
-          fontWeight: "bold",
-          fontSize: 9,
-          padding: 2,
-          paddingHorizontal: 7,
-        }}
-      >
-        {player ? player.player.name : position}
-      </Text>
+        >
+          {player ? player.player.name : position}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }

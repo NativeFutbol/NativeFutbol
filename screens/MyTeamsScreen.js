@@ -7,6 +7,8 @@ import DropDownFilter from "../components/DropDownFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTeams } from "../store/myTeamFilterOptions";
 import { resetMyPlayer } from "../store/myPlayers";
+import FormationOption from "../components/FormationOption";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -165,6 +167,48 @@ export default function MyTeamsScreen() {
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>Close</Text>
           </TouchableOpacity>
         </View>
+        <ScrollView>
+          <FormationOption
+            type={"3      -      3      -      4"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      2      -      4"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      3      -      3"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"5      -      3      -      2"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      4      -      3"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      5      -      2"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"3      -      6      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      5      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"5      -      4      -      1"}
+            filterFormationRef={filterFormationRef}
+          />
+          <FormationOption
+            type={"4      -      6      -      0"}
+            filterFormationRef={filterFormationRef}
+          />
+        </ScrollView>
       </BottomSheet>
     </View>
   );

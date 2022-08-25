@@ -10,7 +10,9 @@ const myFormationSlice = createSlice({
   },
   reducers: {
     setMyFormation: (state, { payload }) => {
-      return action.payload;
+      state.Attacker = payload[0];
+      state.Midfielder = payload[2];
+      state.Defender = payload[4];
     },
   },
 });
