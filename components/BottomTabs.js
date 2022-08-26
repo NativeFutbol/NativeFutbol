@@ -12,9 +12,8 @@ import AllPlayersScreen from "../screens/stats/AllPlayersScreen";
 import SingleCountryScreen from "../screens/stats/SingleCountryScreen";
 import SingleLeagueScreen from "../screens/stats/SingleLeagueScreen";
 import SingleTeamScreen from "../screens/stats/SingleTeamScreen";
-import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import AccountScreen from "../screens/AccountScreen";
-import SinglePlayer from "../screens/stats/SinglePlayer";
+import SinglePlayerScreen from "../screens/stats/SinglePlayerScreen";
 import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
@@ -97,7 +96,7 @@ const StatsStack = () => {
       />
       <Stack.Screen
         name="SinglePlayer"
-        component={SinglePlayer}
+        component={SinglePlayerScreen}
         options={({ route }) => {
           const name = route.params.player.name;
 

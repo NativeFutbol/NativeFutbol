@@ -30,42 +30,7 @@ const Tab = React.forwardRef(({ item, onItemPress }, ref) => {
   );
 });
 
-const Indicator = ({ measures, scrollX }) => {
-  const inputRange = data.map((_, i) => i * width);
-  const indicatorWidth = scrollX.interpolate({
-    inputRange,
-    outputRange: measures.map((measure) => measure.width),
-  });
-  const translateX = scrollX.interpolate({
-    inputRange,
-    outputRange: measures.map((measure) => measure.x),
-  });
-
-  return (
-    <Animated.View
-      style={{
-        position: "absolute",
-        height: 4,
-        width: indicatorWidth,
-        left: 0,
-        backgroundColor: "black",
-        bottom: -10,
-        transform: [
-          {
-            translateX,
-          },
-        ],
-      }}
-    ></Animated.View>
-  );
-};
-
 const Tabs = ({ data, scrollX, onItemPress }) => {
-  const measures = [
-    { height: 24, width: 50.333343505859375, x: 95.66666412353516, y: 0 },
-    { height: 24, width: 76.6666259765625, x: 241.6666717529297, y: 0 },
-  ];
-
   return (
     <View style={{ position: "absolute", top: 10, width }}>
       <View
@@ -86,7 +51,6 @@ const Tabs = ({ data, scrollX, onItemPress }) => {
           );
         })}
       </View>
-      <Indicator measures={measures} scrollX={scrollX} />
     </View>
   );
 };
