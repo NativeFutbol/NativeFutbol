@@ -51,8 +51,6 @@ export default function VenueScreen() {
           style={styles.image}
           source={{
             uri: venueInfo?.image,
-            height: 100,
-            width: 100,
           }}
         />
 
@@ -64,6 +62,25 @@ export default function VenueScreen() {
           }}
         >
           Name:{venueInfo?.name}
+        </Text>
+
+        <Text
+          style={{
+            alignSelf: "center",
+            fontSize: 18,
+            fontWeight: "bold",
+          }}
+        >
+          City:{venueInfo?.city}
+        </Text>
+        <Text
+          style={{
+            alignSelf: "center",
+            fontSize: 18,
+            fontWeight: "bold",
+          }}
+        >
+          Address:{venueInfo?.address}
         </Text>
         <Text
           style={{
@@ -90,18 +107,19 @@ export default function VenueScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 1100,
-    width: 380,
+    paddingVertical: 10,
+    height: 550,
+    width: 400,
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: "center",
-    margin: 5,
+
     backgroundColor: "white",
     alignItems: "center",
   },
   image: {
     alignSelf: "center",
-    height: 100,
-    width: 100,
+    height: 440,
+    width: 400,
   },
 });

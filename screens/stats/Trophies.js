@@ -30,7 +30,7 @@ export default function Trophies() {
     ?.team;
   useEffect(() => {
     getTrophiesInfo();
-  }, [trophiesInfo]);
+  }, []);
 
   const getTrophiesInfo = () => {
     const options = {
@@ -45,7 +45,7 @@ export default function Trophies() {
     axios
       .request(options)
       .then(function (response) {
-        setVenueInfo(response.data.response);
+        setTrophiesInfo(response.data.response);
       })
       .catch(function (error) {
         console.error(error);
@@ -62,6 +62,12 @@ export default function Trophies() {
       data={trophiesInfo}
       renderItem={({ item }) => (
         <View style={styles.container}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: "https://sc04.alicdn.com/kf/U495f52f7df82457aa23bae18a1fe3b7eU.jpg",
+            }}
+          />
           <Text
             style={{
               alignSelf: "center",
@@ -106,7 +112,7 @@ export default function Trophies() {
 
 const styles = StyleSheet.create({
   container: {
-    height: 1100,
+    height: 300,
     width: 380,
     borderWidth: 2,
     borderRadius: 10,

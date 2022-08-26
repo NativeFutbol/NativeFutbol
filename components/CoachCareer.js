@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
 
 export default function CoachCareer({ data }) {
-  console.log("coachcareer---", data);
+  console.log("insidecoachcareer---", data);
 
   return (
     <View style={{ flex: 1 }}>
@@ -23,6 +23,7 @@ export default function CoachCareer({ data }) {
           data={data}
           renderItem={({ careerinfo }) => (
             <View>
+              <Text>Career</Text>
               <Image
                 source={{
                   uri: careerinfo?.team?.logo,
