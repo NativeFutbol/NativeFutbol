@@ -36,9 +36,9 @@ export default function HomeScreen() {
     );
   };
 
-  useEffect(() => {
-    getMatches();
-  }, [league]);
+  // useEffect(() => {
+  //   getMatches();
+  // }, [league]);
 
   const getMatches = () => {
     setIsLoading(true);
@@ -103,9 +103,9 @@ export default function HomeScreen() {
     ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
     : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
 
-  useEffect(() => {
-    getArticles();
-  }, []);
+  // useEffect(() => {
+  //   getArticles();
+  // }, []);
 
   const getArticles = async () => {
     try {
