@@ -161,6 +161,11 @@ export default function MyTeamsScreen() {
         </View>
 
         <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <View style={{ marginBottom: 25 }}>
+            <Text style={{ fontSize: 20, fontWeight: "400" }}>
+              Filter your Player List, Here!
+            </Text>
+          </View>
           <DropDownFilter label={"season"} />
           <DropDownFilter label={"league"} />
           <DropDownFilter label={"team"} />
@@ -190,6 +195,12 @@ export default function MyTeamsScreen() {
           </TouchableOpacity>
         </View>
         <ScrollView>
+          <View style={{ marginVertical: 15, alignItems: "center" }}>
+            <Text style={{ fontSize: 20, fontWeight: "400" }}>
+              Select your Formation!
+            </Text>
+          </View>
+
           <FormationOption
             type={"3      -      3      -      4"}
             filterFormationRef={filterFormationRef}
