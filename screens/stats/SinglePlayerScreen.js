@@ -373,7 +373,7 @@ function DisplayPlayer(props) {
       .catch(function (error) {
         console.error(error);
       });
-    // getStats();
+    getStats();
   }, []);
 
   function getStats() {
@@ -403,6 +403,13 @@ function DisplayPlayer(props) {
       .catch(function (error) {
         console.error(error);
       });
+  }
+  function isNull(val) {
+    if (val === null) {
+      return 0;
+    } else {
+      return val;
+    }
   }
 
   return (
@@ -538,14 +545,14 @@ function DisplayPlayer(props) {
                   datasets: [
                     {
                       data: [
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        10,
-                        // stats2019.cards.red,
-                        // stats2020.cards.red,
-                        // stats2021.cards.red,
-                        // stats2022.cards.red,
+                        // Math.floor(Math.random() * 10),
+                        // Math.floor(Math.random() * 10),
+                        // Math.floor(Math.random() * 10),
+                        // 10,
+                        stats2019?.cards?.red,
+                        stats2020?.cards?.red,
+                        stats2021?.cards?.red,
+                        stats2022?.cards?.red,
                       ],
                       color: (opacity = 1) => `rgba(200, 0, 0, ${opacity})`,
                     },
@@ -591,14 +598,14 @@ function DisplayPlayer(props) {
                   datasets: [
                     {
                       data: [
-                        Math.floor(Math.random() * 10),
-                        10,
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        // stats2019.cards.red,
-                        // stats2020.cards.red,
-                        // stats2021.cards.red,
-                        // stats2022.cards.red,
+                        // Math.floor(Math.random() * 10),
+                        // 10,
+                        // Math.floor(Math.random() * 10),
+                        // Math.floor(Math.random() * 10),
+                        stats2019?.cards?.yellow,
+                        stats2020?.cards?.yellow,
+                        stats2021?.cards?.yellow,
+                        stats2022?.cards?.yellow,
                       ],
                       color: (opacity = 1) => `rgba(200, 0, 0, ${opacity})`,
                     },
@@ -642,14 +649,10 @@ function DisplayPlayer(props) {
                   datasets: [
                     {
                       data: [
-                        Math.floor(Math.random() * 10),
-                        10,
-                        Math.floor(Math.random() * 10),
-                        Math.floor(Math.random() * 10),
-                        // stats2019.cards.red,
-                        // stats2020.cards.red,
-                        // stats2021.cards.red,
-                        // stats2022.cards.red,
+                        isNull(stats2019?.games?.rating),
+                        isNull(stats2020?.games?.rating),
+                        isNull(stats2021?.games?.rating),
+                        isNull(stats2022?.games?.rating),
                       ],
                     },
                   ],
@@ -693,10 +696,10 @@ function DisplayPlayer(props) {
                   labels: ["2019", "2020", "2021", "2022"],
                   legend: ["Red", "Yellow"],
                   data: [
-                    [5, 3],
+                    [1, 4],
                     [2, 8],
-                    [6, 1],
-                    [3, 7],
+                    [3, 1],
+                    [7, 2],
                   ],
                   barColors: ["red", "yellow"],
                 }}
