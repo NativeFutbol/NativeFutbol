@@ -111,10 +111,8 @@ export default function HomeScreen() {
     try {
       setIsLoading(true);
       const res = await axios.get(url);
-      setArticles2(res.data);
-      if (res && res?.data && res?.data?.length) {
-        console.log("*** inside!");
-        // setArticles1(res.data);
+      if (res && res?.data && res?.data?.articles.length) {
+        setArticles1(res.data);
       }
       setIsLoading(false);
     } catch (error) {
