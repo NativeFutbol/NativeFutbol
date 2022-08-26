@@ -6,12 +6,15 @@ export const SLIDER_WIDTH = Dimensions.get("window").width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1.13);
 
 const GamesCard = ({ item, index }) => {
-  const gameDate = new Date(item.fixture.date);
+  const gameDate = item.fixture.date ? new Date(item.fixture.date) : null;
 
   return (
     <View style={styles.container} key={index}>
       <View style={{ alignItems: "center" }}>
-        <Text>{gameDate.toDateString()}</Text>
+        <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
+          {gameDate ? gameDate.toDateString() : "Date"}
+        </Text>
+        <Text>{item.fixture.venue.name}</Text>
       </View>
       <View
         style={{
@@ -20,8 +23,8 @@ const GamesCard = ({ item, index }) => {
           marginHorizontal: 20,
         }}
       >
-        <Text>Home</Text>
-        <Text>Away</Text>
+        <Text style={{ fontWeight: "bold" }}>Home</Text>
+        <Text style={{ fontWeight: "bold" }}>Away</Text>
       </View>
       <View
         style={{
@@ -31,12 +34,32 @@ const GamesCard = ({ item, index }) => {
         }}
       >
         <View style={{ flexDirection: "row" }}>
-          <Image source={{ uri: item.teams.home.logo }} style={styles.image} />
+          {item.teams.home.logo ? (
+            <Image
+              source={{ uri: item.teams.home.logo }}
+              style={styles.image}
+            />
+          ) : (
+            <></>
+          )}
           <Text>{item.teams.home.name}</Text>
         </View>
-        <Text>vs</Text>
+        {item.goals.home === 0 || item.goals.home ? (
+          <Text>
+            {item.goals.home} : {item.goals.away}
+          </Text>
+        ) : (
+          <Text>vs</Text>
+        )}
         <View style={{ flexDirection: "row" }}>
-          <Image source={{ uri: item.teams.away.logo }} style={styles.image} />
+          {item.goals.home === 0 || item.teams.away.logo ? (
+            <Image
+              source={{ uri: item.teams.away.logo }}
+              style={styles.image}
+            />
+          ) : (
+            <></>
+          )}
           <Text>{item.teams.away.name}</Text>
         </View>
       </View>

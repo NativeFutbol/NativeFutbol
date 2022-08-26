@@ -1,21 +1,31 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import WorldMap from "../../components/WorldMap";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("countries");
-
   const [countriesData, setCountriesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [mapView, setMapView] = useState(true);
+  const season = useSelector((state) => state.season);
 
   const topFiveLeaguesCountries = [
     "France",
@@ -79,11 +89,69 @@ export default function AllCountriesScreen() {
           onSubmit={getCountries}
         />
         <Filters />
-        <SeasonFilter season={season} setSeason={setSeason} />
+        <SeasonFilterV2 />
       </View>
-      <View>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity onPress={() => setMapView(true)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              {
+                marginRight: 50,
+                backgroundColor: mapView ? "orangered" : "grey",
+              },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Map</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setMapView(false)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              { backgroundColor: mapView ? "grey" : "orangered" },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>List</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {mapView ? (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={{ height: "60%" }}
+        >
+          <ScrollView
+            horizontal={true}
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+          >
+            <WorldMap data={countriesData} />
+          </ScrollView>
+        </ScrollView>
+      ) : (
         <CategoryList data={countriesData} filter={filter} />
-      </View>
+      )}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    borderRadius: 20,
+    padding: 6,
+    marginBottom: 5,
+    width: 70,
+    alignItems: "center",
+  },
+});
+
+//
