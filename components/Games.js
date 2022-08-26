@@ -9,42 +9,115 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
-import { apiFootballDummyData } from "../constants/apiFootballDummyData";
-import Carousel from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 import GamesCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./GamesCard";
+import ModalDropdown from "react-native-modal-dropdown";
+import { Ionicons } from "@expo/vector-icons";
 
-export default function Games() {
-  const [games, setGames] = useState(apiFootballDummyData);
+export default function Games({ matchesData, label, setLeague }) {
+  const [games, setGames] = useState(matchesData);
 
-  //   const query = "";
-  //   const cateogry = "sports";
-  //   const pageSize = 20;
-  //   const country = "us";
-
-  //   const url = query
-  //     ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
-  //     : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
-
-  //   useEffect(() => {
-  //     getArticles();
-  //   }, []);
-
-  //   const getArticles = async () => {
-  //     try {
-  //       const res = await axios.get(url);
-  //       setArticles(res.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const [index, setIndex] = useState(0);
 
   const isCarousel = useRef(null);
 
+  const dropDownRef = useRef(null);
+
   return (
-    <View>
+    <View style={{ marginTop: 15 }}>
+      <View style={{ alignItems: "center" }}>
+        <View
+          style={{
+            backgroundColor: "white",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 3,
+            },
+            shadowOpacity: 0.29,
+            shadowRadius: 4.65,
+            elevation: 7,
+            borderRadius: 8,
+            width: "90%",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around",
+            }}
+          >
+            <View style={{ flexDirection: "row" }}>
+              <Image
+                source={{
+                  uri: games[0]?.league?.logo,
+                  width: 20,
+                  height: 20,
+                }}
+                style={{ marginRight: 5 }}
+              />
+              <TouchableOpacity onPress={() => dropDownRef.current.show()}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  {games[0]?.league?.name}
+                </Text>
+              </TouchableOpacity>
+
+              <ModalDropdown
+                ref={dropDownRef}
+                options={[
+                  "Premier League",
+                  "Bundesliga",
+                  "Ligue 1",
+                  "La Liga",
+                  "Serie A",
+                ]}
+                defaultValue={""}
+                style={{
+                  borderBottomWidth: 0.2,
+                  borderBottomColor: "orangered",
+                }}
+                textStyle={{
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  marginRight: 3,
+                }}
+                // dropdownStyle={{ height: 200 }}
+                dropdownTextStyle={{
+                  width: 200,
+                  fontSize: 15,
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+                onSelect={(idx, value) => {
+                  setLeague(value);
+                }}
+                renderRightComponent={() => (
+                  <Ionicons
+                    name="caret-down-sharp"
+                    color={"orangered"}
+                    size={16}
+                  />
+                )}
+              />
+            </View>
+
+            <Text
+              style={{
+                fontWeight: "bold",
+              }}
+            >
+              {label}
+            </Text>
+          </View>
+        </View>
+      </View>
       <Carousel
-        layout="tinder"
-        layoutCardOffset={9}
+        layout="stack"
+        layoutCardOffset={16}
         ref={isCarousel}
         data={games}
         renderItem={GamesCard}
@@ -54,10 +127,26 @@ export default function Games() {
         // itemHeight={ITEM_WIDTH}
         inactiveSlideShift={0}
         useScrollView={true}
+        onSnapToItem={(index) => setIndex(index)}
         // vertical={true}
-        // autoplay={true}
-        // lockScrollWhileSnapping={true}
-        // autoplayInterval={4000}
+        autoplay={true}
+        autoplayInterval={5000}
+      />
+
+      <Pagination
+        dotsLength={games.length}
+        activeDotIndex={index}
+        carouselRef={isCarousel}
+        dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 0,
+          backgroundColor: "rgba(0, 0, 0, 0.92)",
+        }}
+        inactiveDotOpacity={0.4}
+        inactiveDotScale={0.6}
+        tappableDots={true}
       />
     </View>
   );

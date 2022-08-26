@@ -9,12 +9,11 @@ import {
 import React, { useEffect, useRef, useState } from "react";
 import { NEWS_API_KEY } from "@env";
 import axios from "axios";
-import { apiNewsDummyData } from "../constants/apiNewsDummyData";
 import Carousel from "react-native-snap-carousel";
 import NewsCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./NewsCard";
 
-export default function News() {
-  const [articles, setArticles] = useState(apiNewsDummyData);
+export default function News({ newsData }) {
+  const [articles, setArticles] = useState(newsData);
 
   const query = "";
   const cateogry = "sports";

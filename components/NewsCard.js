@@ -25,12 +25,24 @@ const NewsCard = ({ item, index }) => {
 
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Text
-          style={{ fontSize: 12, paddingLeft: 10, margin: 5, marginTop: 1 }}
+          style={{
+            fontSize: 12,
+            paddingLeft: 10,
+            margin: 5,
+            marginTop: 1,
+            fontWeight: "500",
+          }}
         >
           Published: {publishedDate.toDateString()}
         </Text>
         <Text
-          style={{ fontSize: 12, paddingLeft: 10, margin: 5, marginTop: 1 }}
+          style={{
+            fontSize: 12,
+            paddingLeft: 10,
+            margin: 5,
+            marginTop: 1,
+            fontWeight: "500",
+          }}
         >
           {moment(publishedDate).fromNow()}
         </Text>
