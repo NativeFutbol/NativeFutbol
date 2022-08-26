@@ -21,6 +21,7 @@ export default function AllPlayersScreen() {
   const [league, setLeague] = useState(39);
   const [filter, setFilter] = useState("players");
   const [page, setPage] = useState(1);
+
   const [data, setData] = useState([
     {
       league: {
@@ -151,3 +152,5 @@ export default function AllPlayersScreen() {
     </SafeAreaView>
   );
 }
+
+//
