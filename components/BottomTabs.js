@@ -20,6 +20,9 @@ import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
 import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
+import CoachInfo from "../screens/stats/CoachInfo";
+import Venue from "../screens/stats/Venue";
+import Trophies from "../screens/stats/Trophies";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -31,6 +34,9 @@ const StatsStack = () => {
       <Stack.Screen name="AllLeagues" component={AllLeaguesScreen} />
       <Stack.Screen name="AllTeams" component={AllTeamsScreen} />
       <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
+      <Stack.Screen name="CoachInfo" component={CoachInfo} />
+      <Stack.Screen name="Venue" component={Venue} />
+      <Stack.Screen name="Trophies" component={Trophies} />
       <Stack.Screen
         name="SingleCountry"
         component={SingleCountryScreen}

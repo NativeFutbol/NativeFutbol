@@ -9,8 +9,11 @@ import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
+import CoachButton from "../../components/CoachButton";
+import VenueButton from "../../components/VenueButton";
+import TrophiesButton from "../../components/TrophiesButton";
 
-export default function AllTeamsScreen() {
+export default function SingleTeamScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
@@ -37,7 +40,6 @@ export default function AllTeamsScreen() {
       .request(options)
       .then(function (response) {
         setSingleTeamInfo(response.data.response[0].players);
-        console.log(response.data.response[0].players);
       })
       .catch(function (error) {
         console.error(error);
@@ -57,6 +59,19 @@ export default function AllTeamsScreen() {
         <View>
           <SeasonFilter season={season} setSeason={setSeason} />
         </View>
+      </View>
+      <View>
+        <CoachButton data={singleTeamInfo} text="Coach" screen="CoachInfo" />
+      </View>
+      <View>
+        <VenueButton data={singleTeamInfo} text="Venue" screen="Venue" />
+      </View>
+      <View>
+        <TrophiesButton
+          data={singleTeamInfo}
+          text="Trophies"
+          screen="Trophies"
+        />
       </View>
       <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
