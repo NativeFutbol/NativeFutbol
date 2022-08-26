@@ -24,7 +24,7 @@ export default function CoachCareer({ data }) {
               style={{
                 flexDirection: "row",
                 margin: 10,
-                backgroundColor: "lightgreen",
+                backgroundColor: "rgba(55, 55, 55, 0.5)",
               }}
             >
               <View>

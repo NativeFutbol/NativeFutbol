@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
     margin: 5,
-    backgroundColor: "lightblue",
+    backgroundColor: "white",
     alignItems: "center",
   },
   image: {
