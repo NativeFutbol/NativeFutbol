@@ -7,17 +7,24 @@ import {
   apiFootballDummyNextMatches,
 } from "../constants/apiFootballDummyData";
 import { ScrollView } from "react-native-gesture-handler";
-import { apiNewsDummyData } from "../constants/apiNewsDummyData";
+import {
+  apiNewsDummyData,
+  apiNewsDummyDataV2,
+} from "../constants/apiNewsDummyData";
 import axios from "axios";
 import LoadingOverlay from "../components/LoadingOverlay";
 import { FOOTBALL_API_KEY } from "@env";
 import { useSelector } from "react-redux";
+import { NEWS_API_KEY } from "@env";
 
 export default function HomeScreen() {
   const [league, setLeague] = useState("Premier League");
   const [isLoading, setIsLoading] = useState(false);
   const [nextGames, setNextGames] = useState(apiFootballDummyNextMatches);
   const [lastGames, setLastGames] = useState(apiFootballDummyLastMatches);
+
+  const [articles1, setArticles1] = useState(apiNewsDummyData);
+  const [articles2, setArticles2] = useState(apiNewsDummyDataV2);
 
   const myTeamsFilterOptions = useSelector(
     (state) => state.myTeamFilterOptions
@@ -72,12 +79,47 @@ export default function HomeScreen() {
         const lastMatches = matches[0].data.response;
         const nextMatches = matches[1].data.response;
 
-        setLastGames(lastMatches);
-        setNextGames(nextMatches);
+        if (
+          lastMatches &&
+          nextMatches &&
+          lastMatches.length &&
+          nextMatches.length
+        ) {
+          setLastGames(lastMatches);
+          setNextGames(nextMatches);
+        }
 
         setIsLoading(false);
       })
     );
+  };
+
+  const query = "";
+  const cateogry = "sports";
+  const pageSize = 20;
+  const country = "gb";
+
+  const url = query
+    ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
+    : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
+
+  useEffect(() => {
+    getArticles();
+  }, []);
+
+  const getArticles = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get(url);
+      setArticles2(res.data);
+      if (res && res?.data && res?.data?.length) {
+        console.log("*** inside!");
+        // setArticles1(res.data);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (isLoading) {
@@ -97,8 +139,8 @@ export default function HomeScreen() {
           label={"<Recent FT Matches>"}
           setLeague={setLeague}
         />
-        <News newsData={apiNewsDummyData} />
-        <News newsData={apiNewsDummyData} />
+        <News newsData={articles1} />
+        <News newsData={articles2} />
       </ScrollView>
     </View>
   );

@@ -14,32 +14,25 @@ const NewsCard = ({ item, index }) => {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          flexGrow: 1,
           margin: 9,
           marginBottom: 0,
         }}
       >
-        <View
-          style={{
-            flexDirection: "row",
-            flex: 1,
-          }}
-        >
-          <View>
-            <Text style={styles.header}>{item.title}</Text>
-            <Hyperlink
-              style={{ paddingLeft: 10 }}
-              linkDefault={true}
-              linkStyle={{
-                color: "orangered",
-                fontSize: 13,
-                fontWeight: "bold",
-              }}
-              linkText={(url) => (url === item.url ? "Full Article" : url)}
-            >
-              <Text>{item.url}</Text>
-            </Hyperlink>
-          </View>
+        <View>
+          <Text style={styles.header}>{item.title}</Text>
+          <Hyperlink
+            style={{ paddingLeft: 10 }}
+            linkDefault={true}
+            linkStyle={{
+              color: "orangered",
+              fontSize: 13,
+              fontWeight: "bold",
+            }}
+            linkText={(url) => (url === item.url ? "Full Article" : url)}
+          >
+            <Text>{item.url}</Text>
+          </Hyperlink>
         </View>
         <Image source={{ uri: item.urlToImage }} style={styles.image} />
       </View>
@@ -98,7 +91,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     paddingLeft: 10,
-    width: "50%",
+    width: 250,
     flex: 1,
   },
   body: {

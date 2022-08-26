@@ -15,8 +15,6 @@ import ModalDropdown from "react-native-modal-dropdown";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function Games({ matchesData, label, setLeague }) {
-  const [games, setGames] = useState(matchesData);
-
   const [index, setIndex] = useState(0);
 
   const isCarousel = useRef(null);
@@ -50,7 +48,7 @@ export default function Games({ matchesData, label, setLeague }) {
             <View style={{ flexDirection: "row" }}>
               <Image
                 source={{
-                  uri: games[0]?.league?.logo,
+                  uri: matchesData[0]?.league?.logo,
                   width: 20,
                   height: 20,
                 }}
@@ -62,7 +60,7 @@ export default function Games({ matchesData, label, setLeague }) {
                     fontWeight: "bold",
                   }}
                 >
-                  {games[0]?.league?.name}
+                  {matchesData[0]?.league?.name}
                 </Text>
               </TouchableOpacity>
 
@@ -119,7 +117,7 @@ export default function Games({ matchesData, label, setLeague }) {
         layout="stack"
         layoutCardOffset={16}
         ref={isCarousel}
-        data={games}
+        data={matchesData}
         renderItem={GamesCard}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
@@ -134,7 +132,7 @@ export default function Games({ matchesData, label, setLeague }) {
       />
 
       <Pagination
-        dotsLength={games.length}
+        dotsLength={matchesData.length}
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{
