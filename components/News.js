@@ -29,9 +29,8 @@ export default function News({ newsData }) {
         inactiveSlideShift={0}
         useScrollView={true}
         // vertical={true}
-        // autoplay={true}
-        // lockScrollWhileSnapping={true}
-        // autoplayInterval={4000}
+        autoplay={true}
+        autoplayInterval={5000}
       />
     </View>
   );

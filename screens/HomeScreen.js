@@ -94,25 +94,53 @@ export default function HomeScreen() {
     );
   };
 
-  const query = "";
-  const cateogry = "sports";
-  const pageSize = 20;
-  const country = "gb";
-
-  const url = query
-    ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
-    : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&country=${country}&apiKey=${NEWS_API_KEY}`;
-
   useEffect(() => {
-    getArticles();
+    getArticles1();
   }, []);
 
-  const getArticles = async () => {
+  const getArticles1 = async () => {
+    const query = "";
+    const cateogry = "sports";
+    const pageSize = 40;
+    const page = 1;
+    const country = "gb";
+
+    const url = query
+      ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&page=${page}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
+      : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&page=${page}&country=${country}&apiKey=${NEWS_API_KEY}`;
+
     try {
       setIsLoading(true);
       const res = await axios.get(url);
       if (res && res?.data && res?.data?.articles.length) {
         setArticles1(res.data);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getArticles2();
+  }, []);
+
+  const getArticles2 = async () => {
+    const query = "";
+    const cateogry = "sports";
+    const pageSize = 40;
+    const page = 2;
+    const country = "gb";
+
+    const url = query
+      ? `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&page=${page}&country=${country}&q=${query}&apiKey=${NEWS_API_KEY}`
+      : `https://newsapi.org/v2/top-headlines?category=${cateogry}&pageSize=${pageSize}&page=${page}&country=${country}&apiKey=${NEWS_API_KEY}`;
+
+    try {
+      setIsLoading(true);
+      const res = await axios.get(url);
+      if (res && res?.data && res?.data?.articles.length) {
+        setArticles2(res.data);
       }
       setIsLoading(false);
     } catch (error) {
@@ -145,4 +173,3 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({});
-//

@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ScrollView } from "react-native-gesture-handler";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -17,7 +18,6 @@ import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import WorldMap from "../../components/WorldMap";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -26,6 +26,7 @@ export default function AllCountriesScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [mapView, setMapView] = useState(true);
   const season = useSelector((state) => state.season);
+  const singleScreenData = useSelector((state) => state.singleScreenData);
 
   const topFiveLeaguesCountries = [
     "France",
@@ -125,18 +126,21 @@ export default function AllCountriesScreen() {
       </View>
 
       {mapView ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ height: "60%" }}
-        >
+        <View>
           <ScrollView
-            horizontal={true}
-            bounces={false}
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            style={{ height: "35%" }}
           >
-            <WorldMap data={countriesData} />
+            <ScrollView
+              horizontal={true}
+              bounces={false}
+              showsHorizontalScrollIndicator={false}
+            >
+              <WorldMap data={countriesData} filter={filter} />
+            </ScrollView>
           </ScrollView>
-        </ScrollView>
+          <CategoryList data={[singleScreenData.country]} filter={filter} />
+        </View>
       ) : (
         <CategoryList data={countriesData} filter={filter} />
       )}
