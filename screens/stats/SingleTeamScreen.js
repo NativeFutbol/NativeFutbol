@@ -77,3 +77,5 @@ export default function SingleTeamScreen() {
     </SafeAreaView>
   );
 }
+
+//1
