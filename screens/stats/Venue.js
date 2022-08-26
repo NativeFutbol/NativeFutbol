@@ -59,6 +59,7 @@ export default function VenueScreen() {
             alignSelf: "center",
             fontSize: 18,
             fontWeight: "bold",
+            marigin: 10,
           }}
         >
           Name:{venueInfo?.name}
@@ -114,7 +115,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: "center",
 
-    backgroundColor: "white",
     alignItems: "center",
   },
   image: {

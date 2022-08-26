@@ -15,7 +15,9 @@ export default function TrophiesButton({ data, text, screen }) {
       }}
       onPress={() => navigation.navigate(screen, data)}
     >
-      <Text style={{ fontWeight: "bold", fontSize: 13, color: "white" }}>
+      <Text
+        style={{ fontWeight: "bold", fontSize: 16, color: "white", padding: 3 }}
+      >
         {text}
       </Text>
     </TouchableOpacity>
