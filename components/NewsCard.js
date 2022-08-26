@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions, Image } from "react-native";
 import moment from "moment";
+import Hyperlink from "react-native-hyperlink";
 
 export const SLIDER_WIDTH = Dimensions.get("window").width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1.13);
@@ -18,7 +19,28 @@ const NewsCard = ({ item, index }) => {
           marginBottom: 0,
         }}
       >
-        <Text style={styles.header}>{item.title}</Text>
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+          }}
+        >
+          <View>
+            <Text style={styles.header}>{item.title}</Text>
+            <Hyperlink
+              style={{ paddingLeft: 10 }}
+              linkDefault={true}
+              linkStyle={{
+                color: "orangered",
+                fontSize: 13,
+                fontWeight: "bold",
+              }}
+              linkText={(url) => (url === item.url ? "Full Article" : url)}
+            >
+              <Text>{item.url}</Text>
+            </Hyperlink>
+          </View>
+        </View>
         <Image source={{ uri: item.urlToImage }} style={styles.image} />
       </View>
       <Text style={styles.body}>{item.content}</Text>
@@ -56,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 8,
     width: "70%",
-    margin: 10,
+    margin: 6,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -82,7 +104,7 @@ const styles = StyleSheet.create({
   body: {
     color: "#222",
     fontSize: 14,
-    margin: 5,
+    margin: 6,
     paddingLeft: 10,
   },
 });
