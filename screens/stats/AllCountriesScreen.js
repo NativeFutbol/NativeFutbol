@@ -143,7 +143,6 @@ export default function AllCountriesScreen() {
     </SafeAreaView>
   );
 }
-// comment
 
 const styles = StyleSheet.create({
   buttonContainer: {
