@@ -30,11 +30,51 @@ const Stack = createNativeStackNavigator();
 const StatsStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="AllCountries" component={AllCountriesScreen} />
-      <Stack.Screen name="AllLeagues" component={AllLeaguesScreen} />
-      <Stack.Screen name="AllTeams" component={AllTeamsScreen} />
-      <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
-      <Stack.Screen name="CoachInfo" component={CoachInfo} />
+      <Stack.Screen
+        name="AllCountries"
+        component={AllCountriesScreen}
+        options={() => {
+          return {
+            title: "All Countries",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllLeagues"
+        component={AllLeaguesScreen}
+        options={() => {
+          return {
+            title: "All Leagues",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllTeams"
+        component={AllTeamsScreen}
+        options={() => {
+          return {
+            title: "All Teams",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllPlayers"
+        component={AllPlayersScreen}
+        options={() => {
+          return {
+            title: "All Players",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="CoachInfo"
+        component={CoachInfo}
+        options={() => {
+          return {
+            title: "Current Coach Info",
+          };
+        }}
+      />
       <Stack.Screen name="Venue" component={Venue} />
       <Stack.Screen name="Trophies" component={Trophies} />
       <Stack.Screen
