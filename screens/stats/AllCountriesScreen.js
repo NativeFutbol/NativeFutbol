@@ -1,6 +1,12 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -16,9 +22,9 @@ import { ScrollView } from "react-native-gesture-handler";
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("countries");
-
   const [countriesData, setCountriesData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [mapView, setMapView] = useState(true);
   const season = useSelector((state) => state.season);
 
   const topFiveLeaguesCountries = [
@@ -85,16 +91,65 @@ export default function AllCountriesScreen() {
         <Filters />
         <SeasonFilterV2 />
       </View>
-      <ScrollView>
+
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity onPress={() => setMapView(true)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              {
+                marginRight: 50,
+                backgroundColor: mapView ? "orangered" : "grey",
+              },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Map</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setMapView(false)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              { backgroundColor: mapView ? "grey" : "orangered" },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>List</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+
+      {mapView ? (
         <ScrollView
-          horizontal={true}
-          bounces={false}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          style={{ height: "60%" }}
         >
-          <WorldMap data={countriesData} />
+          <ScrollView
+            horizontal={true}
+            bounces={false}
+            showsHorizontalScrollIndicator={false}
+          >
+            <WorldMap data={countriesData} />
+          </ScrollView>
         </ScrollView>
+      ) : (
         <CategoryList data={countriesData} filter={filter} />
-      </ScrollView>
+      )}
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    borderRadius: 20,
+    padding: 6,
+    marginBottom: 5,
+    width: 70,
+    alignItems: "center",
+  },
+});
