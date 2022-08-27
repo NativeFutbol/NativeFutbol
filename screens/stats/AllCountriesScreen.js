@@ -149,7 +149,7 @@ export default function AllCountriesScreen() {
               />
             </ScrollView>
           </ScrollView>
-          <Text style={{ fontSize: 16 }}>
+          <Text style={{ fontSize: 16, marginLeft: 10 }}>
             Selected country will appear below. Press to be redirected to the
             country's page!
           </Text>
