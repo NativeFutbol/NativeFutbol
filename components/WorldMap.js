@@ -57,7 +57,7 @@ export default function WorldMap(props) {
           : isFrance
           ? "425 270 252.5 166.5"
           : isSpain
-          ? "410 295 252.5 166.5"
+          ? "410 303 252.5 166.5"
           : isEngland
           ? "410 235 252.5 166.5"
           : "0 0 1009.673 665.963"
@@ -413,6 +413,13 @@ export default function WorldMap(props) {
       <Path
         fill={isSpain ? "green" : "red"}
         onPress={() => {
+          props.horiScrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          props.vertiScrollRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+          });
+
           setIsFrance(false);
           setIsItaly(false);
           setIsGermany(false);
@@ -457,6 +464,13 @@ export default function WorldMap(props) {
       <Path
         fill={isFrance ? "green" : "red"}
         onPress={() => {
+          props.horiScrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          props.vertiScrollRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+          });
+
           setIsFrance(true);
           setIsItaly(false);
           setIsGermany(false);
@@ -476,6 +490,13 @@ export default function WorldMap(props) {
       <Path
         fill={isEngland ? "green" : "red"}
         onPress={() => {
+          props.horiScrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          props.vertiScrollRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+          });
+
           setIsFrance(false);
           setIsItaly(false);
           setIsGermany(false);
