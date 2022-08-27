@@ -1,8 +1,9 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { setSingleScreenData } from "../store/singleScreenData";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function WorldMap(props) {
   const [isFrance, setIsFrance] = React.useState(false);
@@ -12,6 +13,20 @@ export default function WorldMap(props) {
   const [isEngland, setIsEngland] = React.useState(false);
   const dispatch = useDispatch();
 
+  //   const isFocused = useIsFocused();
+  //   useEffect(() => {
+  //     props.horiScrollRef.current?.scrollTo({
+  //       x: 400,
+  //       y: 0,
+  //       animated: true,
+  //     });
+  //     props.vertiScrollRef.current?.scrollTo({
+  //       x: 0,
+  //       y: 150,
+  //       animated: true,
+  //     });
+  //   }, [isFocused]);
+
   return (
     <Svg
       xmlnsMapsvg="http://mapsvg.com"
@@ -20,6 +35,33 @@ export default function WorldMap(props) {
       width={1009.673}
       height={665.963}
       stroke="white"
+      onPress={() => {
+        props.horiScrollRef.current?.scrollTo({ x: 400, y: 0, animated: true });
+        props.vertiScrollRef.current?.scrollTo({
+          x: 0,
+          y: 150,
+          animated: true,
+        });
+
+        setIsFrance(false);
+        setIsItaly(false);
+        setIsGermany(false);
+        setIsSpain(false);
+        setIsEngland(false);
+      }}
+      viewBox={
+        isGermany
+          ? "450 250 252.5 166.5"
+          : isItaly
+          ? "455 285 252.5 166.5"
+          : isFrance
+          ? "425 270 252.5 166.5"
+          : isSpain
+          ? "410 295 252.5 166.5"
+          : isEngland
+          ? "410 235 252.5 166.5"
+          : "0 0 1009.673 665.963"
+      }
       {...props}
     >
       <Path
@@ -300,6 +342,13 @@ export default function WorldMap(props) {
       <Path
         fill={isGermany ? "green" : "red"}
         onPress={() => {
+          props.horiScrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          props.vertiScrollRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+          });
+
           setIsFrance(false);
           setIsItaly(false);
           setIsGermany(true);
