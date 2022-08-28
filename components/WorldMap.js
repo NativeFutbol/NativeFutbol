@@ -676,6 +676,13 @@ export default function WorldMap(props) {
       <Path
         fill={isItaly ? "green" : "red"}
         onPress={() => {
+          props.horiScrollRef.current?.scrollTo({ x: 0, y: 0, animated: true });
+          props.vertiScrollRef.current?.scrollTo({
+            x: 0,
+            y: 0,
+            animated: true,
+          });
+
           setIsFrance(false);
           setIsItaly(true);
           setIsGermany(false);
