@@ -31,7 +31,7 @@ export default function CategoryList({ data, filter }) {
     if (isFocused) {
       flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     }
-  });
+  }, [isFocused]);
 
   return (
     <FlatList

@@ -1,6 +1,5 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
-import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { setSingleScreenData } from "../store/singleScreenData";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -13,19 +12,20 @@ export default function WorldMap(props) {
   const [isEngland, setIsEngland] = React.useState(false);
   const dispatch = useDispatch();
 
-  //   const isFocused = useIsFocused();
-  //   useEffect(() => {
-  //     props.horiScrollRef.current?.scrollTo({
-  //       x: 400,
-  //       y: 0,
-  //       animated: true,
-  //     });
-  //     props.vertiScrollRef.current?.scrollTo({
-  //       x: 0,
-  //       y: 150,
-  //       animated: true,
-  //     });
-  //   }, [isFocused]);
+  useEffect(() => {
+    setTimeout(() => {
+      props.horiScrollRef.current?.scrollTo({
+        x: 400,
+        y: 0,
+        animated: true,
+      });
+      props.vertiScrollRef.current?.scrollTo({
+        x: 0,
+        y: 150,
+        animated: true,
+      });
+    }, 0);
+  }, []);
 
   return (
     <Svg
