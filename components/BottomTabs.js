@@ -23,6 +23,7 @@ import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import Trophies from "../screens/stats/Trophies";
+import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -77,6 +78,7 @@ const StatsStack = () => {
       />
       <Stack.Screen name="Venue" component={Venue} />
       <Stack.Screen name="Trophies" component={Trophies} />
+      <Stack.Screen name="TopPlayersScreen" component={TopPlayersScreen} />
       <Stack.Screen
         name="SingleCountry"
         component={SingleCountryScreen}
