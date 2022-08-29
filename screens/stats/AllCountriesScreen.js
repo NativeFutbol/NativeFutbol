@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -27,6 +27,9 @@ export default function AllCountriesScreen() {
   const [mapView, setMapView] = useState(true);
   const season = useSelector((state) => state.season);
   const singleScreenData = useSelector((state) => state.singleScreenData);
+
+  const horiScrollRef = useRef();
+  const vertiScrollRef = useRef();
 
   const topFiveLeaguesCountries = [
     "France",
@@ -129,16 +132,27 @@ export default function AllCountriesScreen() {
         <View>
           <ScrollView
             showsVerticalScrollIndicator={false}
-            style={{ height: "35%" }}
+            style={{ height: "31%" }}
+            ref={vertiScrollRef}
           >
             <ScrollView
               horizontal={true}
               bounces={false}
               showsHorizontalScrollIndicator={false}
+              ref={horiScrollRef}
             >
-              <WorldMap data={countriesData} filter={filter} />
+              <WorldMap
+                data={countriesData}
+                filter={filter}
+                vertiScrollRef={vertiScrollRef}
+                horiScrollRef={horiScrollRef}
+              />
             </ScrollView>
           </ScrollView>
+          <Text style={{ fontSize: 16, marginLeft: 10 }}>
+            Selected country will appear below. Press to be redirected to the
+            country's page!
+          </Text>
           <CategoryList data={[singleScreenData.country]} filter={filter} />
         </View>
       ) : (
@@ -157,5 +171,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//

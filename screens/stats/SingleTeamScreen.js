@@ -56,22 +56,31 @@ export default function SingleTeamScreen() {
           onSubmit={getTeamInfo}
         />
         <Filters />
-        <View>
-          <SeasonFilter season={season} setSeason={setSeason} />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-evenly",
+            margin: 5,
+          }}
+        >
+          <View>
+            <CoachButton
+              data={singleTeamInfo}
+              text="Coach"
+              screen="CoachInfo"
+            />
+          </View>
+          <View>
+            <VenueButton data={singleTeamInfo} text="Venue" screen="Venue" />
+          </View>
+          <View>
+            <TrophiesButton
+              data={singleTeamInfo}
+              text="Trophies"
+              screen="Trophies"
+            />
+          </View>
         </View>
-      </View>
-      <View>
-        <CoachButton data={singleTeamInfo} text="Coach" screen="CoachInfo" />
-      </View>
-      <View>
-        <VenueButton data={singleTeamInfo} text="Venue" screen="Venue" />
-      </View>
-      <View>
-        <TrophiesButton
-          data={singleTeamInfo}
-          text="Trophies"
-          screen="Trophies"
-        />
       </View>
       <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
