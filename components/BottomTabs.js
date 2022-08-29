@@ -23,6 +23,7 @@ import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import Trophies from "../screens/stats/Trophies";
+import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
 
 const Tab = createBottomTabNavigator();
@@ -233,6 +234,31 @@ const StatsStack = () => {
 
           return {
             title: name + " Red/Yellow Cards " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
+
+      <Stack.Screen
+        name="LeagueCharts"
+        component={LeagueCharts}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            title: "League Charts",
             headerTitleStyle: {
               fontSize: 13,
               fontWeight: "bold",
