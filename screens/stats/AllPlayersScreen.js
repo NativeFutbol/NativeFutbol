@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -53,6 +54,7 @@ export default function AllPlayersScreen() {
     },
   ]);
 
+  const navigation = useNavigation();
   const options = {
     method: "GET",
     url: `https://v3.football.api-sports.io/${filter}`,
@@ -123,8 +125,39 @@ export default function AllPlayersScreen() {
       </View>
       <View
         style={{
+          alignItems: "center",
+          justifyContent: "center",
+          width: "100%",
+          height: 50,
           flexDirection: "row",
-          marginTop: 5,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("TopPlayersScreen", {
+              league: league,
+              season: season,
+            })
+          }
+        >
+          <View
+            style={{
+              borderWidth: 1,
+              width: 100,
+              height: "80%",
+              justifyContent: "center",
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ textAlign: "center", textAlignVertical: "center" }}>
+              Top Players
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
           justifyContent: "center",
         }}
       >
