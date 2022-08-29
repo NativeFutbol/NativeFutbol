@@ -249,7 +249,7 @@ export default function LeagueCharts({ route }) {
           border: { stroke: "black" },
           title: { fontSize: 12, fontWeight: "bold" },
           labels: { fontSize: 10, fontWeight: "bold" },
-          data: { size: 15 },
+          data: { size: 15, padding: 10 },
         }}
         dataComponent={<Legend />}
         data={legends}
