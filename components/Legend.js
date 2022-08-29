@@ -3,7 +3,6 @@ import React from "react";
 import { Image } from "react-native-svg";
 
 export default function Legend({ x, y, datum }) {
-  console.log(x, y);
   return (
     <Image
       x={x - 8}

@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   VictoryLine,
+  VictoryAxis,
   VictoryScatter,
   VictoryChart,
   VictoryTheme,
@@ -73,12 +74,13 @@ const legendDummyData = [
 export default function LeagueCharts({ route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [standings, setStandings] = useState([]);
+  const [legends, setLegends] = useState([]);
 
   const leagueId = route.params?.id;
 
-  //   useEffect(() => {
-  //     getHistoricalStandings();
-  //   }, []);
+  useEffect(() => {
+    getHistoricalStandings();
+  }, []);
 
   const getHistoricalStandings = () => {
     setIsLoading(true);
@@ -158,10 +160,38 @@ export default function LeagueCharts({ route }) {
               };
             }),
           ];
-          const manULeagueStandings = standingsByYear.filter(
-            (team) => +team.id === +33
+
+          const Year2TopSixTeams = Year2.filter((team) => +team.rank <= 6).map(
+            (team) => team.team.id
           );
-          setStandings(manULeagueStandings);
+
+          // const manULeagueStandings = standingsByYear.filter(
+          //   (team) => +team.id === +33
+          // );
+
+          const filteredStandingsByYear = standingsByYear.filter((team) =>
+            Year2TopSixTeams.includes(team.id)
+          );
+
+          const uniqueTeamIds = new Set();
+
+          const standingsByYearLegends = filteredStandingsByYear.filter(
+            (team) => {
+              const isDuplicate = uniqueTeamIds.has(team.id);
+
+              uniqueTeamIds.add(team.id);
+
+              if (!isDuplicate) {
+                return true;
+              }
+
+              return false;
+            }
+          );
+
+          setLegends(standingsByYearLegends);
+          setStandings(filteredStandingsByYear);
+
           setIsLoading(false);
         })
       );
@@ -182,32 +212,47 @@ export default function LeagueCharts({ route }) {
         // range={{ x: [2019, 2022], y: [1, 20] }}
       >
         <VictoryScatter
-          size={5}
+          size={10}
           style={{
             data: { stroke: "#c43a31" },
             parent: { border: "1px solid #ccc" },
           }}
-          data={dummyData}
-          //   labelComponent={<VictoryLabel dy={-4} />}
+          data={standings}
+          // labelComponent={<VictoryLabel dy={-4} />}
           dataComponent={<Logo />}
           categories={{ x: ["2019", "2020", "2021", "2022"] }}
+        />
+        <VictoryAxis
+          label="Year"
+          style={{
+            axisLabel: { fontSize: 13, padding: 35, fontWeight: "bold" },
+            grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+          }}
+        />
+        <VictoryAxis
+          dependentAxis
+          label="Rank"
+          style={{
+            axisLabel: { fontSize: 13, padding: 30, fontWeight: "bold" },
+            grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+          }}
         />
       </VictoryChart>
       <VictoryLegend
         x={30}
         y={20}
-        title="Legend"
+        title="Legends"
         centerTitle
-        orientation="horizontal"
+        orientation="vertical"
         gutter={30}
         style={{
           border: { stroke: "black" },
-          title: { fontSize: 15 },
-          labels: { fontSize: 12 },
+          title: { fontSize: 12, fontWeight: "bold" },
+          labels: { fontSize: 10, fontWeight: "bold" },
           data: { size: 15 },
         }}
         dataComponent={<Legend />}
-        data={legendDummyData}
+        data={legends}
       />
     </View>
   );
