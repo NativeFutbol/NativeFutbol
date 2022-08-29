@@ -18,6 +18,8 @@ export default function AllTeamsScreen() {
   const [allTeamData, setAllTeamData] = useState([]);
   const [league, setLeague] = useState("39");
 
+  console.log("league.....", league);
+
   useEffect(() => {
     getTeams();
   }, [league, season]);
@@ -41,7 +43,7 @@ export default function AllTeamsScreen() {
         console.error(error);
       });
   };
-
+  console.log("dddd", allTeamData);
   return (
     <SafeAreaView>
       <View
