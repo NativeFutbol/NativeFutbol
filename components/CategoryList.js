@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { SvgUri } from "react-native-svg";
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useRef } from "react";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { setSingleScreenData } from "../store/singleScreenData";
 import { useDispatch } from "react-redux";
 
@@ -25,8 +25,17 @@ export default function CategoryList({ data, filter }) {
 
   const dispatch = useDispatch();
 
+  const flatListRef = useRef();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if (isFocused) {
+      flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+    }
+  });
+
   return (
     <FlatList
+      ref={flatListRef}
       numColumns={2}
       keyExtractor={(item, index) => index.toString()}
       ListFooterComponent={<View style={{ height: 500 }} />}
