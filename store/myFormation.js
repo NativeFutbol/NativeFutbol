@@ -14,9 +14,12 @@ const myFormationSlice = createSlice({
       state.Midfielder = payload[2];
       state.Defender = payload[4];
     },
+    setMyFormationStore: (state, { payload }) => {
+      return payload;
+    },
   },
 });
 
-export const { setMyFormation } = myFormationSlice.actions;
+export const { setMyFormation, setMyFormationStore } = myFormationSlice.actions;
 
 export default myFormationSlice.reducer;

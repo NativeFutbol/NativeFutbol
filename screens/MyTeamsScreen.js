@@ -6,7 +6,8 @@ import PlayersList from "../components/PlayerList";
 import DropDownFilter from "../components/DropDownFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTeams } from "../store/myTeamFilterOptions";
-import { resetMyPlayer } from "../store/myPlayers";
+import { resetMyPlayer, setMyPlayersStore } from "../store/myPlayers";
+import { setMyFormationStore } from "../store/myFormation";
 import FormationOption from "../components/FormationOption";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "react-native-dynamic-search-bar";
@@ -55,17 +56,32 @@ export default function MyTeamsScreen() {
   });
 
   const saveChanges = () => {
-    db.collection("User Information").doc(currentUser.uid).update({
-      myFormation,
-      myPlayers,
-    });
+    db.collection("User Information")
+      .doc(currentUser.uid)
+      .update({
+        myFormation,
+        myPlayers,
+      })
+      .catch((error) => alert(error.message));
   };
 
   useEffect(() => {
-    console.log("myformation", myFormation);
-    console.log("myplayers", myPlayers);
-    console.log("current user", currentUser);
-  }, [myFormation, myPlayers, currentUser]);
+    db.collection("User Information")
+      .doc(currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.data()) {
+          dispatch(setMyFormationStore(snapshot.data()?.myFormation));
+          dispatch(setMyPlayersStore(snapshot.data()?.myPlayers));
+          console.log("my formation", myFormation);
+          console.log("my players", myPlayers);
+          console.log("snapshot", snapshot.data());
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => alert(error.message));
+  }, [currentUser]);
 
   return (
     <View style={styles.container}>
