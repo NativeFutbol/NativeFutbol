@@ -243,9 +243,8 @@ export default function SingleLeagueScreen() {
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
           alignItems: "center",
-          marginHorizontal: 30,
+          marginLeft: 5,
           zIndex: -1,
         }}
       >
@@ -253,7 +252,7 @@ export default function SingleLeagueScreen() {
           {league.logo === "" ? (
             <></>
           ) : (
-            <Image source={{ uri: league.logo, width: 50, height: 50 }} />
+            <Image source={{ uri: league.logo, width: 40, height: 40 }} />
           )}
           <Text style={{ fontWeight: "bold" }}>{league.name}</Text>
         </View>
@@ -312,7 +311,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    marginRight: 25,
   },
 });
 //
