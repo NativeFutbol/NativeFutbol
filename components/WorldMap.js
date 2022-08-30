@@ -50,6 +50,8 @@ export default function WorldMap(props) {
         setIsGermany(false);
         setIsSpain(false);
         setIsEngland(false);
+
+        dispatch(setSingleScreenData({ name: " " }));
       }}
       viewBox={
         isGermany
