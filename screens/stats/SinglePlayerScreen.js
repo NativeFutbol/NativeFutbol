@@ -554,7 +554,6 @@ function DisplayPlayer(props) {
                         stats2021?.cards?.red,
                         stats2022?.cards?.red,
                       ],
-                      color: (opacity = 1) => `rgba(200, 0, 0, ${opacity})`,
                     },
                   ],
                 }}
@@ -607,7 +606,6 @@ function DisplayPlayer(props) {
                         stats2021?.cards?.yellow,
                         stats2022?.cards?.yellow,
                       ],
-                      color: (opacity = 1) => `rgba(200, 0, 0, ${opacity})`,
                     },
                   ],
                 }}

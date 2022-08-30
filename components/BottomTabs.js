@@ -23,6 +23,8 @@ import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import Trophies from "../screens/stats/Trophies";
+import LeagueCharts from "../screens/stats/LeagueCharts";
+import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -30,13 +32,54 @@ const Stack = createNativeStackNavigator();
 const StatsStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="AllCountries" component={AllCountriesScreen} />
-      <Stack.Screen name="AllLeagues" component={AllLeaguesScreen} />
-      <Stack.Screen name="AllTeams" component={AllTeamsScreen} />
-      <Stack.Screen name="AllPlayers" component={AllPlayersScreen} />
-      <Stack.Screen name="CoachInfo" component={CoachInfo} />
+      <Stack.Screen
+        name="AllCountries"
+        component={AllCountriesScreen}
+        options={() => {
+          return {
+            title: "All Countries",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllLeagues"
+        component={AllLeaguesScreen}
+        options={() => {
+          return {
+            title: "All Leagues",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllTeams"
+        component={AllTeamsScreen}
+        options={() => {
+          return {
+            title: "All Teams",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="AllPlayers"
+        component={AllPlayersScreen}
+        options={() => {
+          return {
+            title: "All Players",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="CoachInfo"
+        component={CoachInfo}
+        options={() => {
+          return {
+            title: "Current Coach Info",
+          };
+        }}
+      />
       <Stack.Screen name="Venue" component={Venue} />
       <Stack.Screen name="Trophies" component={Trophies} />
+      <Stack.Screen name="TopPlayersScreen" component={TopPlayersScreen} />
       <Stack.Screen
         name="SingleCountry"
         component={SingleCountryScreen}
@@ -191,6 +234,48 @@ const StatsStack = () => {
 
           return {
             title: name + " Red/Yellow Cards " + " - " + season,
+            headerTitleStyle: {
+              fontSize: 13,
+              fontWeight: "bold",
+            },
+            headerRight: () => {
+              return (
+                <View>
+                  <Image source={{ uri: logo, width: 20, height: 20 }} />
+                </View>
+              );
+            },
+          };
+        }}
+      />
+
+      <Stack.Screen
+        name="LeagueCharts"
+        component={LeagueCharts}
+        options={({ route }) => {
+          const season = route.params.season;
+          const name = route.params.name;
+          const logo = route.params.logo;
+
+          return {
+            // title: "League - Standings/Total Points - Last 4 Years ",
+            headerTitle: () => (
+              <View style={{ height: 100 }}>
+                <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+                  {`${name} (Last 4 yrs)`}
+                </Text>
+                <View style={{ marginTop: 3 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+                    {`Standings / Total Points Trend`}
+                  </Text>
+                </View>
+                {/* <View style={{ marginTop: 3 }}>
+                  <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+                    (Last 4 Years)
+                  </Text>
+                </View> */}
+              </View>
+            ),
             headerTitleStyle: {
               fontSize: 13,
               fontWeight: "bold",

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
+    "@expo/webpack-config": "^0.17.2",
     "@freakycoder/react-native-bounceable": "^1.0.3",
     "@gorhom/bottom-sheet": "^4.4.3",
     "@react-native-async-storage/async-storage": "~1.17.3",
@@ -24,9 +25,9 @@
     "metro-react-native-babel-preset": "^0.72.1",
     "moment": "^2.29.4",
     "react": "18.0.0",
-    "react-native": "0.69.4",
-    "react-native-chart-kit": "^6.12.0",
+    "react-native": "0.69.5",
     "react-native-animated-spinkit": "^1.5.2",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-dotenv": "^3.3.1",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-dynamic-search-bar": "github:WrathChaos/react-native-dynamic-search-bar#expo",
@@ -40,10 +41,13 @@
     "react-native-screens": "~3.15.0",
     "react-native-snap-carousel": "^4.0.0-beta.6",
     "react-native-svg": "^9.13.3",
+    "react-native-timeline-flatlist": "^0.8.0",
     "react-native-vector-icons": "^9.2.0",
+    "react-native-web": "^0.18.8",
     "react-navigation": "^4.4.4",
     "react-redux": "^8.0.2",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "victory-native": "^36.6.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

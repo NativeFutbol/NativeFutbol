@@ -7,8 +7,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { ScrollView } from "react-native-gesture-handler";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -17,7 +18,6 @@ import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import WorldMap from "../../components/WorldMap";
-import { ScrollView } from "react-native-gesture-handler";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
@@ -26,6 +26,10 @@ export default function AllCountriesScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [mapView, setMapView] = useState(true);
   const season = useSelector((state) => state.season);
+  const singleScreenData = useSelector((state) => state.singleScreenData);
+
+  const horiScrollRef = useRef();
+  const vertiScrollRef = useRef();
 
   const topFiveLeaguesCountries = [
     "France",
@@ -125,18 +129,32 @@ export default function AllCountriesScreen() {
       </View>
 
       {mapView ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ height: "60%" }}
-        >
+        <View>
           <ScrollView
-            horizontal={true}
-            bounces={false}
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            style={{ height: "31%" }}
+            ref={vertiScrollRef}
           >
-            <WorldMap data={countriesData} />
+            <ScrollView
+              horizontal={true}
+              bounces={false}
+              showsHorizontalScrollIndicator={false}
+              ref={horiScrollRef}
+            >
+              <WorldMap
+                data={countriesData}
+                filter={filter}
+                vertiScrollRef={vertiScrollRef}
+                horiScrollRef={horiScrollRef}
+              />
+            </ScrollView>
           </ScrollView>
-        </ScrollView>
+          <Text style={{ fontSize: 16, marginLeft: 10 }}>
+            Selected country will appear below. Press to be redirected to the
+            country's page!
+          </Text>
+          <CategoryList data={[singleScreenData.country]} filter={filter} />
+        </View>
       ) : (
         <CategoryList data={countriesData} filter={filter} />
       )}
@@ -153,5 +171,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//
