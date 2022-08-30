@@ -99,7 +99,7 @@ export default class CoachCareer extends Component {
           timeContainerStyle={{ minWidth: 100, marginTop: -5 }}
           timeStyle={{
             textAlign: "center",
-            backgroundColor: "#ff9797",
+            backgroundColor: "green",
             color: "white",
             padding: 5,
             borderRadius: 13,
