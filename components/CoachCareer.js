@@ -1,122 +1,14 @@
+import axios from "axios";
+import { FOOTBALL_API_KEY } from "@env";
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import Timeline from "react-native-timeline-flatlist";
 
-// export default function CoachCareer({ data }) {
-//   const dummydata = [
-//     { time: "09:00", title: "Event 1", description: "Event 1 Description" },
-//     { time: "10:45", title: "Event 2", description: "Event 2 Description" },
-//     { time: "12:00", title: "Event 3", description: "Event 3 Description" },
-//     { time: "14:00", title: "Event 4", description: "Event 4 Description" },
-//     { time: "16:30", title: "Event 5", description: "Event 5 Description" },
-//   ];
-//   console.log(data);
-//   let newData = [];
-//   data?.map((element) => {
-//     if (element.end) {
-//       newData.push({
-//         time: element.start,
-//         title: `Left ${element.team.name}`,
-//         logoUrl: element.team.logo,
-//       });
-//     }
-
-//     if (element.start) {
-//       newData.push({
-//         time: element.start,
-//         title: `Joined ${element.team.name}`,
-//         imageUrl: element.team.logo,
-//       });
-//     }
-//   });
-//   console.log("NEW DATA", newData);
-
-//   const renderDetail = (rowData, sectionID, rowID) => {
-//     let title = <Text style={[styles.title]}>{rowData.title}</Text>;
-//     let desc = (
-//       <View style={styles.descriptionContainer}>
-//         <Image source={{ uri: rowData.imageUrl }} style={styles.image} />
-//         <Text style={[styles.textDescription]}>{rowData.description}</Text>
-//       </View>
-//     );
-
-//     return (
-//       <View style={{ flex: 1 }}>
-//         {/* {title}
-//         {desc} */}
-//       </View>
-//     );
-//   };
-
-//   return (
-//     <View style={{ flex: 1 }}>
-//       <View>
-//         <Timeline
-//           data={newData}
-//           separator={true}
-//           timeContainerStyle={{ minWidth: 80 }}
-//           renderDetail={renderDetail(newData)}
-//         />
-//         {/* <FlatList
-//           numColumns={1}
-//           keyExtractor={(item, index) => index.toString()}
-//           ListFooterComponent={<View style={{ height: 500 }} />}
-//           data={data}
-//           renderItem={({ item }) => (
-//             <View
-//               style={{
-//                 flexDirection: "row",
-//                 margin: 10,
-//                 backgroundColor: "rgba(55, 55, 55, 0.5)",
-//               }}
-//             >
-//               <View>
-//                 <Image
-//                   source={{
-//                     uri: item?.team?.logo
-//                       ? item.team.logo
-//                       : "https://media.istockphoto.com/vectors/photo-coming-soon-image-icon-vector-illustration-isolated-on-white-vector-id1193057179?k=20&m=1193057179&s=612x612&w=0&h=4eEeQWJXxxhRthWOBzbDP0ryllT5Mu7xtO1o9IA-hMU=",
-//                     height: 100,
-//                     width: 100,
-//                   }}
-//                 />
-//               </View>
-
-//               <View style={{ justifyContent: "center", margin: 5 }}>
-//                 <Text
-//                   style={{
-//                     alignSelf: "center",
-//                     fontSize: 18,
-//                     fontWeight: "bold",
-//                     margin: 5,
-//                   }}
-//                 >
-//                   Team: {item?.team?.name}
-//                 </Text>
-//                 <Text
-//                   style={{
-//                     alignSelf: "center",
-//                     fontSize: 18,
-//                     fontWeight: "bold",
-//                   }}
-//                 >
-//                   {item?.start} to {item?.end === null ? "Present" : item?.end}
-//                 </Text>
-//               </View>
-//             </View>
-//           )}
-//         /> */}
-//       </View>
-//     </View>
-//   );
-// }
-
 export default class CoachCareer extends Component {
-  constructor({ data }) {
+  constructor({ data, teamId }) {
     super();
     this.renderDetail = this.renderDetail.bind(this);
 
-    console.log(data);
     let newData = [];
     data?.map((element) => {
       if (element.end) {
@@ -135,9 +27,11 @@ export default class CoachCareer extends Component {
         });
       }
     });
-    console.log("NEW DATA", newData);
 
     this.data = newData;
+    this.state = {
+      currentCoachCareer: [],
+    };
   }
 
   renderDetail(rowData, sectionID, rowID) {
@@ -159,12 +53,61 @@ export default class CoachCareer extends Component {
     );
   }
 
+  async componentDidMount() {
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/coachs?team=${this.props.teamId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    const { data } = await axios.get(options.url, { headers: options.headers });
+
+    const getCoach = () => {
+      for (let j = 0; j < data.response.length; j++) {
+        const coach = data.response[j];
+        for (let i = 0; i < coach.career.length; i++) {
+          if (
+            coach.career[i].team.id === this.props.teamId &&
+            coach.career[i].end === null
+          )
+            return coach;
+        }
+      }
+    };
+
+    const currentCoach = getCoach();
+
+    let newData = [];
+    currentCoach.career.map((element) => {
+      if (element.end) {
+        newData.push({
+          time: element.end,
+          title: `Left ${element.team.name}`,
+          imageUrl: element.team.logo,
+        });
+      }
+
+      if (element.start) {
+        newData.push({
+          time: element.start,
+          title: `Joined ${element.team.name}`,
+          imageUrl: element.team.logo,
+        });
+      }
+    });
+
+    this.setState({ currentCoachCareer: newData });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Timeline
           style={styles.list}
-          data={this.data}
+          data={this.state.currentCoachCareer}
           circleSize={10}
           separator={true}
           lineColor="rgb(45,156,219)"
