@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   VictoryLine,
@@ -78,9 +78,9 @@ export default function LeagueCharts({ route }) {
 
   const leagueId = route.params?.id;
 
-  useEffect(() => {
-    getHistoricalStandings();
-  }, []);
+  // useEffect(() => {
+  //   getHistoricalStandings();
+  // }, []);
 
   const getHistoricalStandings = () => {
     setIsLoading(true);
@@ -205,6 +205,64 @@ export default function LeagueCharts({ route }) {
 
   return (
     <View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+        }}
+      >
+        <View
+          style={{
+            flexDirection: "row",
+            marginTop: 10,
+            justifyContent: "flex-end",
+            marginRight: 20,
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              borderRadius: 20,
+              padding: 8,
+              backgroundColor: "orangered",
+              marginRight: 30,
+              width: "28%",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 12,
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Top 6
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              borderRadius: 20,
+              padding: 8,
+              backgroundColor: "grey",
+              width: "28%",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "bold",
+                fontSize: 12,
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              Next 6
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{ justifyContent: "flex-end" }}>
+          <Text style={{ fontSize: 10, fontWeight: "bold" }}>as of 2021</Text>
+        </View>
+      </View>
       <VictoryChart
         theme={VictoryTheme.material}
         minDomain={0}
@@ -249,7 +307,7 @@ export default function LeagueCharts({ route }) {
           border: { stroke: "black" },
           title: { fontSize: 12, fontWeight: "bold" },
           labels: { fontSize: 10, fontWeight: "bold" },
-          data: { size: 15, padding: 10 },
+          data: { size: 12 },
         }}
         dataComponent={<Legend />}
         data={legends}
