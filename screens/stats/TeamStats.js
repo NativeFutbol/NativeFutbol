@@ -18,7 +18,7 @@ import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
 import CoachButton from "../../components/CoachButton";
 
-export default function Trophies() {
+export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
@@ -28,6 +28,7 @@ export default function Trophies() {
   const [coachId, setCoachId] = useState("");
   const singleTeamData = useSelector((state) => state.singleScreenData).team;
   console.log("####", singleTeamData);
+  console.log("season-----", season);
 
   useEffect(() => {
     getTeamStats();
