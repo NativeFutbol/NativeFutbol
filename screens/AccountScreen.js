@@ -28,7 +28,6 @@ export default function AccountScreen() {
   const [pfpUrl, setPfpUrl] = useState(userInfo?.pfpUrl);
 
   const user = auth?.currentUser;
-  console.log(userInfo);
 
   const updates = useEffect(() => {
     db.collection("User Information")

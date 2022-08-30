@@ -73,9 +73,6 @@ export default function MyTeamsScreen() {
         if (snapshot.data()) {
           dispatch(setMyFormationStore(snapshot.data()?.myFormation));
           dispatch(setMyPlayersStore(snapshot.data()?.myPlayers));
-          console.log("my formation", myFormation);
-          console.log("my players", myPlayers);
-          console.log("snapshot", snapshot.data());
         } else {
           console.log("No data available");
         }
