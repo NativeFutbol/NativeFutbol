@@ -3,32 +3,13 @@ import { FOOTBALL_API_KEY } from "@env";
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import Timeline from "react-native-timeline-flatlist";
+import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 
 export default class CoachCareer extends Component {
   constructor({ data, teamId }) {
     super();
     this.renderDetail = this.renderDetail.bind(this);
 
-    let newData = [];
-    data?.map((element) => {
-      if (element.end) {
-        newData.push({
-          time: element.end,
-          title: `Left ${element.team.name}`,
-          imageUrl: element.team.logo,
-        });
-      }
-
-      if (element.start) {
-        newData.push({
-          time: element.start,
-          title: `Joined ${element.team.name}`,
-          imageUrl: element.team.logo,
-        });
-      }
-    });
-
-    this.data = newData;
     this.state = {
       currentCoachCareer: [],
     };
@@ -87,6 +68,7 @@ export default class CoachCareer extends Component {
           time: element.end,
           title: `Left ${element.team.name}`,
           imageUrl: element.team.logo,
+          icon: require("../assets/soccer-ball.png"),
         });
       }
 
@@ -95,6 +77,7 @@ export default class CoachCareer extends Component {
           time: element.start,
           title: `Joined ${element.team.name}`,
           imageUrl: element.team.logo,
+          icon: require("../assets/soccer-ball.png"),
         });
       }
     });
@@ -108,13 +91,15 @@ export default class CoachCareer extends Component {
         <Timeline
           style={styles.list}
           data={this.state.currentCoachCareer}
-          circleSize={10}
+          circleSize={20}
+          circleColor="rgba(0,0,0,0)"
+          innerCircle={"icon"}
           separator={true}
           lineColor="rgb(45,156,219)"
           timeContainerStyle={{ minWidth: 100, marginTop: -5 }}
           timeStyle={{
             textAlign: "center",
-            backgroundColor: "#ff9797",
+            backgroundColor: "green",
             color: "white",
             padding: 5,
             borderRadius: 13,
