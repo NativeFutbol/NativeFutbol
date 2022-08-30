@@ -116,6 +116,7 @@ export default class CoachCareer extends Component {
     super();
     this.renderDetail = this.renderDetail.bind(this);
 
+    console.log(data);
     let newData = [];
     data?.map((element) => {
       if (element.end) {
@@ -134,6 +135,7 @@ export default class CoachCareer extends Component {
         });
       }
     });
+    console.log("NEW DATA", newData);
 
     this.data = newData;
   }
