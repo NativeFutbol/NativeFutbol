@@ -88,7 +88,7 @@ export default function CoachInfo() {
           ListFooterComponent={<View style={{ height: 500 }} />}
           data={[getCoach()]}
           renderItem={({ item }) => (
-            <View style={styles.container}>
+            <View>
               <Image
                 style={styles.image}
                 source={{
@@ -131,25 +131,16 @@ export default function CoachInfo() {
                   Nationality: {item?.nationality}
                 </Text>
               </View>
-              <View
+              <Text
                 style={{
-                  margin: 5,
-                  borderBottomWidth: 4,
-                  borderBottomColor: "red",
-                  width: 380,
+                  alignSelf: "center",
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  margin: 10,
                 }}
               >
-                <Text
-                  style={{
-                    alignSelf: "center",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                    margin: 20,
-                  }}
-                >
-                  Coach Career
-                </Text>
-              </View>
+                Coach Career
+              </Text>
 
               <CoachCareer data={getCoachCareer()} />
             </View>
