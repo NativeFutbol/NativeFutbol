@@ -10,6 +10,7 @@ import {
   Button,
   Dimensions,
 } from "react-native";
+import BarChartComp from "../../components/BarChartComp";
 import { FOOTBALL_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
 import {
@@ -412,313 +413,1931 @@ function DisplayPlayer(props) {
     }
   }
 
-  return (
-    <View style={styles.background}>
-      <View style={styles.playerInfo}>
-        <View style={styles.playerImages}>
-          <View style={styles.playerImageBorder}>
-            <Image
-              style={styles.playerImage}
-              source={{
-                width: "100%",
-                height: "100%",
-                uri: player.photo,
-              }}
-            />
-          </View>
-          <View style={{ flex: 1 }}>
-            <View style={styles.border}>
+  if (stats2022.games.position === "Attacker") {
+    return (
+      <View style={styles.background}>
+        <View style={styles.playerInfo}>
+          <View style={styles.playerImages}>
+            <View style={styles.playerImageBorder}>
               <Image
-                style={styles.playerLogos}
+                style={styles.playerImage}
                 source={{
                   width: "100%",
                   height: "100%",
-                  uri: stats2022.league.logo,
+                  uri: player.photo,
                 }}
               />
-              <Text
-                style={{
-                  width: 80,
-                  textAlign: "center",
-                  textAlignVertical: "center",
-                }}
-              >
-                {stats2022.league.name}
-              </Text>
             </View>
-            <View style={styles.border}>
-              <Image
-                style={styles.playerLogos}
-                source={{
-                  width: "100%",
-                  height: "100%",
-                  uri: stats2022.team.logo,
-                }}
-              />
-              <Text
-                style={{
-                  width: 80,
-                  textAlign: "center",
-                  textAlignVertical: "center",
-                }}
-              >
-                {stats2022.team.name}
-              </Text>
+            <View style={{ flex: 1 }}>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.league.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.league.name}
+                </Text>
+              </View>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.team.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.team.name}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-        <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-          {player.name}
-        </Text>
-        <View style={styles.infoBar}>
-          <ScrollView horizontal={true}>
-            <View style={styles.infoBox}>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 20,
-                  textAlign: "center",
-                }}
-              >
-                {" "}
-                Age:
-              </Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 16 }}>
-                  {player.age}
+          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+            {player.name}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Position: {stats2022.games.position}
+          </Text>
+          <View style={styles.infoBar}>
+            <ScrollView horizontal={true}>
+              <View style={styles.infoBox}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  Age:
                 </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.age}
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Weight:</Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 16 }}>
-                  {player.weight}
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Weight:
                 </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.weight}
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={{ fontWeight: "bold", fontSize: 20 }}>Height:</Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 14 }}>
-                  {player.height}
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Height:
                 </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 14 }}>
+                    {player.height}
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 13 }}>
-                  {player?.birth?.date}
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player?.birth?.date}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  Nationality:
                 </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player.nationality}
+                  </Text>
+                </View>
               </View>
-            </View>
-            <View style={styles.infoBox}>
-              <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-                Nationality:
-              </Text>
-              <View style={{ width: 50, alignItems: "center" }}>
-                <Text style={{ textAlign: "center", fontSize: 13 }}>
-                  {player.nationality}
-                </Text>
-              </View>
-            </View>
-          </ScrollView>
-        </View>
-        <View
-          style={{
-            height: "43%",
-            width: "100%",
-            borderRadius: 10,
-            backgroundColor: "white",
-            marginTop: 5,
-          }}
-        >
-          <ScrollView>
-            <View style={{ flex: 1, alignItems: "center" }}>
-              <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                Red Cards
-              </Text>
-              <BarChart
-                data={{
-                  labels: ["2019", "2020", "2021", "2022"],
-                  datasets: [
-                    {
-                      data: [
-                        // Math.floor(Math.random() * 10),
-                        // Math.floor(Math.random() * 10),
-                        // Math.floor(Math.random() * 10),
-                        // 10,
-                        stats2019?.cards?.red,
-                        stats2020?.cards?.red,
-                        stats2021?.cards?.red,
-                        stats2022?.cards?.red,
-                      ],
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              height: "41%",
+              width: "100%",
+              borderRadius: 10,
+              backgroundColor: "white",
+              marginTop: 5,
+            }}
+          >
+            <ScrollView>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <BarChartComp
+                  title="Minutes"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.games.minutes,
+                    stats2020.games.minutes,
+                    stats2021.games.minutes,
+                    stats2022.games.minutes,
+                  ]}
+                  color="#000099"
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rating</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.games?.rating),
+                          isNull(stats2020?.games?.rating),
+                          isNull(stats2021?.games?.rating),
+                          isNull(stats2022?.games?.rating),
+                        ],
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
                     },
-                  ],
-                }}
-                width={370} // from react-native
-                height={180}
-                fromZero={true}
-                yAxisLabel=""
-                yAxisSuffix=""
-                yAxisInterval={1} // optional, defaults to 1
-                segments={5}
-                showValuesOnTopOfBars={true}
-                chartConfig={{
-                  backgroundColor: "gray",
-                  backgroundGradientFrom: "gray",
-                  backgroundGradientTo: "lightgray",
-
-                  fillShadowGradientTo: "red",
-                  fillShadowGradientOpacity: 1,
-                  color: (opacity = 1) => `red`,
-                  labelColor: (opacity = 1) => `#333`,
-                  strokeWidth: 2,
-
-                  barPercentage: 0.5,
-                  useShadowColorFromDataset: false,
-                  decimalPlaces: 0,
-                  propsForBackgroundLines: {
-                    stroke: "black",
-                  },
-                }}
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-              />
-              <Text style={{ fontWeight: "bold", fontSize: 18 }}>
-                Yellow Cards
-              </Text>
-              <BarChart
-                data={{
-                  labels: ["2019", "2020", "2021", "2022"],
-                  datasets: [
-                    {
-                      data: [
-                        // Math.floor(Math.random() * 10),
-                        // 10,
-                        // Math.floor(Math.random() * 10),
-                        // Math.floor(Math.random() * 10),
-                        stats2019?.cards?.yellow,
-                        stats2020?.cards?.yellow,
-                        stats2021?.cards?.yellow,
-                        stats2022?.cards?.yellow,
-                      ],
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
                     },
-                  ],
-                }}
-                width={370} // from react-native
-                height={180}
-                fromZero={true}
-                yAxisLabel=""
-                yAxisSuffix=""
-                yAxisInterval={1} // optional, defaults to 1
-                segments={5}
-                showValuesOnTopOfBars={true}
-                chartConfig={{
-                  backgroundColor: "gray",
-                  backgroundGradientFrom: "gray",
-                  backgroundGradientTo: "lightgray",
-
-                  fillShadowGradientTo: "yellow",
-                  fillShadowGradientOpacity: 1,
-                  color: (opacity = 1) => `yellow`,
-                  labelColor: (opacity = 1) => `#333`,
-                  strokeWidth: 2,
-
-                  barPercentage: 0.5,
-                  useShadowColorFromDataset: false,
-                  decimalPlaces: 0,
-                  propsForBackgroundLines: {
-                    stroke: "black",
-                  },
-                }}
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-              />
-              <Text>Rating</Text>
-              <LineChart
-                data={{
-                  labels: ["2019", "2020", "2021", "2022"],
-                  datasets: [
-                    {
-                      data: [
-                        isNull(stats2019?.games?.rating),
-                        isNull(stats2020?.games?.rating),
-                        isNull(stats2021?.games?.rating),
-                        isNull(stats2022?.games?.rating),
-                      ],
-                    },
-                  ],
-                }}
-                width={370}
-                height={180}
-                fromZero={true}
-                yAxisLabel=""
-                yAxisSuffix=""
-                yAxisInterval={1} // optional, defaults to 1
-                segments={5}
-                chartConfig={{
-                  backgroundColor: "gray",
-                  backgroundGradientFrom: "gray",
-                  backgroundGradientTo: "lightgray",
-                  decimalPlaces: 0, // optional, defaults to 2dp
-                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                  labelColor: (opacity = 1) => `#333`,
-                  style: {
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
                     borderRadius: 16,
-                  },
-                  propsForDots: {
-                    r: "6",
-                    strokeWidth: "2",
-                    stroke: "#A9A9A9",
-                  },
-                }}
-                bezier
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-              />
-              <StackedBarChart
-                style={{
-                  marginVertical: 8,
-                  borderRadius: 16,
-                }}
-                segments={5}
-                data={{
-                  labels: ["2019", "2020", "2021", "2022"],
-                  legend: ["Red", "Yellow"],
-                  data: [
-                    [1, 4],
-                    [2, 8],
-                    [3, 1],
-                    [7, 2],
-                  ],
-                  barColors: ["red", "yellow"],
-                }}
-                width={370}
-                height={180}
-                chartConfig={{
-                  backgroundColor: "gray",
-                  backgroundGradientFrom: "gray",
-                  backgroundGradientTo: "lightgray",
-                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                  labelColor: (opacity = 1) => `#333`,
-                  strokeWidth: 2,
-                  decimalPlaces: 0,
-                }}
-              />
-            </View>
-          </ScrollView>
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
+                <Text>On: 🟢 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.total),
+                          isNull(stats2020?.shots?.total),
+                          isNull(stats2021?.shots?.total),
+                          isNull(stats2022?.shots?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.on),
+                          isNull(stats2020?.shots?.on),
+                          isNull(stats2021?.shots?.on),
+                          isNull(stats2022?.shots?.on),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
+                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.total),
+                          isNull(stats2020?.goals?.total),
+                          isNull(stats2021?.goals?.total),
+                          isNull(stats2022?.goals?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.assists),
+                          isNull(stats2020?.goals?.assists),
+                          isNull(stats2021?.goals?.assists),
+                          isNull(stats2022?.goals?.assists),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 128, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
+                <Text>Key: 🔴 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.total),
+                          isNull(stats2020?.passes?.total),
+                          isNull(stats2021?.passes?.total),
+                          isNull(stats2022?.passes?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.key),
+                          isNull(stats2020?.passes?.key),
+                          isNull(stats2021?.passes?.key),
+                          isNull(stats2022?.passes?.key),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Dribbles
+                </Text>
+                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.attempts),
+                          isNull(stats2020?.dribbles?.attempts),
+                          isNull(stats2021?.dribbles?.attempts),
+                          isNull(stats2022?.dribbles?.attempts),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.success),
+                          isNull(stats2020?.dribbles?.success),
+                          isNull(stats2021?.dribbles?.success),
+                          isNull(stats2022?.dribbles?.success),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Fouls</Text>
+                <Text>Committed: 🔴 Drawn: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.drawn),
+                          isNull(stats2020?.fouls?.drawn),
+                          isNull(stats2021?.fouls?.drawn),
+                          isNull(stats2022?.fouls?.drawn),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.committed),
+                          isNull(stats2020?.fouls?.committed),
+                          isNull(stats2021?.fouls?.committed),
+                          isNull(stats2022?.fouls?.committed),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Red/Yellow Cards
+                </Text>
+                <StackedBarChart
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                  segments={5}
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    legend: ["Red", "Yellow"],
+                    data: [
+                      [stats2019.cards.red, stats2019.cards.yellow],
+                      [stats2020.cards.red, stats2020.cards.yellow],
+                      [stats2021.cards.red, stats2021.cards.yellow],
+                      [stats2022.cards.red, stats2022.cards.yellow],
+                      [5, 5],
+                    ],
+                    barColors: ["red", "yellow"],
+                  }}
+                  width={370}
+                  height={180}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    strokeWidth: 2,
+                    decimalPlaces: 0,
+                  }}
+                />
+              </View>
+            </ScrollView>
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  } else if (stats2022.games.position === "Defender") {
+    return (
+      <View style={styles.background}>
+        <View style={styles.playerInfo}>
+          <View style={styles.playerImages}>
+            <View style={styles.playerImageBorder}>
+              <Image
+                style={styles.playerImage}
+                source={{
+                  width: "100%",
+                  height: "100%",
+                  uri: player.photo,
+                }}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.league.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.league.name}
+                </Text>
+              </View>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.team.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.team.name}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+            {player.name}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Position: {stats2022.games.position}
+          </Text>
+          <View style={styles.infoBar}>
+            <ScrollView horizontal={true}>
+              <View style={styles.infoBox}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  Age:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.age}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Weight:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.weight}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Height:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 14 }}>
+                    {player.height}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player?.birth?.date}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  Nationality:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player.nationality}
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              height: "41%",
+              width: "100%",
+              borderRadius: 10,
+              backgroundColor: "white",
+              marginTop: 5,
+            }}
+          >
+            <ScrollView>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <BarChartComp
+                  title="Minutes"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.games.minutes,
+                    stats2020.games.minutes,
+                    stats2021.games.minutes,
+                    stats2022.games.minutes,
+                  ]}
+                  color="#000099"
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rating</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.games?.rating),
+                          isNull(stats2020?.games?.rating),
+                          isNull(stats2021?.games?.rating),
+                          isNull(stats2022?.games?.rating),
+                        ],
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
+                <Text>Key: 🔴 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.total),
+                          isNull(stats2020?.passes?.total),
+                          isNull(stats2021?.passes?.total),
+                          isNull(stats2022?.passes?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.key),
+                          isNull(stats2020?.passes?.key),
+                          isNull(stats2021?.passes?.key),
+                          isNull(stats2022?.passes?.key),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Dribbles
+                </Text>
+                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.attempts),
+                          isNull(stats2020?.dribbles?.attempts),
+                          isNull(stats2021?.dribbles?.attempts),
+                          isNull(stats2022?.dribbles?.attempts),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.success),
+                          isNull(stats2020?.dribbles?.success),
+                          isNull(stats2021?.dribbles?.success),
+                          isNull(stats2022?.dribbles?.success),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
+                <Text>On: 🟢 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.total),
+                          isNull(stats2020?.shots?.total),
+                          isNull(stats2021?.shots?.total),
+                          isNull(stats2022?.shots?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.on),
+                          isNull(stats2020?.shots?.on),
+                          isNull(stats2021?.shots?.on),
+                          isNull(stats2022?.shots?.on),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
+                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.total),
+                          isNull(stats2020?.goals?.total),
+                          isNull(stats2021?.goals?.total),
+                          isNull(stats2022?.goals?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.assists),
+                          isNull(stats2020?.goals?.assists),
+                          isNull(stats2021?.goals?.assists),
+                          isNull(stats2022?.goals?.assists),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 128, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Fouls</Text>
+                <Text>Committed: 🔴 Drawn: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.drawn),
+                          isNull(stats2020?.fouls?.drawn),
+                          isNull(stats2021?.fouls?.drawn),
+                          isNull(stats2022?.fouls?.drawn),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.committed),
+                          isNull(stats2020?.fouls?.committed),
+                          isNull(stats2021?.fouls?.committed),
+                          isNull(stats2022?.fouls?.committed),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Red/Yellow Cards
+                </Text>
+                <StackedBarChart
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                  segments={5}
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    legend: ["Red", "Yellow"],
+                    data: [
+                      [stats2019.cards.red, stats2019.cards.yellow],
+                      [stats2020.cards.red, stats2020.cards.yellow],
+                      [stats2021.cards.red, stats2021.cards.yellow],
+                      [stats2022.cards.red, stats2022.cards.yellow],
+                      [5, 5],
+                    ],
+                    barColors: ["red", "yellow"],
+                  }}
+                  width={370}
+                  height={180}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    strokeWidth: 2,
+                    decimalPlaces: 0,
+                  }}
+                />
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
+  } else if (stats2022.games.position === "Goalkeeper") {
+    return (
+      <View style={styles.background}>
+        <View style={styles.playerInfo}>
+          <View style={styles.playerImages}>
+            <View style={styles.playerImageBorder}>
+              <Image
+                style={styles.playerImage}
+                source={{
+                  width: "100%",
+                  height: "100%",
+                  uri: player.photo,
+                }}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.league.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.league.name}
+                </Text>
+              </View>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.team.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.team.name}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+            {player.name}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Position: {stats2022.games.position}
+          </Text>
+          <View style={styles.infoBar}>
+            <ScrollView horizontal={true}>
+              <View style={styles.infoBox}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  Age:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.age}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Weight:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.weight}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Height:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 14 }}>
+                    {player.height}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player?.birth?.date}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  Nationality:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player.nationality}
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              height: "41%",
+              width: "100%",
+              borderRadius: 10,
+              backgroundColor: "white",
+              marginTop: 5,
+            }}
+          >
+            <ScrollView>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <BarChartComp
+                  title="Minutes"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.games.minutes,
+                    stats2020.games.minutes,
+                    stats2021.games.minutes,
+                    stats2022.games.minutes,
+                  ]}
+                  color="#000099"
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rating</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.games?.rating),
+                          isNull(stats2020?.games?.rating),
+                          isNull(stats2021?.games?.rating),
+                          isNull(stats2022?.games?.rating),
+                        ],
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
+                <Text>Saves: 🟢 Conceded: 🔴</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.saves),
+                          isNull(stats2020?.goals?.saves),
+                          isNull(stats2021?.goals?.saves),
+                          isNull(stats2022?.goals?.saves),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.conceded),
+                          isNull(stats2020?.goals?.conceded),
+                          isNull(stats2021?.goals?.conceded),
+                          isNull(stats2022?.goals?.conceded),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
+                <Text>Key: 🔴 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.total),
+                          isNull(stats2020?.passes?.total),
+                          isNull(stats2021?.passes?.total),
+                          isNull(stats2022?.passes?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.key),
+                          isNull(stats2020?.passes?.key),
+                          isNull(stats2021?.passes?.key),
+                          isNull(stats2022?.passes?.key),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Fouls</Text>
+                <Text>Committed: 🔴 Drawn: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.drawn),
+                          isNull(stats2020?.fouls?.drawn),
+                          isNull(stats2021?.fouls?.drawn),
+                          isNull(stats2022?.fouls?.drawn),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.committed),
+                          isNull(stats2020?.fouls?.committed),
+                          isNull(stats2021?.fouls?.committed),
+                          isNull(stats2022?.fouls?.committed),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Red/Yellow Cards
+                </Text>
+                <StackedBarChart
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                  segments={5}
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    legend: ["Red", "Yellow"],
+                    data: [
+                      [stats2019.cards.red, stats2019.cards.yellow],
+                      [stats2020.cards.red, stats2020.cards.yellow],
+                      [stats2021.cards.red, stats2021.cards.yellow],
+                      [stats2022.cards.red, stats2022.cards.yellow],
+                      [5, 5],
+                    ],
+                    barColors: ["red", "yellow"],
+                  }}
+                  width={370}
+                  height={180}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    strokeWidth: 2,
+                    decimalPlaces: 0,
+                  }}
+                />
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
+  } else if (stats2022.games.position === "Midfielder") {
+    return (
+      <View style={styles.background}>
+        <View style={styles.playerInfo}>
+          <View style={styles.playerImages}>
+            <View style={styles.playerImageBorder}>
+              <Image
+                style={styles.playerImage}
+                source={{
+                  width: "100%",
+                  height: "100%",
+                  uri: player.photo,
+                }}
+              />
+            </View>
+            <View style={{ flex: 1 }}>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.league.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.league.name}
+                </Text>
+              </View>
+              <View style={styles.border}>
+                <Image
+                  style={styles.playerLogos}
+                  source={{
+                    width: "100%",
+                    height: "100%",
+                    uri: stats2022.team.logo,
+                  }}
+                />
+                <Text
+                  style={{
+                    width: 80,
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                  }}
+                >
+                  {stats2022.team.name}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+            {player.name}
+          </Text>
+          <Text style={{ fontWeight: "bold" }}>
+            Position: {stats2022.games.position}
+          </Text>
+          <View style={styles.infoBar}>
+            <ScrollView horizontal={true}>
+              <View style={styles.infoBox}>
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 20,
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  Age:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.age}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Weight:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 16 }}>
+                    {player.weight}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                  Height:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 14 }}>
+                    {player.height}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player?.birth?.date}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.infoBox}>
+                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                  Nationality:
+                </Text>
+                <View style={{ width: 50, alignItems: "center" }}>
+                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                    {player.nationality}
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+          </View>
+          <View
+            style={{
+              height: "41%",
+              width: "100%",
+              borderRadius: 10,
+              backgroundColor: "white",
+              marginTop: 5,
+            }}
+          >
+            <ScrollView>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <BarChartComp
+                  title="Minutes"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.games.minutes,
+                    stats2020.games.minutes,
+                    stats2021.games.minutes,
+                    stats2022.games.minutes,
+                  ]}
+                  color="#000099"
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Rating</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.games?.rating),
+                          isNull(stats2020?.games?.rating),
+                          isNull(stats2021?.games?.rating),
+                          isNull(stats2022?.games?.rating),
+                        ],
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
+                <Text>Key: 🔴 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.total),
+                          isNull(stats2020?.passes?.total),
+                          isNull(stats2021?.passes?.total),
+                          isNull(stats2022?.passes?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.passes?.key),
+                          isNull(stats2020?.passes?.key),
+                          isNull(stats2021?.passes?.key),
+                          isNull(stats2022?.passes?.key),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
+                <Text>On: 🟢 Total: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.total),
+                          isNull(stats2020?.shots?.total),
+                          isNull(stats2021?.shots?.total),
+                          isNull(stats2022?.shots?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.shots?.on),
+                          isNull(stats2020?.shots?.on),
+                          isNull(stats2021?.shots?.on),
+                          isNull(stats2022?.shots?.on),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
+                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.total),
+                          isNull(stats2020?.goals?.total),
+                          isNull(stats2021?.goals?.total),
+                          isNull(stats2022?.goals?.total),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.goals?.assists),
+                          isNull(stats2020?.goals?.assists),
+                          isNull(stats2021?.goals?.assists),
+                          isNull(stats2022?.goals?.assists),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 128, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Dribbles
+                </Text>
+                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.attempts),
+                          isNull(stats2020?.dribbles?.attempts),
+                          isNull(stats2021?.dribbles?.attempts),
+                          isNull(stats2022?.dribbles?.attempts),
+                        ],
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.dribbles?.success),
+                          isNull(stats2020?.dribbles?.success),
+                          isNull(stats2021?.dribbles?.success),
+                          isNull(stats2022?.dribbles?.success),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>Fouls</Text>
+                <Text>Committed: 🔴 Drawn: 🟢</Text>
+                <LineChart
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022"],
+                    datasets: [
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.drawn),
+                          isNull(stats2020?.fouls?.drawn),
+                          isNull(stats2021?.fouls?.drawn),
+                          isNull(stats2022?.fouls?.drawn),
+                        ],
+                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                      },
+                      {
+                        data: [
+                          isNull(stats2019?.fouls?.committed),
+                          isNull(stats2020?.fouls?.committed),
+                          isNull(stats2021?.fouls?.committed),
+                          isNull(stats2022?.fouls?.committed),
+                        ],
+                        color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                      },
+                    ],
+                  }}
+                  width={370}
+                  height={180}
+                  fromZero={true}
+                  yAxisLabel=""
+                  yAxisSuffix=""
+                  yAxisInterval={1} // optional, defaults to 1
+                  segments={5}
+                  showValuesOnTopOfBars={true}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    useShadowColorFromDataset: true,
+                    decimalPlaces: 0, // optional, defaults to 2dp
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    style: {
+                      borderRadius: 16,
+                    },
+                    propsForDots: {
+                      r: "6",
+                      strokeWidth: "2",
+                      stroke: "#A9A9A9",
+                    },
+                  }}
+                  bezier
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 18 }}>
+                  Red/Yellow Cards
+                </Text>
+                <StackedBarChart
+                  style={{
+                    marginVertical: 8,
+                    borderRadius: 16,
+                  }}
+                  segments={5}
+                  data={{
+                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    legend: ["Red", "Yellow"],
+                    data: [
+                      [stats2019.cards.red, stats2019.cards.yellow],
+                      [stats2020.cards.red, stats2020.cards.yellow],
+                      [stats2021.cards.red, stats2021.cards.yellow],
+                      [stats2022.cards.red, stats2022.cards.yellow],
+                      [5, 5],
+                    ],
+                    barColors: ["red", "yellow"],
+                  }}
+                  width={370}
+                  height={180}
+                  chartConfig={{
+                    backgroundColor: "gray",
+                    backgroundGradientFrom: "gray",
+                    backgroundGradientTo: "lightgray",
+                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                    labelColor: (opacity = 1) => `#333`,
+                    strokeWidth: 2,
+                    decimalPlaces: 0,
+                  }}
+                />
+              </View>
+            </ScrollView>
+          </View>
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
