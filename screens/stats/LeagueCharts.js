@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Button,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import {
   VictoryLine,
@@ -74,13 +81,29 @@ const legendDummyData = [
 export default function LeagueCharts({ route }) {
   const [isLoading, setIsLoading] = useState(false);
   const [standings, setStandings] = useState([]);
+  const [points, setPoints] = useState([]);
   const [legends, setLegends] = useState([]);
+  const [selected, setSelected] = useState("Top 6");
 
   const leagueId = route.params?.id;
 
+  const getSixTeams = (year2) => {
+    if (selected === "Top 6") {
+      return year2
+        .filter((team) => +team.rank <= 6)
+        .map((team) => team.team.id);
+    } else if (selected === "Next 6") {
+      return year2
+        .filter((team) => +team.rank > 6 && +team.rank <= 12)
+        .map((team) => team.team.id);
+    }
+
+    return null;
+  };
+
   useEffect(() => {
     getHistoricalStandings();
-  }, []);
+  }, [selected]);
 
   const getHistoricalStandings = () => {
     setIsLoading(true);
@@ -161,17 +184,25 @@ export default function LeagueCharts({ route }) {
             }),
           ];
 
-          const Year2TopSixTeams = Year2.filter((team) => +team.rank <= 6).map(
-            (team) => team.team.id
-          );
+          // const Year2SixTeams = Year2.filter((team) => +team.rank <= 6).map(
+          //   (team) => team.team.id
+          // );
+          const Year2SixTeams = getSixTeams(Year2);
 
           // const manULeagueStandings = standingsByYear.filter(
           //   (team) => +team.id === +33
           // );
 
           const filteredStandingsByYear = standingsByYear.filter((team) =>
-            Year2TopSixTeams.includes(team.id)
+            Year2SixTeams.includes(team.id)
           );
+
+          const filteredPointsByYear = filteredStandingsByYear.map((team) => {
+            return {
+              ...team,
+              y: team.points,
+            };
+          });
 
           const uniqueTeamIds = new Set();
 
@@ -191,6 +222,7 @@ export default function LeagueCharts({ route }) {
 
           setLegends(standingsByYearLegends);
           setStandings(filteredStandingsByYear);
+          setPoints(filteredPointsByYear);
 
           setIsLoading(false);
         })
@@ -204,65 +236,218 @@ export default function LeagueCharts({ route }) {
   //   console.log(standings);
 
   return (
-    <View>
-      <VictoryChart
-        theme={VictoryTheme.material}
-        minDomain={0}
-        // padding={{ top: 5, bottom: 5 }}
-        // range={{ x: [2019, 2022], y: [1, 20] }}
-      >
-        <VictoryScatter
-          size={10}
+    <View style={{ flex: 1 }}>
+      <ScrollView>
+        <View
           style={{
-            data: { stroke: "#c43a31" },
-            parent: { border: "1px solid #ccc" },
+            flexDirection: "row",
+            justifyContent: "center",
           }}
-          data={standings}
-          // labelComponent={<VictoryLabel dy={-4} />}
-          dataComponent={<Logo />}
-          categories={{ x: ["2019", "2020", "2021", "2022"] }}
-        />
-        <VictoryAxis
-          label="Year"
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              marginTop: 10,
+              justifyContent: "flex-end",
+              marginRight: 20,
+            }}
+          >
+            <TouchableOpacity
+              style={{
+                borderRadius: 20,
+                padding: 8,
+                backgroundColor: selected === "Top 6" ? "orangered" : "grey",
+                marginRight: 30,
+                width: "28%",
+              }}
+              onPress={() => setSelected("Top 6")}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                Top 6
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                borderRadius: 20,
+                padding: 8,
+                backgroundColor: selected === "Next 6" ? "orangered" : "grey",
+                width: "28%",
+              }}
+              onPress={() => setSelected("Next 6")}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 12,
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                Next 6
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{ justifyContent: "flex-end" }}>
+            <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+              Teams as of 2021
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.container}>
+          <VictoryChart
+            theme={VictoryTheme.material}
+            minDomain={0}
+            // padding={{ top: 5, bottom: 5 }}
+            // range={{ x: [2019, 2022], y: [1, 20] }}
+            height={450}
+          >
+            <VictoryScatter
+              size={10}
+              style={{
+                data: { stroke: "#c43a31" },
+                parent: { border: "1px solid #ccc" },
+              }}
+              data={standings}
+              // labelComponent={<VictoryLabel dy={-4} />}
+              dataComponent={<Logo />}
+              categories={{ x: ["2019", "2020", "2021", "2022"] }}
+            />
+            <VictoryAxis
+              label="Year"
+              style={{
+                axisLabel: {
+                  fontSize: 13,
+                  padding: 35,
+                  fontWeight: "bold",
+                  color: "black",
+                },
+                grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              label="Rank"
+              style={{
+                axisLabel: { fontSize: 13, padding: 35, fontWeight: "bold" },
+                grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+              }}
+            />
+          </VictoryChart>
+        </View>
+
+        <View style={styles.container}>
+          <VictoryChart
+            theme={VictoryTheme.material}
+            minDomain={0}
+            // padding={{ top: 5, bottom: 5 }}
+            // range={{ x: [2019, 2022], y: [0, 120] }}
+            domain={{ y: [0, 120] }}
+            height={700}
+          >
+            <VictoryScatter
+              size={10}
+              style={{
+                data: { stroke: "#c43a31" },
+                parent: { border: "1px solid #ccc" },
+              }}
+              data={points}
+              // labelComponent={<VictoryLabel dy={-4} />}
+              dataComponent={<Logo />}
+              categories={{ x: ["2019", "2020", "2021", "2022"] }}
+            />
+            <VictoryAxis
+              label="Year"
+              style={{
+                axisLabel: {
+                  fontSize: 13,
+                  padding: 35,
+                  fontWeight: "bold",
+                  color: "black",
+                },
+                grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+              }}
+            />
+            <VictoryAxis
+              dependentAxis
+              label="Points"
+              style={{
+                axisLabel: { fontSize: 13, padding: 35, fontWeight: "bold" },
+                grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+              }}
+            />
+          </VictoryChart>
+        </View>
+
+        {/* <VictoryLegend
+          x={30}
+          y={20}
+          title="Legends"
+          centerTitle
+          orientation="vertical"
+          gutter={30}
           style={{
-            axisLabel: { fontSize: 13, padding: 35, fontWeight: "bold" },
-            grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+            border: { stroke: "black" },
+            title: { fontSize: 12, fontWeight: "bold" },
+            labels: { fontSize: 10, fontWeight: "bold" },
+            data: { size: 12 },
           }}
-        />
-        <VictoryAxis
-          dependentAxis
-          label="Rank"
+          borderPadding={{ left: 10, right: 10, bottom: 10 }}
+          dataComponent={<Legend />}
+          data={legends}
+        /> */}
+      </ScrollView>
+
+      <View style={styles.bottomView}>
+        <VictoryLegend
+          // x={10}
+          // y={0}
+          title="Legends"
+          centerTitle
+          orientation="vertical"
+          gutter={30}
           style={{
-            axisLabel: { fontSize: 13, padding: 30, fontWeight: "bold" },
-            grid: { stroke: "#ddd444", strokeWidth: 0.3 },
+            border: { stroke: "grey", strokeWidth: 2 },
+            title: { fontSize: 12, fontWeight: "bold" },
+            labels: { fontSize: 10, fontWeight: "bold" },
+            data: { size: 12 },
           }}
+          borderPadding={{ left: 10, right: 10, bottom: 10 }}
+          dataComponent={<Legend />}
+          data={legends}
         />
-      </VictoryChart>
-      <VictoryLegend
-        x={30}
-        y={20}
-        title="Legends"
-        centerTitle
-        orientation="vertical"
-        gutter={30}
-        style={{
-          border: { stroke: "black" },
-          title: { fontSize: 12, fontWeight: "bold" },
-          labels: { fontSize: 10, fontWeight: "bold" },
-          data: { size: 15 },
-        }}
-        dataComponent={<Legend />}
-        data={legends}
-      />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //     backgroundColor: "#f5fcff",
-  //   },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    marginHorizontal: 10,
+    width: "100%",
+    marginTop: 0,
+    paddingTop: 0,
+  },
+  bottomView: {
+    width: "40%",
+    height: 180,
+    // backgroundColor: "#EE5407",
+    // justifyContent: "flex-start",
+    alignItems: "flex-start",
+    position: "absolute",
+    marginRight: 2,
+    // marginBottom: 2,
+    bottom: 0,
+    right: 0,
+  },
 });

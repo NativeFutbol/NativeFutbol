@@ -258,7 +258,24 @@ const StatsStack = () => {
           const logo = route.params.logo;
 
           return {
-            title: "League Charts",
+            // title: "League - Standings/Total Points - Last 4 Years ",
+            headerTitle: () => (
+              <View style={{ height: 100 }}>
+                <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+                  {`${name} (Last 4 yrs)`}
+                </Text>
+                <View style={{ marginTop: 3 }}>
+                  <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+                    {`Standings / Total Points Trend`}
+                  </Text>
+                </View>
+                {/* <View style={{ marginTop: 3 }}>
+                  <Text style={{ fontSize: 10, fontWeight: "bold" }}>
+                    (Last 4 Years)
+                  </Text>
+                </View> */}
+              </View>
+            ),
             headerTitleStyle: {
               fontSize: 13,
               fontWeight: "bold",
