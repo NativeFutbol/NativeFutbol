@@ -9,6 +9,7 @@ const myPlayersSlice = createSlice({
     },
     addMyPlayer: (state, { payload }) => {
       state.push(payload);
+      console.log(state);
     },
     removeMyPlayer: (state, { payload }) => {
       return state.filter((player) => +player.player.id !== +payload.player.id);
