@@ -281,13 +281,20 @@ export default function SingleLeagueScreen() {
             style={{
               marginTop: 8,
               width: "60%",
+              justifyContent: "space-between",
               alignItems: "center",
+              flexDirection: "row",
             }}
           >
             <LeagueInfoButtons
               data={league}
               text="Red/Yellow Cards"
               screen="LeagueCards"
+            />
+            <LeagueInfoButtons
+              data={league}
+              text="Charts"
+              screen="LeagueCharts"
             />
           </View>
         </View>

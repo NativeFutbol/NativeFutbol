@@ -9,11 +9,51 @@ import {
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect } from "react";
+import Timeline from "react-native-beautiful-timeline";
 
 export default function CoachCareer({ data }) {
+  const dummyData = [
+    {
+      date: 1574342522000,
+      data: [
+        {
+          title: "React Native Beautiful Timeline",
+          subtitle: "Sed at justo eros. Phasellus.",
+          date: 1574342522000,
+        },
+        {
+          title: "React Native",
+          subtitle: "Sed viverra. Nam sagittis.",
+          date: 1574342501000,
+        },
+      ],
+    },
+    {
+      date: 1574248261000,
+      data: [
+        {
+          title: "Timeline",
+          subtitle: "Morbi magna orci, consequat in.",
+          date: 1574248261000,
+        },
+      ],
+    },
+    {
+      date: 1574125621000,
+      data: [
+        {
+          title: "Beauty Timeline",
+          subtitle: "Nulla a eleifend urna. Morbi. Praesent.",
+          date: 1574125621000,
+        },
+      ],
+    },
+  ];
+
   return (
     <View style={{ flex: 1 }}>
       <View>
+        <Timeline data={dummyData} />
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}

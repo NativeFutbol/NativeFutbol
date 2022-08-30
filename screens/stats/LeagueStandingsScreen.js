@@ -17,6 +17,9 @@ export default function LeagueStandingsScreen() {
   return (
     <View style={{ flexGrow: 1 }}>
       <View style={styles.header}>
+        <View style={{ marginRight: 3, width: "5%" }}>
+          <Text style={{ fontSize: 12 }}></Text>
+        </View>
         <Image style={styles.logo} />
         <Text style={[styles.team, styles.fontWeight]}>Team</Text>
         <Text style={[styles.stat, styles.fontWeight]}>PL</Text>
@@ -30,9 +33,12 @@ export default function LeagueStandingsScreen() {
       <FlatList
         data={leagueStandingsData}
         ListFooterComponent={<View style={{ height: 50 }} />}
-        renderItem={({ item }) => {
+        renderItem={({ item, index }) => {
           return (
             <View style={styles.header}>
+              <View style={{ marginRight: 3, width: "5%" }}>
+                <Text style={{ fontSize: 12 }}>{index + 1}</Text>
+              </View>
               <Image
                 source={{ uri: item.team.logo, width: 50, height: 50 }}
                 style={styles.logo}
