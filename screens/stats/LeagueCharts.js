@@ -349,7 +349,7 @@ export default function LeagueCharts({ route }) {
             minDomain={0}
             // padding={{ top: 5, bottom: 5 }}
             // range={{ x: [2019, 2022], y: [0, 120] }}
-            domain={{ y: [0, 120] }}
+            // domain={{ y: [0, 120] }}
             height={700}
           >
             <VictoryScatter
@@ -448,6 +448,6 @@ const styles = StyleSheet.create({
     marginRight: 2,
     // marginBottom: 2,
     bottom: 0,
-    right: 0,
+    left: 0,
   },
 });
