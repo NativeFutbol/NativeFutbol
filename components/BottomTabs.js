@@ -22,7 +22,7 @@ import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
-import Trophies from "../screens/stats/Trophies";
+import TeamStats from "../screens/stats/TeamStats";
 import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
 
@@ -78,7 +78,7 @@ const StatsStack = () => {
         }}
       />
       <Stack.Screen name="Venue" component={Venue} />
-      <Stack.Screen name="Trophies" component={Trophies} />
+      <Stack.Screen name="TeamStats" component={TeamStats} />
       <Stack.Screen name="TopPlayersScreen" component={TopPlayersScreen} />
       <Stack.Screen
         name="SingleCountry"
@@ -141,7 +141,7 @@ const StatsStack = () => {
         name="SinglePlayer"
         component={SinglePlayerScreen}
         options={({ route }) => {
-          const name = route.params.player.name;
+          const name = route.params.player?.name || route.params.name;
 
           return {
             title: name,

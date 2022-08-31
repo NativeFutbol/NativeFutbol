@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 
-export default function TrophiesButton({ data, text, screen }) {
+export default function TeamStatsButton({ data, text, screen }) {
   const navigation = useNavigation();
 
   return (
