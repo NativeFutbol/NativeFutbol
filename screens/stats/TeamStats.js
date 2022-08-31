@@ -29,9 +29,8 @@ export default function TeamStats() {
   const [league, setLeague] = useState("39");
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
-  console.log("####", singleTeamData);
-  console.log("season-----", season);
-  console.log("league----", league);
+  const leagueIdInfo = useSelector((state) => state.leagueId);
+  const seasonInfo = useSelector((state) => state.season);
 
   useEffect(() => {
     getTeamStats();
@@ -40,7 +39,7 @@ export default function TeamStats() {
   const getTeamStats = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams/statistics?season=${season}&team=${singleTeamData.id}&league=40`,
+      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${singleTeamData.id}&league=${leagueIdInfo}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -56,8 +55,6 @@ export default function TeamStats() {
         console.error(error);
       });
   };
-
-  console.log("teamStats@@", teamStatsInfo);
 
   return (
     <View style={{ flexGrow: 1 }}>

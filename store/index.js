@@ -54,7 +54,7 @@ const reducer = combineReducers({
   mostCardsData: mostCardsReducer,
   myTeamFilters: myTeamFiltersReducer,
   myTeamFilterOptions: myTeamFilterOptionsReducer,
-  league: leagueReducer,
+  leagueId: leagueReducer,
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
 });
