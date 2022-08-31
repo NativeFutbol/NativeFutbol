@@ -45,27 +45,27 @@ function DisplayPlayer(props) {
       drawn: null,
     },
     games: {
-      appearences: 2,
+      appearences: 0,
       captain: false,
-      lineups: 2,
-      minutes: 92,
+      lineups: 0,
+      minutes: 0,
       number: null,
-      position: "Attacker",
+      position: "",
       rating: null,
     },
     goals: {
       assists: null,
       conceded: null,
       saves: null,
-      total: 3,
+      total: 0,
     },
     league: {
       country: null,
       flag: null,
       id: null,
       logo: null,
-      name: "Club Friendlies",
-      season: 2020,
+      name: "",
+      season: "2020",
     },
     passes: {
       accuracy: null,
@@ -86,7 +86,7 @@ function DisplayPlayer(props) {
     substitutes: {
       bench: 0,
       in: 0,
-      out: 2,
+      out: 0,
     },
     tackles: {
       blocks: null,
@@ -95,8 +95,8 @@ function DisplayPlayer(props) {
     },
     team: {
       id: 85,
-      logo: "https://media.api-sports.io/football/teams/85.png",
-      name: "Paris Saint Germain",
+      logo: "",
+      name: "",
     },
   });
   const [stats2021, setStats2021] = useState({
@@ -119,27 +119,27 @@ function DisplayPlayer(props) {
       drawn: null,
     },
     games: {
-      appearences: 2,
+      appearences: 0,
       captain: false,
-      lineups: 2,
-      minutes: 92,
+      lineups: 0,
+      minutes: 0,
       number: null,
-      position: "Attacker",
+      position: "",
       rating: null,
     },
     goals: {
       assists: null,
       conceded: null,
       saves: null,
-      total: 3,
+      total: 0,
     },
     league: {
       country: null,
       flag: null,
       id: null,
       logo: null,
-      name: "Club Friendlies",
-      season: 2020,
+      name: "",
+      season: "2020",
     },
     passes: {
       accuracy: null,
@@ -160,7 +160,7 @@ function DisplayPlayer(props) {
     substitutes: {
       bench: 0,
       in: 0,
-      out: 2,
+      out: 0,
     },
     tackles: {
       blocks: null,
@@ -169,8 +169,8 @@ function DisplayPlayer(props) {
     },
     team: {
       id: 85,
-      logo: "https://media.api-sports.io/football/teams/85.png",
-      name: "Paris Saint Germain",
+      logo: "",
+      name: "",
     },
   });
   const [stats2020, setStats2020] = useState({
@@ -193,27 +193,27 @@ function DisplayPlayer(props) {
       drawn: null,
     },
     games: {
-      appearences: 2,
+      appearences: 0,
       captain: false,
-      lineups: 2,
-      minutes: 92,
+      lineups: 0,
+      minutes: 0,
       number: null,
-      position: "Attacker",
+      position: "",
       rating: null,
     },
     goals: {
       assists: null,
       conceded: null,
       saves: null,
-      total: 3,
+      total: 0,
     },
     league: {
       country: null,
       flag: null,
       id: null,
       logo: null,
-      name: "Club Friendlies",
-      season: 2020,
+      name: "",
+      season: "2020",
     },
     passes: {
       accuracy: null,
@@ -234,7 +234,7 @@ function DisplayPlayer(props) {
     substitutes: {
       bench: 0,
       in: 0,
-      out: 2,
+      out: 0,
     },
     tackles: {
       blocks: null,
@@ -243,8 +243,8 @@ function DisplayPlayer(props) {
     },
     team: {
       id: 85,
-      logo: "https://media.api-sports.io/football/teams/85.png",
-      name: "Paris Saint Germain",
+      logo: "",
+      name: "",
     },
   });
   const [stats2019, setStats2019] = useState({
@@ -267,27 +267,27 @@ function DisplayPlayer(props) {
       drawn: null,
     },
     games: {
-      appearences: 2,
+      appearences: 0,
       captain: false,
-      lineups: 2,
-      minutes: 92,
+      lineups: 0,
+      minutes: 0,
       number: null,
-      position: "Attacker",
+      position: "",
       rating: null,
     },
     goals: {
       assists: null,
       conceded: null,
       saves: null,
-      total: 3,
+      total: 0,
     },
     league: {
       country: null,
       flag: null,
       id: null,
       logo: null,
-      name: "Club Friendlies",
-      season: 2020,
+      name: "",
+      season: "2020",
     },
     passes: {
       accuracy: null,
@@ -308,7 +308,7 @@ function DisplayPlayer(props) {
     substitutes: {
       bench: 0,
       in: 0,
-      out: 2,
+      out: 0,
     },
     tackles: {
       blocks: null,
@@ -317,8 +317,8 @@ function DisplayPlayer(props) {
     },
     team: {
       id: 85,
-      logo: "https://media.api-sports.io/football/teams/85.png",
-      name: "Paris Saint Germain",
+      logo: "",
+      name: "",
     },
   });
   const options = {
@@ -435,7 +435,7 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.league.logo,
+                    uri: stats2022.league?.logo,
                   }}
                 />
                 <Text
