@@ -86,12 +86,17 @@ export default function AllCountriesScreen() {
           zIndex: 5000,
         }}
       >
-        <CustomSearchBar
-          query={query}
-          setQuery={setQuery}
-          placeholder="Search countries..."
-          onSubmit={getCountries}
-        />
+        {mapView ? (
+          <></>
+        ) : (
+          <CustomSearchBar
+            query={query}
+            setQuery={setQuery}
+            placeholder="Search countries..."
+            onSubmit={getCountries}
+          />
+        )}
+
         <Filters />
         <SeasonFilterV2 />
       </View>
@@ -130,11 +135,17 @@ export default function AllCountriesScreen() {
 
       {mapView ? (
         <View>
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={{ height: "31%" }}
-            ref={vertiScrollRef}
-          >
+          <View>
+            <Text style={{ fontSize: 13, marginLeft: 10 }}>
+              Selected country will appear below. Press to be redirected!
+            </Text>
+            <CategoryList
+              footer={false}
+              data={[singleScreenData.country]}
+              filter={filter}
+            />
+          </View>
+          <ScrollView showsVerticalScrollIndicator={false} ref={vertiScrollRef}>
             <ScrollView
               horizontal={true}
               bounces={false}
@@ -149,11 +160,6 @@ export default function AllCountriesScreen() {
               />
             </ScrollView>
           </ScrollView>
-          <Text style={{ fontSize: 16, marginLeft: 10 }}>
-            Selected country will appear below. Press to be redirected to the
-            country's page!
-          </Text>
-          <CategoryList data={[singleScreenData.country]} filter={filter} />
         </View>
       ) : (
         <CategoryList data={countriesData} filter={filter} />
@@ -165,8 +171,8 @@ export default function AllCountriesScreen() {
 const styles = StyleSheet.create({
   buttonContainer: {
     borderRadius: 20,
-    padding: 6,
-    marginBottom: 5,
+    padding: 2,
+    marginBottom: 3,
     width: 70,
     alignItems: "center",
   },

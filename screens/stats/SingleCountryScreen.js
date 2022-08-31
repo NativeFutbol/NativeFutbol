@@ -34,7 +34,7 @@ export default function AllCountriesScreen() {
     const searchUrl =
       query === ""
         ? `https://v3.football.api-sports.io/${filter}?season=${season}`
-        : `https://v3.football.api-sports.io/${filter}?search=${query}`;
+        : `https://v3.football.api-sports.io/${filter}?search=${query.toLowerCase()}`;
 
     const options = {
       method: "GET",
@@ -72,7 +72,7 @@ export default function AllCountriesScreen() {
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
-          placeholder="Search countries..."
+          placeholder="Search leagues..."
           onSubmit={getLeagues}
         />
         <Filters />

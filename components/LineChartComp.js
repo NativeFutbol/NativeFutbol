@@ -4,7 +4,7 @@ import { LineChart, BarChart } from "react-native-chart-kit";
 export default function LineChartComp({ title, labels, data, color }) {
   return (
     <View style={{ alignItems: "center" }}>
-      <Text>{title}</Text>
+      <Text style={{ fontWeight: "bold", fontSize: 18 }}>{title}</Text>
       <LineChart
         data={{
           labels: labels,

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -6,11 +6,13 @@ import PlayersList from "../components/PlayerList";
 import DropDownFilter from "../components/DropDownFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTeams } from "../store/myTeamFilterOptions";
-import { resetMyPlayer } from "../store/myPlayers";
+import { resetMyPlayer, setMyPlayersStore } from "../store/myPlayers";
+import { setMyFormationStore } from "../store/myFormation";
 import FormationOption from "../components/FormationOption";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
+import { auth, db } from "../firebase";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -43,6 +45,57 @@ export default function MyTeamsScreen() {
     filterFormationRef.current?.expand();
   };
 
+  const myFormation = useSelector((state) => state.myFormation);
+  const myPlayers = useSelector((state) => state.myPlayers);
+  const [currentUser, setCurrentUser] = useState({});
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setCurrentUser(user);
+    }
+  });
+
+  const saveChanges = () => {
+    Alert.alert(
+      "Save Dream Team",
+      "Are you sure you want to save your Dream Team?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            db.collection("User Information")
+              .doc(currentUser.uid)
+              .update({
+                myFormation,
+                myPlayers,
+              })
+              .catch((error) => alert(error.message));
+          },
+        },
+      ]
+    );
+  };
+
+  useEffect(() => {
+    db.collection("User Information")
+      .doc(currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.data()) {
+          dispatch(setMyFormationStore(snapshot.data()?.myFormation));
+          dispatch(setMyPlayersStore(snapshot.data()?.myPlayers));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => alert(error.message));
+  }, [currentUser]);
+
   return (
     <View style={styles.container}>
       <Field />
@@ -56,15 +109,24 @@ export default function MyTeamsScreen() {
             Select Players
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={{ color: "white", fontWeight: "bold" }}
-            onPress={selectFormation}
-          >
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={selectFormation}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>
             Select Formation
           </Text>
         </TouchableOpacity>
       </View>
+      {auth.currentUser ? (
+        <TouchableOpacity onPress={saveChanges}>
+          <Text style={{ color: "blue", fontWeight: "bold" }}>
+            Save Changes
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
 
       <BottomSheet
         ref={playerListRef}
