@@ -10,10 +10,13 @@ import {
   Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "../firebase";
 
 import LoginRegisterScreen from "./LoginRegisterScreen";
+import { resetMyFormation } from "../store/myFormation";
+import { resetMyPlayer } from "../store/myPlayers";
 
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -100,10 +103,15 @@ export default function AccountScreen() {
     );
   };
 
+  const dispatch = useDispatch();
   const handleSignOut = () => {
     auth
       .signOut()
-      .then(() => setIsLoggedIn(false))
+      .then(() => {
+        dispatch(resetMyFormation());
+        dispatch(resetMyPlayer());
+        setIsLoggedIn(false);
+      })
       .catch((error) => alert(error.message));
   };
 

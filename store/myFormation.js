@@ -9,6 +9,9 @@ const myFormationSlice = createSlice({
     Goalkeeper: 1,
   },
   reducers: {
+    resetMyFormation: (state, { payload }) => {
+      return { Attacker: 3, Midfielder: 3, Defender: 4, Goalkeeper: 1 };
+    },
     setMyFormation: (state, { payload }) => {
       state.Attacker = payload[0];
       state.Midfielder = payload[2];
@@ -20,6 +23,7 @@ const myFormationSlice = createSlice({
   },
 });
 
-export const { setMyFormation, setMyFormationStore } = myFormationSlice.actions;
+export const { resetMyFormation, setMyFormation, setMyFormationStore } =
+  myFormationSlice.actions;
 
 export default myFormationSlice.reducer;
