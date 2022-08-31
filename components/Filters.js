@@ -51,18 +51,18 @@ export default function Filters() {
 
 const styles = StyleSheet.create({
   filterOptions: {
-    marginHorizontal: 14,
+    marginHorizontal: 10,
     borderRadius: 10,
     borderWidth: 2,
   },
   container: {
-    width: "100%",
-    justifyContent: "space-around",
+    // width: "100%",
+    justifyContent: "space-between",
     flexDirection: "row",
     marginTop: 5,
   },
   text: {
-    padding: 3,
+    padding: 2,
     fontSize: 16,
     fontWeight: "bold",
   },
