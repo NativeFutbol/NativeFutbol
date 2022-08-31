@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -56,13 +56,29 @@ export default function MyTeamsScreen() {
   });
 
   const saveChanges = () => {
-    db.collection("User Information")
-      .doc(currentUser.uid)
-      .update({
-        myFormation,
-        myPlayers,
-      })
-      .catch((error) => alert(error.message));
+    Alert.alert(
+      "Save Dream Team",
+      "Are you sure you want to save your Dream Team?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            db.collection("User Information")
+              .doc(currentUser.uid)
+              .update({
+                myFormation,
+                myPlayers,
+              })
+              .catch((error) => alert(error.message));
+          },
+        },
+      ]
+    );
   };
 
   useEffect(() => {
