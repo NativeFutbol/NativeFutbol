@@ -238,7 +238,7 @@ export default function LeagueCharts({ route }) {
   //   console.log(standings);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, marginBottom: 20 }}>
       <ScrollView>
         <View
           style={{
@@ -505,9 +505,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginLeft: 5,
     // marginBottom: 2,
-    bottom: 15,
+    bottom: 0,
     left: 15,
     // borderWidth: 1,
-    marginBottom: 5,
   },
 });

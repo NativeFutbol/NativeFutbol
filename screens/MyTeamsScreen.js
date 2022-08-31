@@ -14,7 +14,7 @@ import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 
-export default function MyTeamsScreen({ navigation, route }) {
+export default function MyTeamsScreen({ route }) {
   console.log(route.params?.isInstructionOpen);
 
   const snapPoints = useMemo(() => ["50%", "75%"], []);
