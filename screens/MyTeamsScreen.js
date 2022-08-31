@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -6,7 +6,8 @@ import PlayersList from "../components/PlayerList";
 import DropDownFilter from "../components/DropDownFilter";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTeams } from "../store/myTeamFilterOptions";
-import { resetMyPlayer } from "../store/myPlayers";
+import { resetMyPlayer, setMyPlayersStore } from "../store/myPlayers";
+import { setMyFormationStore } from "../store/myFormation";
 import FormationOption from "../components/FormationOption";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "react-native-dynamic-search-bar";
@@ -55,17 +56,45 @@ export default function MyTeamsScreen() {
   });
 
   const saveChanges = () => {
-    db.collection("User Information").doc(currentUser.uid).update({
-      myFormation,
-      myPlayers,
-    });
+    Alert.alert(
+      "Save Dream Team",
+      "Are you sure you want to save your Dream Team?",
+      [
+        {
+          text: "No",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Yes",
+          onPress: () => {
+            db.collection("User Information")
+              .doc(currentUser.uid)
+              .update({
+                myFormation,
+                myPlayers,
+              })
+              .catch((error) => alert(error.message));
+          },
+        },
+      ]
+    );
   };
 
   useEffect(() => {
-    console.log("myformation", myFormation);
-    console.log("myplayers", myPlayers);
-    console.log("current user", currentUser);
-  }, [myFormation, myPlayers, currentUser]);
+    db.collection("User Information")
+      .doc(currentUser.uid)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.data()) {
+          dispatch(setMyFormationStore(snapshot.data()?.myFormation));
+          dispatch(setMyPlayersStore(snapshot.data()?.myPlayers));
+        } else {
+          console.log("No data available");
+        }
+      })
+      .catch((error) => alert(error.message));
+  }, [currentUser]);
 
   return (
     <View style={styles.container}>
@@ -89,9 +118,15 @@ export default function MyTeamsScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={saveChanges}>
-        <Text style={{ color: "blue", fontWeight: "bold" }}>Save Changes</Text>
-      </TouchableOpacity>
+      {auth.currentUser ? (
+        <TouchableOpacity onPress={saveChanges}>
+          <Text style={{ color: "blue", fontWeight: "bold" }}>
+            Save Changes
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
 
       <BottomSheet
         ref={playerListRef}
