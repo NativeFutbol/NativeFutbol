@@ -209,7 +209,7 @@ export default function SingleLeagueScreen() {
     axios
       .request(options)
       .then(function (response) {
-        const regex = new RegExp(`(${query})`);
+        const regex = new RegExp(`(${query.toLowerCase()})`);
 
         const teamsData = response.data.response.filter((team) => {
           return regex.test(team.team.name.toLowerCase());
