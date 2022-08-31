@@ -11,6 +11,7 @@ import FormationOption from "../components/FormationOption";
 import { ScrollView } from "react-native-gesture-handler";
 import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
+import { auth, db } from "../firebase";
 
 export default function MyTeamsScreen() {
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -43,6 +44,29 @@ export default function MyTeamsScreen() {
     filterFormationRef.current?.expand();
   };
 
+  const myFormation = useSelector((state) => state.myFormation);
+  const myPlayers = useSelector((state) => state.myPlayers);
+  const [currentUser, setCurrentUser] = useState({});
+
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      setCurrentUser(user);
+    }
+  });
+
+  const saveChanges = () => {
+    db.collection("User Information").doc(currentUser.uid).update({
+      myFormation,
+      myPlayers,
+    });
+  };
+
+  useEffect(() => {
+    console.log("myformation", myFormation);
+    console.log("myplayers", myPlayers);
+    console.log("current user", currentUser);
+  }, [myFormation, myPlayers, currentUser]);
+
   return (
     <View style={styles.container}>
       <Field />
@@ -56,15 +80,18 @@ export default function MyTeamsScreen() {
             Select Players
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer}>
-          <Text
-            style={{ color: "white", fontWeight: "bold" }}
-            onPress={selectFormation}
-          >
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={selectFormation}
+        >
+          <Text style={{ color: "white", fontWeight: "bold" }}>
             Select Formation
           </Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity onPress={saveChanges}>
+        <Text style={{ color: "blue", fontWeight: "bold" }}>Save Changes</Text>
+      </TouchableOpacity>
 
       <BottomSheet
         ref={playerListRef}

@@ -142,7 +142,7 @@ export default function CoachInfo() {
                 Coach Career
               </Text>
 
-              <CoachCareer data={getCoachCareer()} />
+              <CoachCareer data={getCoachCareer()} teamId={singleTeamData.id} />
             </View>
           )}
         />
