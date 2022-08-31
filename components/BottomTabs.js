@@ -141,7 +141,7 @@ const StatsStack = () => {
         name="SinglePlayer"
         component={SinglePlayerScreen}
         options={({ route }) => {
-          const name = route.params.player.name;
+          const name = route.params.player?.name || route.params.name;
 
           return {
             title: name,

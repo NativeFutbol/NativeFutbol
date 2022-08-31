@@ -16,7 +16,7 @@ import TeamStatsButton from "../../components/TeamStatsButton";
 export default function SingleTeamScreen() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("teams");
+  const [filter, setFilter] = useState("players");
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;

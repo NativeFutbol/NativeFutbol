@@ -324,7 +324,10 @@ function DisplayPlayer(props) {
   const options = {
     method: "GET",
     url: `https://v3.football.api-sports.io/players`,
-    params: { id: props.route.params.player.id, season: "2022" },
+    params: {
+      id: props.route.params.player?.id || props.route.params.id,
+      season: "2022",
+    },
     headers: {
       "X-RapidAPI-Key": FOOTBALL_API_KEY,
       "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -333,7 +336,10 @@ function DisplayPlayer(props) {
   const options2021 = {
     method: "GET",
     url: `https://v3.football.api-sports.io/players`,
-    params: { id: props.route.params.player.id, season: "2021" },
+    params: {
+      id: props.route.params.player?.id || props.route.params.id,
+      season: "2021",
+    },
     headers: {
       "X-RapidAPI-Key": FOOTBALL_API_KEY,
       "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -342,7 +348,10 @@ function DisplayPlayer(props) {
   const options2020 = {
     method: "GET",
     url: `https://v3.football.api-sports.io/players`,
-    params: { id: props.route.params.player.id, season: "2020" },
+    params: {
+      id: props.route.params.player?.id || props.route.params.id,
+      season: "2020",
+    },
     headers: {
       "X-RapidAPI-Key": FOOTBALL_API_KEY,
       "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -351,7 +360,10 @@ function DisplayPlayer(props) {
   const options2019 = {
     method: "GET",
     url: `https://v3.football.api-sports.io/players`,
-    params: { id: props.route.params.player.id, season: "2019" },
+    params: {
+      id: props.route.params.player?.id || props.route.params.id,
+      season: "2019",
+    },
     headers: {
       "X-RapidAPI-Key": FOOTBALL_API_KEY,
       "X-RapidAPI-Host": "v3.football.api-sports.io",

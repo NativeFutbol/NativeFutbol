@@ -26,9 +26,12 @@ export default function TeamStats() {
   const [teamStatsInfo, setTeamStatsInfo] = useState("");
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const [coachId, setCoachId] = useState("");
-  const singleTeamData = useSelector((state) => state.singleScreenData).team;
+  const [league, setLeague] = useState("39");
+  const singleTeamData = useSelector((state) => state.singleScreenData).team
+    ?.team;
   console.log("####", singleTeamData);
   console.log("season-----", season);
+  console.log("league----", league);
 
   useEffect(() => {
     getTeamStats();

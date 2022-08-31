@@ -9,7 +9,7 @@ import myTeamFiltersReducer from "./myTeamFilters";
 import myTeamFilterOptionsReducer from "./myTeamFilterOptions";
 import myPlayersReducer from "./myPlayers";
 import myFormationReducer from "./myFormation";
-
+import leagueReducer from "./league";
 import storage from "redux-persist/lib/storage";
 // import storage from "redux-persist/es/storage";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -54,7 +54,7 @@ const reducer = combineReducers({
   mostCardsData: mostCardsReducer,
   myTeamFilters: myTeamFiltersReducer,
   myTeamFilterOptions: myTeamFilterOptionsReducer,
-
+  league: leagueReducer,
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
 });

@@ -7,6 +7,7 @@ import BarChartComp from "../../components/BarChartComp";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LeagueFilter from "../../components/LeagueFilter";
 import LineChartComp from "../../components/LineChartComp";
@@ -17,9 +18,6 @@ export default function AllTeamsScreen() {
   const [filter, setFilter] = useState("teams");
   const [allTeamData, setAllTeamData] = useState([]);
   const [league, setLeague] = useState("39");
-
-  console.log("league.....", league);
-  console.log("season....", season);
 
   useEffect(() => {
     getTeams();
@@ -61,7 +59,6 @@ export default function AllTeamsScreen() {
         <Filters />
         <View
           style={{
-            flex: 1,
             flexDirection: "row",
             marginBottom: 55,
             left: 60,
@@ -71,7 +68,7 @@ export default function AllTeamsScreen() {
             <LeagueFilter league={league} setLeague={setLeague} />
           </View>
           <View style={{ marginRight: 370, width: "28%" }}>
-            <SeasonFilter season={season} setSeason={setSeason} />
+            <SeasonFilterV2 season={season} setSeason={setSeason} />
           </View>
         </View>
       </View>
