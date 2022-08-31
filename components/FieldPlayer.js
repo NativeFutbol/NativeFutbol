@@ -29,7 +29,7 @@ export default function FieldPlayer(props) {
         )}
         <Text
           style={{
-            backgroundColor: player ? "oreangered" : "black",
+            backgroundColor: player ? "orangered" : "black",
             color: "white",
             fontWeight: "bold",
             fontSize: 9,

@@ -1,6 +1,10 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import React, { Component } from "react";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { Component, useState } from "react";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SvgUri } from "react-native-svg";
@@ -335,9 +339,10 @@ export default function FooterTabs() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="MyTeam"
         component={MyTeamsScreen}
+        initialParams={{ isInstructionOpen: false }}
         options={{
           tabBarLabel: "My Team",
           tabBarIcon: ({ color, size }) => (
@@ -353,6 +358,59 @@ export default function FooterTabs() {
             textAlign: "center",
           },
           headerTitleAlign: "center",
+          headerRight: ({ route }) => {
+            return (
+              <TouchableOpacity
+                style={{ marginRight: 20 }}
+                onPress={() =>
+                  (route.params.isInstructionOpen =
+                    !route.params.isInstructionOpen)
+                }
+              >
+                <FontAwesome5 name="question-circle" size={25} color="black" />
+              </TouchableOpacity>
+            );
+          },
+        }}
+      /> */}
+      <Tab.Screen
+        name="MyTeam"
+        component={MyTeamsScreen}
+        initialParams={{ isInstructionOpen: false }}
+        options={({ route }) => {
+          return {
+            tabBarLabel: "My Team",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="soccer-field"
+                color={color}
+                size={size}
+              />
+            ),
+            title: "My Dream Team",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+            },
+            headerTitleAlign: "center",
+            headerRight: () => {
+              return (
+                <TouchableOpacity
+                  style={{ marginRight: 20 }}
+                  onPress={() => {
+                    route.params.isInstructionOpen =
+                      !route.params.isInstructionOpen;
+                  }}
+                >
+                  <FontAwesome5
+                    name="question-circle"
+                    size={25}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              );
+            },
+          };
         }}
       />
       <Tab.Screen
