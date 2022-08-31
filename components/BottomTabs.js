@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SvgUri } from "react-native-svg";
 
 import HomeScreen from "../screens/HomeScreen";
 import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
@@ -18,16 +19,20 @@ import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
-import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import TeamStats from "../screens/stats/TeamStats";
 import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
+import PredictionsScreen from "../screens/PredictionsScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const PredictionsStack = () => {
+  return <Stack.Navigator initialRouteName="Predictions"></Stack.Navigator>;
+};
 
 const StatsStack = () => {
   return (
@@ -348,6 +353,16 @@ export default function FooterTabs() {
             textAlign: "center",
           },
           headerTitleAlign: "center",
+        }}
+      />
+      <Tab.Screen
+        name="Predictions"
+        component={PredictionsScreen}
+        options={{
+          tabBarLabel: "Predictions",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="tv-outline" color={color} size={size} />
+          ),
         }}
       />
       <Tab.Screen
