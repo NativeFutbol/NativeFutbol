@@ -23,8 +23,8 @@ export default function TopPlayersScreen(props) {
     method: "GET",
     url: "https://v3.football.api-sports.io/players/topscorers",
     params: {
-      league: navigation.getParam("league"),
-      season: navigation.getParam("season"),
+      league: props.route.params.league,
+      season: props.route.params.season,
     },
     headers: {
       "X-RapidAPI-Key": FOOTBALL_API_KEY,
@@ -32,11 +32,9 @@ export default function TopPlayersScreen(props) {
     },
   };
   useEffect(() => {
-    console.log(props.route.params.league, season);
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         setData(response.data.response);
       })
       .catch(function (error) {
