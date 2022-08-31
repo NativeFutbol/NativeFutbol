@@ -30,7 +30,7 @@ export default function AllLeaguesScreen() {
     const searchUrl =
       query === ""
         ? `https://v3.football.api-sports.io/${filter}?season=${season}`
-        : `https://v3.football.api-sports.io/${filter}?search=${query}`;
+        : `https://v3.football.api-sports.io/${filter}?search=${query.toLowerCase()}`;
 
     const options = {
       method: "GET",
