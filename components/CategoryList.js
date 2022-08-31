@@ -12,7 +12,7 @@ import { useNavigation, useIsFocused } from "@react-navigation/native";
 import { setSingleScreenData } from "../store/singleScreenData";
 import { useDispatch } from "react-redux";
 
-export default function CategoryList({ data, filter }) {
+export default function CategoryList({ data, filter, footer = true }) {
   const navigation = useNavigation();
   const navigationName =
     filter === "countries"
@@ -38,7 +38,7 @@ export default function CategoryList({ data, filter }) {
       ref={flatListRef}
       numColumns={2}
       keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={<View style={{ height: 500 }} />}
+      ListFooterComponent={footer ? <View style={{ height: 250 }} /> : <></>}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>
