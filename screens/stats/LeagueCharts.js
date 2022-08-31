@@ -21,6 +21,7 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import Logo from "../../components/Logo";
 import Legend from "../../components/Legend";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const dummyData = [
   {
@@ -84,6 +85,7 @@ export default function LeagueCharts({ route }) {
   const [points, setPoints] = useState([]);
   const [legends, setLegends] = useState([]);
   const [selected, setSelected] = useState("Top 6");
+  const [isClosed, setIsClosed] = useState(false);
 
   const leagueId = route.params?.id;
 
@@ -405,25 +407,67 @@ export default function LeagueCharts({ route }) {
         /> */}
       </ScrollView>
 
-      <View style={styles.bottomView}>
-        <VictoryLegend
-          // x={10}
-          // y={0}
-          title="Legends"
-          centerTitle
-          orientation="vertical"
-          gutter={30}
-          style={{
-            border: { stroke: "grey", strokeWidth: 2 },
-            title: { fontSize: 12, fontWeight: "bold" },
-            labels: { fontSize: 10, fontWeight: "bold" },
-            data: { size: 12 },
-          }}
-          borderPadding={{ left: 10, right: 10, bottom: 10 }}
-          dataComponent={<Legend />}
-          data={legends}
-        />
-      </View>
+      {!isClosed ? (
+        <View style={styles.bottomView}>
+          <View
+            style={{
+              justifyContent: "flex-end",
+              flexDirection: "row",
+              flexGrow: 1,
+            }}
+          >
+            <TouchableOpacity
+              style={{ paddingRight: 5, paddingTop: 3 }}
+              onPress={() => setIsClosed(true)}
+            >
+              <MaterialIcons
+                name="cancel-presentation"
+                size={25}
+                color="black"
+              />
+            </TouchableOpacity>
+          </View>
+          <VictoryLegend
+            // x={10}
+            // y={0}
+            title="Teams"
+            centerTitle
+            orientation="vertical"
+            gutter={30}
+            style={{
+              // border: { stroke: "grey", strokeWidth: 2 },
+              title: { fontSize: 12, fontWeight: "bold" },
+              labels: { fontSize: 10, fontWeight: "bold" },
+              data: { size: 12 },
+            }}
+            borderPadding={{ left: 10, right: 10, bottom: 40 }}
+            dataComponent={<Legend />}
+            data={legends}
+          />
+        </View>
+      ) : (
+        <View style={styles.bottomViewTwo}>
+          <TouchableOpacity
+            onPress={() => setIsClosed(false)}
+            style={{
+              backgroundColor: "orangered",
+              borderRadius: 20,
+              padding: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: "bold",
+                color: "white",
+                textAlign: "center",
+              }}
+            >
+              View Legend
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 }
@@ -440,14 +484,30 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     width: "40%",
-    height: 180,
+    height: 210,
     // backgroundColor: "#EE5407",
     // justifyContent: "flex-start",
-    alignItems: "flex-start",
+    // alignItems: "flex-start",
     position: "absolute",
-    marginRight: 2,
+    marginLeft: 5,
     // marginBottom: 2,
     bottom: 0,
     left: 0,
+    borderWidth: 1,
+    marginBottom: 5,
+  },
+  bottomViewTwo: {
+    width: "35%",
+    height: 40,
+    // backgroundColor: "#EE5407",
+    // justifyContent: "flex-start",
+    // alignItems: "flex-start",
+    position: "absolute",
+    marginLeft: 5,
+    // marginBottom: 2,
+    bottom: 15,
+    left: 15,
+    // borderWidth: 1,
+    marginBottom: 5,
   },
 });

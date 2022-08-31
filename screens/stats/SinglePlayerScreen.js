@@ -452,7 +452,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -471,7 +471,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -481,20 +481,30 @@ function DisplayPlayer(props) {
               </View>
             </View>
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-            {player.name}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
-            Position: {stats2022.games.position}
-          </Text>
+          <View style={{ width: "100%", height: 50 }}>
+            <View
+              style={{
+                height: "100%",
+                width: 150,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+                {player.name}
+              </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                Position: {stats2022.games.position}
+              </Text>
+            </View>
+          </View>
           <View style={styles.infoBar}>
             <ScrollView horizontal={true}>
               <View style={styles.infoBox}>
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: 20,
                     textAlign: "center",
+                    fontSize: 16,
                   }}
                 >
                   {" "}
@@ -507,7 +517,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Weight:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -517,7 +527,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Height:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -527,9 +537,11 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>DOB:</Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player?.birth?.date}
                   </Text>
                 </View>
@@ -539,7 +551,9 @@ function DisplayPlayer(props) {
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player.nationality}
                   </Text>
                 </View>
@@ -548,7 +562,7 @@ function DisplayPlayer(props) {
           </View>
           <View
             style={{
-              height: "41%",
+              height: "52%",
               width: "100%",
               borderRadius: 10,
               backgroundColor: "white",
@@ -613,7 +627,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
-                <Text>On: 🟢 Total: ◻️</Text>
+                <Text>On: 🟢 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -633,7 +647,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.shots?.on),
                           isNull(stats2022?.shots?.on),
                         ],
-                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -669,7 +684,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
-                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <Text>Assists: 🟠 Goals: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -725,7 +740,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
-                <Text>Key: 🔴 Total: ◻️</Text>
+                <Text>Key: 🔴 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -783,7 +798,7 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Dribbles
                 </Text>
-                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <Text>Attempts: ⚪ Successes: 🟢</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -803,7 +818,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.dribbles?.success),
                           isNull(stats2022?.dribbles?.success),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -851,7 +867,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.fouls?.drawn),
                           isNull(stats2022?.fouls?.drawn),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                       {
                         data: [
@@ -905,7 +922,7 @@ function DisplayPlayer(props) {
                   }}
                   segments={5}
                   data={{
-                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    labels: ["2019", "2020", "2021", "2022", "E.G."],
                     legend: ["Red", "Yellow"],
                     data: [
                       [stats2019.cards.red, stats2019.cards.yellow],
@@ -961,7 +978,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -980,7 +997,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -990,20 +1007,30 @@ function DisplayPlayer(props) {
               </View>
             </View>
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-            {player.name}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
-            Position: {stats2022.games.position}
-          </Text>
+          <View style={{ width: "100%", height: 50 }}>
+            <View
+              style={{
+                height: "100%",
+                width: 150,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+                {player.name}
+              </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                Position: {stats2022.games.position}
+              </Text>
+            </View>
+          </View>
           <View style={styles.infoBar}>
             <ScrollView horizontal={true}>
               <View style={styles.infoBox}>
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: 20,
                     textAlign: "center",
+                    fontSize: 16,
                   }}
                 >
                   {" "}
@@ -1016,7 +1043,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Weight:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1026,7 +1053,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Height:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1036,9 +1063,11 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>DOB:</Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player?.birth?.date}
                   </Text>
                 </View>
@@ -1048,7 +1077,9 @@ function DisplayPlayer(props) {
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player.nationality}
                   </Text>
                 </View>
@@ -1057,7 +1088,7 @@ function DisplayPlayer(props) {
           </View>
           <View
             style={{
-              height: "41%",
+              height: "52%",
               width: "100%",
               borderRadius: 10,
               backgroundColor: "white",
@@ -1122,7 +1153,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
-                <Text>Key: 🔴 Total: ◻️</Text>
+                <Text>Key: 🔴 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -1180,7 +1211,7 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Dribbles
                 </Text>
-                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <Text>Attempts: ⚪ Successes: 🟢</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -1200,7 +1231,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.dribbles?.success),
                           isNull(stats2022?.dribbles?.success),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -1236,7 +1268,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
-                <Text>On: 🟢 Total: ◻️</Text>
+                <Text>On: 🟢 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -1256,7 +1288,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.shots?.on),
                           isNull(stats2022?.shots?.on),
                         ],
-                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -1292,7 +1325,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
-                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <Text>Assists: 🟠 Goals: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -1361,7 +1394,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.fouls?.drawn),
                           isNull(stats2022?.fouls?.drawn),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                       {
                         data: [
@@ -1415,7 +1449,7 @@ function DisplayPlayer(props) {
                   }}
                   segments={5}
                   data={{
-                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    labels: ["2019", "2020", "2021", "2022", "E.G."],
                     legend: ["Red", "Yellow"],
                     data: [
                       [stats2019.cards.red, stats2019.cards.yellow],
@@ -1471,7 +1505,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -1490,7 +1524,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -1500,20 +1534,30 @@ function DisplayPlayer(props) {
               </View>
             </View>
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-            {player.name}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
-            Position: {stats2022.games.position}
-          </Text>
+          <View style={{ width: "100%", height: 50 }}>
+            <View
+              style={{
+                height: "100%",
+                width: 150,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+                {player.name}
+              </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                Position: {stats2022.games.position}
+              </Text>
+            </View>
+          </View>
           <View style={styles.infoBar}>
             <ScrollView horizontal={true}>
               <View style={styles.infoBox}>
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: 20,
                     textAlign: "center",
+                    fontSize: 16,
                   }}
                 >
                   {" "}
@@ -1526,7 +1570,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Weight:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1536,7 +1580,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Height:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1546,9 +1590,11 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>DOB:</Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player?.birth?.date}
                   </Text>
                 </View>
@@ -1558,7 +1604,9 @@ function DisplayPlayer(props) {
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player.nationality}
                   </Text>
                 </View>
@@ -1567,7 +1615,7 @@ function DisplayPlayer(props) {
           </View>
           <View
             style={{
-              height: "41%",
+              height: "52%",
               width: "100%",
               borderRadius: 10,
               backgroundColor: "white",
@@ -1644,7 +1692,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.goals?.saves),
                           isNull(stats2022?.goals?.saves),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                       {
                         data: [
@@ -1689,7 +1738,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
-                <Text>Key: 🔴 Total: ◻️</Text>
+                <Text>Key: 🔴 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -1757,7 +1806,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.fouls?.drawn),
                           isNull(stats2022?.fouls?.drawn),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                       {
                         data: [
@@ -1811,7 +1861,7 @@ function DisplayPlayer(props) {
                   }}
                   segments={5}
                   data={{
-                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    labels: ["2019", "2020", "2021", "2022", "E.G."],
                     legend: ["Red", "Yellow"],
                     data: [
                       [stats2019.cards.red, stats2019.cards.yellow],
@@ -1867,7 +1917,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -1886,7 +1936,7 @@ function DisplayPlayer(props) {
                 />
                 <Text
                   style={{
-                    width: 80,
+                    width: 100,
                     textAlign: "center",
                     textAlignVertical: "center",
                   }}
@@ -1896,20 +1946,30 @@ function DisplayPlayer(props) {
               </View>
             </View>
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-            {player.name}
-          </Text>
-          <Text style={{ fontWeight: "bold" }}>
-            Position: {stats2022.games.position}
-          </Text>
+          <View style={{ width: "100%", height: 50 }}>
+            <View
+              style={{
+                height: "100%",
+                width: 150,
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
+                {player.name}
+              </Text>
+              <Text style={{ fontWeight: "bold" }}>
+                Position: {stats2022.games.position}
+              </Text>
+            </View>
+          </View>
           <View style={styles.infoBar}>
             <ScrollView horizontal={true}>
               <View style={styles.infoBox}>
                 <Text
                   style={{
                     fontWeight: "bold",
-                    fontSize: 20,
                     textAlign: "center",
+                    fontSize: 16,
                   }}
                 >
                   {" "}
@@ -1922,7 +1982,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Weight:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1932,7 +1992,7 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>
                   Height:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
@@ -1942,9 +2002,11 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 20 }}>DOB:</Text>
+                <Text style={{ fontWeight: "bold", fontSize: 16 }}>DOB:</Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player?.birth?.date}
                   </Text>
                 </View>
@@ -1954,7 +2016,9 @@ function DisplayPlayer(props) {
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
-                  <Text style={{ textAlign: "center", fontSize: 13 }}>
+                  <Text
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                  >
                     {player.nationality}
                   </Text>
                 </View>
@@ -1963,7 +2027,7 @@ function DisplayPlayer(props) {
           </View>
           <View
             style={{
-              height: "41%",
+              height: "52%",
               width: "100%",
               borderRadius: 10,
               backgroundColor: "white",
@@ -2028,7 +2092,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Passes</Text>
-                <Text>Key: 🔴 Total: ◻️</Text>
+                <Text>Key: 🔴 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -2084,7 +2148,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Shots</Text>
-                <Text>On: 🟢 Total: ◻️</Text>
+                <Text>On: 🟢 Total: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -2104,7 +2168,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.shots?.on),
                           isNull(stats2022?.shots?.on),
                         ],
-                        color: (opacity = 1) => `rgba(0, 204, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -2140,7 +2205,7 @@ function DisplayPlayer(props) {
                   }}
                 />
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>Goals</Text>
-                <Text>Assists: 🟠 Goals: ◻️</Text>
+                <Text>Assists: 🟠 Goals: ⚪</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -2198,7 +2263,7 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Dribbles
                 </Text>
-                <Text>Attempts: ◻️ Successes: 🟢</Text>
+                <Text>Attempts: ⚪ Successes: 🟢</Text>
                 <LineChart
                   data={{
                     labels: ["2019", "2020", "2021", "2022"],
@@ -2218,7 +2283,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.dribbles?.success),
                           isNull(stats2022?.dribbles?.success),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                     ],
                   }}
@@ -2266,7 +2332,8 @@ function DisplayPlayer(props) {
                           isNull(stats2021?.fouls?.drawn),
                           isNull(stats2022?.fouls?.drawn),
                         ],
-                        color: (opacity = 1) => `rgba(0, 255, 0, ${opacity})`,
+                        color: (opacity = 1) =>
+                          `rgba(124, 179, 66, ${opacity})`,
                       },
                       {
                         data: [
@@ -2320,7 +2387,7 @@ function DisplayPlayer(props) {
                   }}
                   segments={5}
                   data={{
-                    labels: ["2019", "2020", "2021", "2022", "Ex."],
+                    labels: ["2019", "2020", "2021", "2022", "E.G."],
                     legend: ["Red", "Yellow"],
                     data: [
                       [stats2019.cards.red, stats2019.cards.yellow],
@@ -2364,7 +2431,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   playerImageBorder: {
-    width: "50%",
+    width: "40%",
     height: "100%",
     borderStyle: "solid",
     borderRadius: 10,
@@ -2375,15 +2442,15 @@ const styles = StyleSheet.create({
   },
   playerImages: {
     width: "100%",
-    height: "35%",
+    height: "25%",
     flexDirection: "row",
   },
   playerImage: {
     borderRadius: 10,
   },
   playerLogos: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
   },
   infoBar: {
     marginTop: 10,
@@ -2404,6 +2471,7 @@ const styles = StyleSheet.create({
   border: {
     flex: 1,
     flexDirection: "row",
+    justifyContent: "center",
   },
 });
 export default DisplayPlayer;

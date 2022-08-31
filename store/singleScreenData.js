@@ -10,7 +10,7 @@ const singleScreenDataSlice = createSlice({
   },
   reducers: {
     setSingleScreenData: (state, action) => {
-      if (action.payload?.name) {
+      if (action.payload?.flag) {
         state.country = action.payload;
       } else if (action.payload?.league?.id) {
         state.league = action.payload;
@@ -20,10 +20,13 @@ const singleScreenDataSlice = createSlice({
         state.player = action.payload;
       }
     },
+    resetSingleCountryData: (state, { payload }) => {
+      return { ...state, country: {} };
+    },
   },
 });
 
-export const setSingleScreenData =
-  singleScreenDataSlice.actions.setSingleScreenData;
+export const { setSingleScreenData, resetSingleCountryData } =
+  singleScreenDataSlice.actions;
 
 export default singleScreenDataSlice.reducer;
