@@ -102,9 +102,15 @@ export default function MyTeamsScreen() {
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={saveChanges}>
-        <Text style={{ color: "blue", fontWeight: "bold" }}>Save Changes</Text>
-      </TouchableOpacity>
+      {auth.currentUser ? (
+        <TouchableOpacity onPress={saveChanges}>
+          <Text style={{ color: "blue", fontWeight: "bold" }}>
+            Save Changes
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
 
       <BottomSheet
         ref={playerListRef}
