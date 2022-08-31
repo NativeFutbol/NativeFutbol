@@ -56,9 +56,9 @@ export default function AccountScreen() {
     } else if (!country) {
       alert("Please enter a country!");
     } else if (!favTeam) {
-      setFavTeam("N/A");
+      setFavTeam("");
     } else if (!favPlayer) {
-      setFavPlayer("N/A");
+      setFavPlayer("");
     } else {
       db.collection("User Information").doc(`${user.uid}`).set({
         firstName,
@@ -134,10 +134,11 @@ export default function AccountScreen() {
         <Image
           source={
             userInfo?.pfpUrl
-              ? userInfo.pfpUrl
+              ? { uri: userInfo.pfpUrl }
               : require("../assets/default_pfp.png")
           }
           style={{
+            borderRadius: "100px",
             margin: 10,
             width: 200,
             height: 200,
@@ -190,6 +191,12 @@ export default function AccountScreen() {
                 onChangeText={(text) =>
                   setFavPlayer(text.charAt(0).toUpperCase() + text.slice(1))
                 }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Profile Picture URL"
+                value={pfpUrl}
+                onChangeText={(text) => setPfpUrl(text)}
                 style={styles.input}
               />
             </View>
