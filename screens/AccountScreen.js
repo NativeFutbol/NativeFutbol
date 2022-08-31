@@ -10,10 +10,13 @@ import {
   Modal,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "../firebase";
 
 import LoginRegisterScreen from "./LoginRegisterScreen";
+import { resetMyFormation } from "../store/myFormation";
+import { resetMyPlayer } from "../store/myPlayers";
 
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,7 +31,6 @@ export default function AccountScreen() {
   const [pfpUrl, setPfpUrl] = useState(userInfo?.pfpUrl);
 
   const user = auth?.currentUser;
-  console.log(userInfo);
 
   const updates = useEffect(() => {
     db.collection("User Information")
@@ -54,9 +56,9 @@ export default function AccountScreen() {
     } else if (!country) {
       alert("Please enter a country!");
     } else if (!favTeam) {
-      setFavTeam("N/A");
+      setFavTeam("");
     } else if (!favPlayer) {
-      setFavPlayer("N/A");
+      setFavPlayer("");
     } else {
       db.collection("User Information").doc(`${user.uid}`).set({
         firstName,
@@ -101,10 +103,15 @@ export default function AccountScreen() {
     );
   };
 
+  const dispatch = useDispatch();
   const handleSignOut = () => {
     auth
       .signOut()
-      .then(() => setIsLoggedIn(false))
+      .then(() => {
+        dispatch(resetMyFormation());
+        dispatch(resetMyPlayer());
+        setIsLoggedIn(false);
+      })
       .catch((error) => alert(error.message));
   };
 
@@ -127,10 +134,11 @@ export default function AccountScreen() {
         <Image
           source={
             userInfo?.pfpUrl
-              ? userInfo.pfpUrl
+              ? { uri: userInfo.pfpUrl }
               : require("../assets/default_pfp.png")
           }
           style={{
+            borderRadius: "100px",
             margin: 10,
             width: 200,
             height: 200,
@@ -183,6 +191,12 @@ export default function AccountScreen() {
                 onChangeText={(text) =>
                   setFavPlayer(text.charAt(0).toUpperCase() + text.slice(1))
                 }
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="Profile Picture URL"
+                value={pfpUrl}
+                onChangeText={(text) => setPfpUrl(text)}
                 style={styles.input}
               />
             </View>
