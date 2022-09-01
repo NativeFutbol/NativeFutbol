@@ -17,11 +17,13 @@ import { auth, db } from "../firebase";
 import LoginRegisterScreen from "./LoginRegisterScreen";
 import { resetMyFormation } from "../store/myFormation";
 import { resetMyPlayer } from "../store/myPlayers";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function AccountScreen() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [firstName, setFirstName] = useState(userInfo?.firstName);
   const [lastName, setLastName] = useState(userInfo?.lastName);
@@ -33,6 +35,8 @@ export default function AccountScreen() {
   const user = auth?.currentUser;
 
   const updates = useEffect(() => {
+    setIsLoading(true);
+
     db.collection("User Information")
       .doc(user?.uid)
       .get()
@@ -44,6 +48,8 @@ export default function AccountScreen() {
         setFavTeam(userInfo?.favTeam);
         setFavPlayer(userInfo?.favPlayer);
         setPfpUrl(userInfo?.pfpUrl);
+
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
   }, [isLoggedIn, modalVisible]);
@@ -124,6 +130,10 @@ export default function AccountScreen() {
 
     return unsubscribe;
   }, []);
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return !isLoggedIn ? (
     <LoginRegisterScreen />
