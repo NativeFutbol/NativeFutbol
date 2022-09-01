@@ -11,18 +11,15 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-
-import CustomSearchBar from "../../components/CustomSearchBar";
-import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
-import CategoryList from "../../components/CategoryList";
-import singleScreenData from "../../store/singleScreenData";
+import Filters from "../components/Filters";
+import SeasonFilter from "../components/SeasonFilter";
+import CategoryList from "../components/CategoryList";
+import singleScreenData from "../store/singleScreenData";
 import { useSelector } from "react-redux";
-import CoachButton from "../../components/CoachButton";
+import CoachButton from "../components/CoachButton";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import SeasonFilterV2 from "../../components/SeasonFilterV2";
-import ComparisonTeam from "../../components/ComparisonTeam";
-export default function TeamStats() {
+import SeasonFilterV2 from "../components/SeasonFilterV2";
+export default function ComparisonTeam(props) {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
@@ -44,7 +41,7 @@ export default function TeamStats() {
   const getTeamStats = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${singleTeamData.id}&league=${leagueIdInfo}`,
+      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${props.team}&league=${leagueIdInfo}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -61,11 +58,8 @@ export default function TeamStats() {
       });
   };
 
-  console.log(teamStatsInfo.goals?.for?.average);
-
   return (
     <SafeAreaView>
-      <SeasonFilterV2 />
       <ScrollView>
         <View
           style={{
@@ -238,9 +232,6 @@ export default function TeamStats() {
             </Col>
           </Row>
         </Grid>
-        <Button title="Compare to a team" />
-
-        <ComparisonTeam team={40} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -260,23 +251,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//   logo: {
-//     width: 20,
-//     height: 20,
-//   },
-
-//   team: {
-//     fontSize: 12,
-//   },
-
-//   stat: {
-//     fontSize: 12,
-//     flex: 1,
-//     alignContent: "center",
-//     alignItems: "center",
-//     justifyContent: "cneter",
-//   },
-// });
-
-//

@@ -24,9 +24,14 @@ export default function AllTeamsScreen() {
   }, [league, season]);
 
   const getTeams = () => {
+    const searchUrl =
+      query === ""
+        ? `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`
+        : `https://v3.football.api-sports.io/teams?search=${query.toLowerCase()}`;
+
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`,
+      url: searchUrl,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",

@@ -40,6 +40,7 @@ const persistConfig = {
     "mostCardsData",
     "myTeamFilters",
     "myTeamFilterOptions",
+    "leagueId",
   ],
   storage,
   // storage,
