@@ -7,6 +7,7 @@ const singleScreenDataSlice = createSlice({
     league: {},
     team: {},
     player: {},
+    match: {},
   },
   reducers: {
     setSingleScreenData: (state, action) => {
@@ -20,13 +21,19 @@ const singleScreenDataSlice = createSlice({
         state.player = action.payload;
       }
     },
+    setMatchScreenData: (state, { payload }) => {
+      return { ...state, match: payload };
+    },
     resetSingleCountryData: (state, { payload }) => {
       return { ...state, country: {} };
     },
   },
 });
 
-export const { setSingleScreenData, resetSingleCountryData } =
-  singleScreenDataSlice.actions;
+export const {
+  setSingleScreenData,
+  resetSingleCountryData,
+  setMatchScreenData,
+} = singleScreenDataSlice.actions;
 
 export default singleScreenDataSlice.reducer;
