@@ -19,7 +19,7 @@ import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
 import CoachButton from "../../components/CoachButton";
 import { Col, Row, Grid } from "react-native-easy-grid";
-
+import SeasonFilterV2 from "../../components/SeasonFilterV2";
 export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
@@ -29,6 +29,7 @@ export default function TeamStats() {
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const [coachId, setCoachId] = useState("");
   const [league, setLeague] = useState("39");
+
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
   const leagueIdInfo = useSelector((state) => state.leagueId);
@@ -36,7 +37,7 @@ export default function TeamStats() {
 
   useEffect(() => {
     getTeamStats();
-  }, [singleTeamData.id, season]);
+  }, [singleTeamData.id, seasonInfo]);
 
   const getTeamStats = () => {
     const options = {
@@ -62,15 +63,27 @@ export default function TeamStats() {
 
   return (
     <Grid>
-      <Row
-        size={1.5}
-        style={{ alignItems: "center", justifyContent: "center", margin: 5 }}
-      >
-        <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
-        <Image
-          source={{ uri: teamStatsInfo.team?.logo }}
-          style={{ width: 45, height: 45, margin: 3 }}
-        />
+      <Row size={1.5}>
+        <Row
+          size={1.6}
+          style={{ alignItems: "center", justifyContent: "center", margin: 5 }}
+        >
+          <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
+          <Image
+            source={{ uri: teamStatsInfo.team?.logo }}
+            style={{ width: 45, height: 45, margin: 3 }}
+          />
+        </Row>
+        <Row
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            margin: 5,
+            width: "100%",
+          }}
+        >
+          <SeasonFilterV2 />
+        </Row>
       </Row>
       <Row size={1.2} style={styles.subheaders}>
         <Col size={2}></Col>
