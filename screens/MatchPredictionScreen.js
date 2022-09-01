@@ -11,12 +11,15 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import PastMatches from "../components/PastMatches";
+import RadarChartPrediction from "../components/RadarChartPrediction";
+import BarChartPrediction from "../components/BarChartPrediction";
 
 export default function MatchPredictionScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [matchInfo, setMatchInfo] = useState({});
   const [winnerId, setWinnerId] = useState("");
   const [winnerInfo, setWinnerInfo] = useState({});
+  const [isRatings, setIsRatings] = useState(true);
   const [isRadar, setIsRadar] = useState(true);
 
   const match = useSelector((state) => state.singleScreenData.match);
@@ -87,10 +90,10 @@ export default function MatchPredictionScreen() {
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          padding: 10,
+          padding: 5,
         }}
       >
-        Predicted Outcome
+        Predicted Winner
       </Text>
       <Image
         style={styles.winnerLogo}
@@ -119,15 +122,6 @@ export default function MatchPredictionScreen() {
         <Text>Draw: {matchInfo?.predictions?.percent?.draw}</Text>
         <Text>Away Wins: {matchInfo?.predictions?.percent?.away}</Text>
       </View>
-      <Text
-        style={{
-          textAlign: "center",
-          fontSize: 18,
-          fontWeight: "bold",
-        }}
-      >
-        Team Ratings
-      </Text>
       <View
         style={{
           flexDirection: "row",
@@ -135,43 +129,96 @@ export default function MatchPredictionScreen() {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => setIsRadar(true)}>
+        <TouchableOpacity onPress={() => setIsRatings(true)}>
           <View
             style={[
-              styles.buttonContainer,
+              styles.buttonContainer2,
               {
                 marginRight: 50,
-                backgroundColor: isRadar ? "orangered" : "grey",
+                backgroundColor: isRatings ? "orangered" : "grey",
               },
             ]}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>Radar</Text>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Team Ratings
+            </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => setIsRadar(false)}>
+        <TouchableOpacity onPress={() => setIsRatings(false)}>
           <View
             style={[
-              styles.buttonContainer,
-              { backgroundColor: isRadar ? "grey" : "orangered" },
+              styles.buttonContainer2,
+              { backgroundColor: isRatings ? "grey" : "orangered" },
             ]}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>Bar</Text>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Past Matches
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
-      <View>
-        <Text
-          style={{
-            textAlign: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-            padding: 10,
-          }}
-        >
-          Past Matches
-        </Text>
-        <PastMatches data={matchInfo.h2h} />
-      </View>
+      {isRatings ? (
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableOpacity onPress={() => setIsRadar(true)}>
+              <View
+                style={[
+                  styles.buttonContainer,
+                  {
+                    marginRight: 50,
+                    backgroundColor: isRadar ? "orangered" : "grey",
+                  },
+                ]}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>
+                  Radar
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setIsRadar(false)}>
+              <View
+                style={[
+                  styles.buttonContainer,
+                  { backgroundColor: isRadar ? "grey" : "orangered" },
+                ]}
+              >
+                <Text style={{ color: "white", fontWeight: "bold" }}>Bar</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          {isRadar ? (
+            <RadarChartPrediction />
+          ) : (
+            <BarChartPrediction
+              data={matchInfo.comparison}
+              homeTeam={matchInfo.teams.home.name}
+              awayTeam={matchInfo.teams.away.name}
+            />
+          )}
+        </View>
+      ) : (
+        <View style={{ marginTop: 10 }}>
+          <PastMatches data={matchInfo.h2h} />
+        </View>
+      )}
     </View>
   );
 }
@@ -193,6 +240,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 100,
     width: 100,
+  },
+  buttonContainer2: {
+    borderRadius: 20,
+    padding: 6,
+    marginTop: 10,
+    width: 100,
+    alignItems: "center",
   },
   buttonContainer: {
     borderRadius: 20,
