@@ -371,8 +371,8 @@ export default function FooterTabs() {
       <Tab.Screen
         name="MyTeam"
         component={MyTeamsScreen}
-        initialParams={{ isInstructionOpen: false }}
-        options={({ route }) => {
+        initialParams={{ isInstructionOpen: true }}
+        options={({ navigation, route }) => {
           return {
             tabBarLabel: "My Team",
             tabBarIcon: ({ color, size }) => (
@@ -393,8 +393,9 @@ export default function FooterTabs() {
                 <TouchableOpacity
                   style={{ marginRight: 20 }}
                   onPress={() => {
-                    route.params.isInstructionOpen =
-                      !route.params.isInstructionOpen;
+                    navigation.setParams({
+                      isInstructionOpen: !route.params.isInstructionOpen,
+                    });
                   }}
                 >
                   <FontAwesome5

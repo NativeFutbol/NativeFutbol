@@ -21,13 +21,14 @@ import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import Modal from "react-native-modal";
+import { SafeAreaView } from "react-native-safe-area-context";
+import InstructionModal from "../components/InstructionModal";
 
-export default function MyTeamsScreen({ route }) {
-  console.log(route.params?.isInstructionOpen);
-
-  const [isModalVisible, setModalVisible] = useState(false);
+export default function MyTeamsScreen({ navigation, route }) {
   const toggleModal = () => {
-    setModalVisible(!isModalVisible);
+    navigation.setParams({
+      isInstructionOpen: !route.params.isInstructionOpen,
+    });
   };
 
   const snapPoints = useMemo(() => ["50%", "75%"], []);
@@ -112,14 +113,10 @@ export default function MyTeamsScreen({ route }) {
   }, [currentUser]);
 
   return (
-    <View style={{ flex: 1, marginBottom: 200 }}>
-      <Button title="Show modal" onPress={toggleModal} />
-
-      <Modal isVisible={isModalVisible}>
+    <View style={{ flex: 1 }}>
+      <Modal isVisible={route.params?.isInstructionOpen}>
         <View style={{ flex: 1 }}>
-          <Text>Hello!</Text>
-
-          <Button title="Hide modal" onPress={toggleModal} />
+          <InstructionModal toggleModal={toggleModal} />
         </View>
       </Modal>
 
