@@ -1,13 +1,14 @@
 import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { SafeAreaView } from "react-navigation";
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 
 export default function MatchPredictionScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [matchInfo, setMatchInfo] = useState({});
+  const [winnerId, setWinnerId] = useState("");
+  const [winnerInfo, setWinnerInfo] = useState({});
 
   const match = useSelector((state) => state.singleScreenData.match);
   const fixtureId = match?.fixture?.id;
@@ -28,16 +29,97 @@ export default function MatchPredictionScreen() {
       },
     };
 
-    axios.request(options).then(function (response) {
-      setMatchInfo(response.data.response[0]);
-    });
+    axios
+      .request(options)
+      .then(function (response) {
+        setMatchInfo(response.data.response[0]);
+        setWinnerId(response.data.response[0].predictions?.winner?.id);
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
   };
 
-  console.log(matchInfo);
+  useEffect(() => {
+    getWinner();
+  }, [winnerId]);
+
+  const getWinner = () => {
+    setIsLoading(true);
+
+    const options = {
+      method: "GET",
+      url: `https://v3.football.api-sports.io/teams?id=${winnerId}`,
+      headers: {
+        "X-RapidAPI-Key": FOOTBALL_API_KEY,
+        "X-RapidAPI-Host": "v3.football.api-sports.io",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        setWinnerInfo(response.data.response[0]);
+        setIsLoading(false);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  };
+
+  console.log("matchinfo", matchInfo.predictions);
+  console.log("winnerinfo", winnerInfo);
 
   return (
-    <SafeAreaView>
-      <Text>MatchPredictionScreen</Text>
+    <View>
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 18,
+          fontWeight: "bold",
+          padding: 10,
+        }}
+      >
+        Predicted Outcome
+      </Text>
+      <Image
+        style={styles.winnerLogo}
+        source={{
+          uri: winnerInfo?.team?.logo,
+        }}
+      />
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 16,
+          fontWeight: "bold",
+          marginBottom: 5,
+        }}
+      >
+        {winnerInfo?.team?.name}
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginHorizontal: 20,
+        }}
+      >
+        <Text>Home Wins: {matchInfo?.predictions?.percent?.home}</Text>
+        <Text>Draw: {matchInfo?.predictions?.percent?.draw}</Text>
+        <Text>Away Wins: {matchInfo?.predictions?.percent?.away}</Text>
+      </View>
+      <Text
+        style={{
+          textAlign: "center",
+          fontSize: 18,
+          fontWeight: "bold",
+          padding: 10,
+        }}
+      >
+        Team Ratings
+      </Text>
       <View>
         <Text
           style={{
@@ -117,7 +199,7 @@ export default function MatchPredictionScreen() {
           )}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -133,5 +215,10 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     marginRight: 5,
+  },
+  winnerLogo: {
+    alignSelf: "center",
+    height: 100,
+    width: 100,
   },
 });
