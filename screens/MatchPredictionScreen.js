@@ -44,7 +44,7 @@ export default function MatchPredictionScreen() {
             textAlign: "center",
             fontSize: 18,
             fontWeight: "bold",
-            padding: 20,
+            padding: 10,
           }}
         >
           Past Matches
@@ -52,7 +52,7 @@ export default function MatchPredictionScreen() {
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 175 }} />}
+          ListFooterComponent={<View style={{ height: 150 }} />}
           data={matchInfo.h2h}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>

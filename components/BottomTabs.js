@@ -38,7 +38,15 @@ const Stack = createNativeStackNavigator();
 const PredictionsStack = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="PredictionsScreen" component={PredictionsScreen} />
+      <Stack.Screen
+        name="PredictionsScreen"
+        component={PredictionsScreen}
+        options={({ route }) => {
+          return {
+            title: "Predictions",
+          };
+        }}
+      />
       <Stack.Screen
         name="MatchPrediction"
         component={MatchPredictionScreen}

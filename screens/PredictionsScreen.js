@@ -86,7 +86,7 @@ export default function PredictionsScreen() {
             textAlign: "center",
             fontSize: 18,
             fontWeight: "bold",
-            padding: 20,
+            padding: 10,
           }}
         >
           Upcoming Matches
@@ -94,7 +94,7 @@ export default function PredictionsScreen() {
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 50 }} />}
+          ListFooterComponent={<View style={{ height: 100 }} />}
           data={nextGames}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>
