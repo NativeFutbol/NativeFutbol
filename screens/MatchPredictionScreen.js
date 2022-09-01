@@ -1,14 +1,23 @@
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
+import PastMatches from "../components/PastMatches";
 
 export default function MatchPredictionScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [matchInfo, setMatchInfo] = useState({});
   const [winnerId, setWinnerId] = useState("");
   const [winnerInfo, setWinnerInfo] = useState({});
+  const [isRadar, setIsRadar] = useState(true);
 
   const match = useSelector((state) => state.singleScreenData.match);
   const fixtureId = match?.fixture?.id;
@@ -115,11 +124,41 @@ export default function MatchPredictionScreen() {
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          padding: 10,
         }}
       >
         Team Ratings
       </Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity onPress={() => setIsRadar(true)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              {
+                marginRight: 50,
+                backgroundColor: isRadar ? "orangered" : "grey",
+              },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Radar</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setIsRadar(false)}>
+          <View
+            style={[
+              styles.buttonContainer,
+              { backgroundColor: isRadar ? "grey" : "orangered" },
+            ]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Bar</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
       <View>
         <Text
           style={{
@@ -131,73 +170,7 @@ export default function MatchPredictionScreen() {
         >
           Past Matches
         </Text>
-        <FlatList
-          numColumns={1}
-          keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 125 }} />}
-          data={matchInfo.h2h}
-          renderItem={({ item, index }) => (
-            <View style={styles.container} key={index}>
-              <View style={{ alignItems: "center" }}>
-                <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
-                  {new Date(item.fixture.date).toDateString()}
-                </Text>
-                <Text>{item.league.round}</Text>
-                <Text style={{ marginBottom: 10 }}>
-                  {item.fixture.venue.name}
-                </Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  marginHorizontal: 20,
-                }}
-              >
-                <Text style={{ fontWeight: "bold" }}>Home</Text>
-                {item.goals.home === 0 || item.goals.home ? (
-                  <Text>
-                    {item.goals.home} : {item.goals.away}
-                  </Text>
-                ) : (
-                  <Text>vs</Text>
-                )}
-                <Text style={{ fontWeight: "bold" }}>Away</Text>
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  margin: 15,
-                }}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  {item.teams.home.logo ? (
-                    <Image
-                      source={{ uri: item.teams.home.logo }}
-                      style={styles.image}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                  <Text>{item.teams.home.name}</Text>
-                </View>
-
-                <View style={{ flexDirection: "row" }}>
-                  {item.goals.home === 0 || item.teams.away.logo ? (
-                    <Image
-                      source={{ uri: item.teams.away.logo }}
-                      style={styles.image}
-                    />
-                  ) : (
-                    <></>
-                  )}
-                  <Text>{item.teams.away.name}</Text>
-                </View>
-              </View>
-            </View>
-          )}
-        />
+        <PastMatches data={matchInfo.h2h} />
       </View>
     </View>
   );
@@ -220,5 +193,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 100,
     width: 100,
+  },
+  buttonContainer: {
+    borderRadius: 20,
+    padding: 6,
+    marginTop: 10,
+    width: 70,
+    alignItems: "center",
   },
 });

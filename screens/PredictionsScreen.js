@@ -102,7 +102,6 @@ export default function PredictionsScreen() {
                 onPress={() => {
                   navigation.navigate("MatchPrediction", item);
                   dispatch(setMatchScreenData(item));
-                  console.log();
                 }}
               >
                 <View style={{ alignItems: "center" }}>
