@@ -53,7 +53,7 @@ export default function InstructionModal({ toggleModal }) {
               <Text style={styles.text}>
                 * Logged-In users should click{" "}
                 <Text style={{ fontWeight: "bold", color: "orangered" }}>
-                  Save Changes
+                  Save
                 </Text>{" "}
                 button if they wish to revisit the formation and the players
                 chosen even after exiting the app.

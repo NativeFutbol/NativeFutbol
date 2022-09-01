@@ -125,7 +125,12 @@ export default function MyTeamsScreen({ navigation, route }) {
 
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[
+              styles.buttonContainer,
+              auth.currentUser
+                ? { padding: 5, margin: 5 }
+                : { padding: 10, margin: 20 },
+            ]}
             onPress={selectPlayers}
           >
             <Text style={{ color: "white", fontWeight: "bold" }}>
@@ -133,7 +138,12 @@ export default function MyTeamsScreen({ navigation, route }) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[
+              styles.buttonContainer,
+              auth.currentUser
+                ? { padding: 5, margin: 5 }
+                : { padding: 10, margin: 20 },
+            ]}
             onPress={selectFormation}
           >
             <Text style={{ color: "white", fontWeight: "bold" }}>
@@ -141,7 +151,19 @@ export default function MyTeamsScreen({ navigation, route }) {
             </Text>
           </TouchableOpacity>
         </View>
+
         {auth.currentUser ? (
+          <TouchableOpacity
+            onPress={saveChanges}
+            style={[styles.buttonContainer, { padding: 5, margin: 5 }]}
+          >
+            <Text style={{ color: "white", fontWeight: "bold" }}>Save</Text>
+          </TouchableOpacity>
+        ) : (
+          <></>
+        )}
+
+        {/* {auth.currentUser ? (
           <TouchableOpacity onPress={saveChanges}>
             <Text style={{ color: "blue", fontWeight: "bold" }}>
               Save Changes
@@ -149,7 +171,7 @@ export default function MyTeamsScreen({ navigation, route }) {
           </TouchableOpacity>
         ) : (
           <></>
-        )}
+        )} */}
 
         <BottomSheet
           ref={playerListRef}
@@ -345,8 +367,8 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "black",
     width: "40%",
-    margin: 20,
-    padding: 10,
+    // margin: 20,
+    // padding: 10,
     alignItems: "center",
     borderRadius: 50,
   },
