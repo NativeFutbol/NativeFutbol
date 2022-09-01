@@ -2,15 +2,38 @@ import { View, Text } from "react-native";
 import React from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { setSeasonYear } from "../store/season";
+import { setLeagueId } from "../store/league";
 import { Ionicons } from "@expo/vector-icons";
 
-export default function SeasonFilterV2() {
-  const data = ["2022", "2021", "2020", "2019"];
+export default function LeagueFilterV2() {
+  const data = [
+    "Premier League",
+    "Bundesliga",
+    "Ligue 1",
+    "La Liga",
+    "Serie A",
+  ];
 
   const dispatch = useDispatch();
-
-  const season = useSelector((state) => state.season);
+  const league = useSelector((state) => state.league);
+  let name = "Premier League";
+  switch (league) {
+    case 39:
+      name = "Premier League";
+      break;
+    case 78:
+      name = "Bundesliga";
+      break;
+    case 61:
+      name = "Ligue 1";
+      break;
+    case 140:
+      name = "La Liga";
+      break;
+    case 135:
+      name = "Serie A";
+      break;
+  }
 
   return (
     <View
@@ -32,20 +55,9 @@ export default function SeasonFilterV2() {
           height: 35,
         }}
       >
-        <View style={{}}>
-          <Text
-            style={{
-              fontSize: 15,
-              fontWeight: "bold",
-              marginRight: 10,
-            }}
-          >
-            Season:
-          </Text>
-        </View>
         <ModalDropdown
           options={data}
-          defaultValue={season}
+          defaultValue={name}
           // style={{ borderBottomWidth: 1 }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
           dropdownStyle={{}}
@@ -54,7 +66,7 @@ export default function SeasonFilterV2() {
             fontSize: 15,
             fontWeight: "bold",
           }}
-          onSelect={(idx, value) => dispatch(setSeasonYear(value))}
+          onSelect={(idx, value) => dispatch(setLeagueId(value))}
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}
