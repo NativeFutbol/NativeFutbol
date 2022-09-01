@@ -9,6 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -56,131 +57,22 @@ export default function TeamStats() {
         console.error(error);
       });
   };
-  // return (
-  //   // <View>
-  //   //   <View style={{ flex: 1 }}>
-  //   //     <View
-  //   //       style={{
-  //   //         flexDirection: "row",
-  //   //         justifyContent: "center",
-  //   //         alignItems: "center",
-  //   //         justifyContent: "center",
-  //   //       }}
-  //   //     >
-  //   //       <Text style={styles.team}>{teamStatsInfo.team?.name}</Text>
-  //   //       <Image style={styles.logo} />
-  //   //     </View>
-  //   //     <View style={{ flexDirection: "row", justifyContent: "space-evenly" }}>
-  //   //       <Text style={styles.fontWeight}>Home</Text>
-  //   //       <Text style={styles.fontWeight}>Away</Text>
-  //   //       <Text style={styles.fontWeight}>All</Text>
-  //   //     </View>
-  //   //   </View>
 
-  //   //   <FlatList
-  //   //     data={[teamStatsInfo]}
-  //   //     ListFooterComponent={<View style={{ height: 50 }} />}
-  //   //     renderItem={({ item }) => {
-  //   //       return (
-  //   //         <View style={{ flex: 1 }}>
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text style={styles.team}>{item.team?.name}</Text>
-  //   //             <Image
-  //   //               source={{ uri: item.team?.logo, width: 50, height: 50 }}
-  //   //               style={styles.logo}
-  //   //             />
-  //   //           </View>
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text style={styles.stat}>Games played</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.played?.home}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.played?.away}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.played?.total}</Text>
-  //   //           </View>
-
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text style={styles.stat}>Wins</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.wins?.home}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.wins?.away}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.wins?.total}</Text>
-  //   //           </View>
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text style={styles.stat}>Draws</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.draws?.home}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.draws?.away}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.draws?.total}</Text>
-  //   //           </View>
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text style={styles.stat}>loses</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.loses?.home}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.loses?.away}</Text>
-  //   //             <Text style={styles.stat}>{item.fixtures?.loses?.total}</Text>
-  //   //           </View>
-  //   //           <Text>Goals</Text>
-  //   //           <View style={{ flexDirection: "row" }}>
-  //   //             <Text>Goals For</Text>
-  //   //             <Text style={styles.stat}>{item.goals?.for?.total?.home}</Text>
-  //   //             <Text style={styles.stat}>{item.goals?.for?.total?.away}</Text>
-  //   //             <Text style={styles.stat}>{item.goals?.for?.total?.total}</Text>
-  //   //           </View>
-  //   //           <View>
-  //   //             <View style={{ flexDirection: "row" }}>
-  //   //               <Text>Goals Against</Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.against?.total?.home}
-  //   //               </Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.against?.total?.away}
-  //   //               </Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.against?.total?.total}
-  //   //               </Text>
-  //   //             </View>
-  //   //           </View>
-  //   //           <View>
-  //   //             <Text>Goals Averages</Text>
-  //   //             <View style={{ flexDirection: "row" }}>
-  //   //               <Text>Goals For</Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.for?.average?.home}
-  //   //               </Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.for?.average?.away}
-  //   //               </Text>
-  //   //               <Text style={styles.stat}>
-  //   //                 {item.goals?.for?.average?.total}
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View>
-  //   //               <View style={{ flexDirection: "row" }}>
-  //   //                 <Text>Goals Against</Text>
-  //   //                 <Text style={styles.stat}>
-  //   //                   {item.goals?.against?.average?.home}
-  //   //                 </Text>
-  //   //                 <Text style={styles.stat}>
-  //   //                   {item.goals?.against?.average?.away}
-  //   //                 </Text>
-  //   //                 <Text style={styles.stat}>
-  //   //                   {item.goals?.against?.average?.total}
-  //   //                 </Text>
-  //   //               </View>
-  //   //             </View>
-  //   //           </View>
-  //   //         </View>
-  //   //       );
-  //   //     }}
-  //   //     keyExtractor={(item, index) => index}
-  //   //   />
-  //   // </View>
-
-  // );
-  console.log("teamStatInfo-----", teamStatsInfo.goals?.for?.total);
+  console.log(teamStatsInfo.goals?.for?.average);
 
   return (
     <Grid>
-      <Row size={3}>
-        <Text>Name</Text>
+      <Row
+        size={1.5}
+        style={{ alignItems: "center", justifyContent: "center", margin: 5 }}
+      >
+        <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
+        <Image
+          source={{ uri: teamStatsInfo.team?.logo }}
+          style={{ width: 45, height: 45, margin: 3 }}
+        />
       </Row>
-      <Row size={2}>
+      <Row size={1.2} style={styles.subheaders}>
         <Col size={2}></Col>
 
         <Col size={1}>
@@ -251,9 +143,14 @@ export default function TeamStats() {
           <Text>{teamStatsInfo.fixtures?.loses?.total}</Text>
         </Col>
       </Row>
+      <Row size={1} style={styles.subheaders}>
+        <Col size={2}>
+          <Text style>GOALS</Text>
+        </Col>
+      </Row>
       <Row size={1}>
         <Col size={2}>
-          <Text>GOALS</Text>
+          <Text>Goals For</Text>
         </Col>
         <Col size={1}>
           <Text>{teamStatsInfo.goals?.for?.total.home}</Text>
@@ -265,27 +162,71 @@ export default function TeamStats() {
           <Text>{teamStatsInfo.goals?.for?.total.total}</Text>
         </Col>
       </Row>
-      <Row size={1}></Row>
-      <Row size={1}></Row>
-      <Row size={1}></Row>
-      <Row size={1}></Row>
-      <Row size={1}></Row>
+      <Row size={1}>
+        <Col size={2}>
+          <Text>Goals Against</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.total.home}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.total.away}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.total.total}</Text>
+        </Col>
+      </Row>
+      <Row size={1} style={styles.subheaders}>
+        <Col size={2}>
+          <Text>GOALS AVERAGE</Text>
+        </Col>
+      </Row>
+      <Row size={1}>
+        <Col size={2}>
+          <Text>Goals For</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.for?.average.home}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.for?.average.away}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.for?.average.total}</Text>
+        </Col>
+      </Row>
+      <Row size={1}>
+        <Col size={2}>
+          <Text>Goals Against</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.average.home}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.average.away}</Text>
+        </Col>
+        <Col size={1}>
+          <Text>{teamStatsInfo.goals?.against?.average.total}</Text>
+        </Col>
+      </Row>
     </Grid>
   );
 }
 
-// const styles = StyleSheet.create({
-//   header: {
-//     flexDirection: "row",
-//     borderBottomWidth: 0.5,
-//     borderBottomColor: "grey",
-//     padding: 5,
-//     margin: 5,
-//   },
-
-//   fontWeight: {
-//     fontWeight: "bold",
-//   },
+const styles = StyleSheet.create({
+  headers: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  subheaders: {
+    fontWeight: "bold",
+    fontSize: 16,
+    backgroundColor: "lightgray",
+    alignContent: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
 
 //   logo: {
 //     width: 20,
