@@ -1,8 +1,13 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import React, { Component } from "react";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { Component, useState } from "react";
+import {
+  Ionicons,
+  MaterialCommunityIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SvgUri } from "react-native-svg";
 
 import HomeScreen from "../screens/HomeScreen";
 import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
@@ -18,16 +23,43 @@ import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
-import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import TeamStats from "../screens/stats/TeamStats";
 import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
+import PredictionsScreen from "../screens/PredictionsScreen";
+import MatchPredictionScreen from "../screens/MatchPredictionScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const PredictionsStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="PredictionsScreen" component={PredictionsScreen} />
+      <Stack.Screen
+        name="MatchPrediction"
+        component={MatchPredictionScreen}
+        options={({ route }) => {
+          const homeTeam = route.params.teams.home.name;
+          const awayTeam = route.params.teams.away.name;
+          const leagueLogo = route.params.league.logo;
+
+          return {
+            title: `${homeTeam} vs ${awayTeam}`,
+            headerRight: () => {
+              return (
+                <Image source={{ uri: leagueLogo, width: 30, height: 30 }} />
+              );
+            },
+          };
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const StatsStack = () => {
   return (
@@ -330,9 +362,10 @@ export default function FooterTabs() {
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="MyTeam"
         component={MyTeamsScreen}
+        initialParams={{ isInstructionOpen: false }}
         options={{
           tabBarLabel: "My Team",
           tabBarIcon: ({ color, size }) => (
@@ -348,6 +381,71 @@ export default function FooterTabs() {
             textAlign: "center",
           },
           headerTitleAlign: "center",
+          headerRight: ({ route }) => {
+            return (
+              <TouchableOpacity
+                style={{ marginRight: 20 }}
+                onPress={() =>
+                  (route.params.isInstructionOpen =
+                    !route.params.isInstructionOpen)
+                }
+              >
+                <FontAwesome5 name="question-circle" size={25} color="black" />
+              </TouchableOpacity>
+            );
+          },
+        }}
+      /> */}
+      <Tab.Screen
+        name="MyTeam"
+        component={MyTeamsScreen}
+        initialParams={{ isInstructionOpen: true }}
+        options={({ navigation, route }) => {
+          return {
+            tabBarLabel: "My Team",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="soccer-field"
+                color={color}
+                size={size}
+              />
+            ),
+            title: "My Dream Team",
+            headerTitleStyle: {
+              fontWeight: "bold",
+              textAlign: "center",
+            },
+            headerTitleAlign: "center",
+            headerRight: () => {
+              return (
+                <TouchableOpacity
+                  style={{ marginRight: 20 }}
+                  onPress={() => {
+                    navigation.setParams({
+                      isInstructionOpen: !route.params.isInstructionOpen,
+                    });
+                  }}
+                >
+                  <FontAwesome5
+                    name="question-circle"
+                    size={25}
+                    color="black"
+                  />
+                </TouchableOpacity>
+              );
+            },
+          };
+        }}
+      />
+      <Tab.Screen
+        name="Predictions"
+        component={PredictionsStack}
+        options={{
+          tabBarLabel: "Predictions",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="tv-outline" color={color} size={size} />
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
