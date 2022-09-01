@@ -33,7 +33,7 @@ export default function MatchPredictionScreen() {
     });
   };
 
-  //   console.log(matchInfo);
+  console.log(matchInfo);
 
   return (
     <SafeAreaView>
@@ -52,7 +52,7 @@ export default function MatchPredictionScreen() {
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 150 }} />}
+          ListFooterComponent={<View style={{ height: 125 }} />}
           data={matchInfo.h2h}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>
@@ -61,7 +61,9 @@ export default function MatchPredictionScreen() {
                   {new Date(item.fixture.date).toDateString()}
                 </Text>
                 <Text>{item.league.round}</Text>
-                <Text>{item.fixture.venue.name}</Text>
+                <Text style={{ marginBottom: 10 }}>
+                  {item.fixture.venue.name}
+                </Text>
               </View>
               <View
                 style={{
@@ -71,6 +73,13 @@ export default function MatchPredictionScreen() {
                 }}
               >
                 <Text style={{ fontWeight: "bold" }}>Home</Text>
+                {item.goals.home === 0 || item.goals.home ? (
+                  <Text>
+                    {item.goals.home} : {item.goals.away}
+                  </Text>
+                ) : (
+                  <Text>vs</Text>
+                )}
                 <Text style={{ fontWeight: "bold" }}>Away</Text>
               </View>
               <View
@@ -91,13 +100,7 @@ export default function MatchPredictionScreen() {
                   )}
                   <Text>{item.teams.home.name}</Text>
                 </View>
-                {item.goals.home === 0 || item.goals.home ? (
-                  <Text>
-                    {item.goals.home} : {item.goals.away}
-                  </Text>
-                ) : (
-                  <Text>vs</Text>
-                )}
+
                 <View style={{ flexDirection: "row" }}>
                   {item.goals.home === 0 || item.teams.away.logo ? (
                     <Image

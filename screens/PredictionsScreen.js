@@ -109,7 +109,9 @@ export default function PredictionsScreen() {
                   <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
                     {new Date(item.fixture.date).toDateString()}
                   </Text>
-                  <Text>{item.fixture.venue.name}</Text>
+                  <Text style={{ marginBottom: 10 }}>
+                    {item.fixture.venue.name}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -119,6 +121,13 @@ export default function PredictionsScreen() {
                   }}
                 >
                   <Text style={{ fontWeight: "bold" }}>Home</Text>
+                  {item.goals.home === 0 || item.goals.home ? (
+                    <Text>
+                      {item.goals.home} : {item.goals.away}
+                    </Text>
+                  ) : (
+                    <Text>vs</Text>
+                  )}
                   <Text style={{ fontWeight: "bold" }}>Away</Text>
                 </View>
                 <View
@@ -139,13 +148,6 @@ export default function PredictionsScreen() {
                     )}
                     <Text>{item.teams.home.name}</Text>
                   </View>
-                  {item.goals.home === 0 || item.goals.home ? (
-                    <Text>
-                      {item.goals.home} : {item.goals.away}
-                    </Text>
-                  ) : (
-                    <Text>vs</Text>
-                  )}
                   <View style={{ flexDirection: "row" }}>
                     {item.goals.home === 0 || item.teams.away.logo ? (
                       <Image
