@@ -7,6 +7,7 @@ import {
 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { SvgUri } from "react-native-svg";
 
 import HomeScreen from "../screens/HomeScreen";
 import AllCountriesScreen from "../screens/stats/AllCountriesScreen";
@@ -22,16 +23,43 @@ import LeagueStandingsScreen from "../screens/stats/LeagueStandingsScreen";
 import LeagueGoals from "../screens/stats/LeagueGoals";
 import LeagueAssists from "../screens/stats/LeagueAssists";
 import LeagueCards from "../screens/stats/LeagueCards";
-import { SvgUri } from "react-native-svg";
 import MyTeamsScreen from "../screens/MyTeamsScreen";
 import CoachInfo from "../screens/stats/CoachInfo";
 import Venue from "../screens/stats/Venue";
 import TeamStats from "../screens/stats/TeamStats";
 import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
+import PredictionsScreen from "../screens/PredictionsScreen";
+import MatchPredictionScreen from "../screens/MatchPredictionScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const PredictionsStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="PredictionsScreen" component={PredictionsScreen} />
+      <Stack.Screen
+        name="MatchPrediction"
+        component={MatchPredictionScreen}
+        options={({ route }) => {
+          const homeTeam = route.params.teams.home.name;
+          const awayTeam = route.params.teams.away.name;
+          const leagueLogo = route.params.league.logo;
+
+          return {
+            title: `${homeTeam} vs ${awayTeam}`,
+            headerRight: () => {
+              return (
+                <Image source={{ uri: leagueLogo, width: 30, height: 30 }} />
+              );
+            },
+          };
+        }}
+      />
+    </Stack.Navigator>
+  );
+};
 
 const StatsStack = () => {
   return (
@@ -406,6 +434,17 @@ export default function FooterTabs() {
               );
             },
           };
+        }}
+      />
+      <Tab.Screen
+        name="Predictions"
+        component={PredictionsStack}
+        options={{
+          tabBarLabel: "Predictions",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="tv-outline" color={color} size={size} />
+          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
