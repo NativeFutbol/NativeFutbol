@@ -30,12 +30,35 @@ import TeamStats from "../screens/stats/TeamStats";
 import LeagueCharts from "../screens/stats/LeagueCharts";
 import TopPlayersScreen from "../screens/stats/TopPlayersScreen";
 import PredictionsScreen from "../screens/PredictionsScreen";
+import MatchPredictionScreen from "../screens/MatchPredictionScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 const PredictionsStack = () => {
-  return <Stack.Navigator initialRouteName="Predictions"></Stack.Navigator>;
+  return (
+    <Stack.Navigator initialRouteName="Home">
+      <Stack.Screen name="PredictionsScreen" component={PredictionsScreen} />
+      <Stack.Screen
+        name="MatchPrediction"
+        component={MatchPredictionScreen}
+        options={({ route }) => {
+          const homeTeam = route.params.teams.home.name;
+          const awayTeam = route.params.teams.away.name;
+          const leagueLogo = route.params.league.logo;
+
+          return {
+            title: `${homeTeam} vs ${awayTeam}`,
+            headerRight: () => {
+              return (
+                <Image source={{ uri: leagueLogo, width: 30, height: 30 }} />
+              );
+            },
+          };
+        }}
+      />
+    </Stack.Navigator>
+  );
 };
 
 const StatsStack = () => {
@@ -415,12 +438,13 @@ export default function FooterTabs() {
       />
       <Tab.Screen
         name="Predictions"
-        component={PredictionsScreen}
+        component={PredictionsStack}
         options={{
           tabBarLabel: "Predictions",
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="tv-outline" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
