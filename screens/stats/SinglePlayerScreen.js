@@ -485,12 +485,11 @@ function DisplayPlayer(props) {
             <View
               style={{
                 height: "100%",
-                width: 150,
-                alignItems: "center",
+                width: 300,
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-                {player.name}
+              <Text style={{ fontWeight: "bold", fontSize: 20, paddingTop: 4 }}>
+                {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
                 Position: {stats2022.games.position}
@@ -1011,12 +1010,11 @@ function DisplayPlayer(props) {
             <View
               style={{
                 height: "100%",
-                width: 150,
-                alignItems: "center",
+                width: 300,
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-                {player.name}
+              <Text style={{ fontWeight: "bold", fontSize: 20, paddingTop: 4 }}>
+                {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
                 Position: {stats2022.games.position}
@@ -1538,12 +1536,11 @@ function DisplayPlayer(props) {
             <View
               style={{
                 height: "100%",
-                width: 150,
-                alignItems: "center",
+                width: 300,
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-                {player.name}
+              <Text style={{ fontWeight: "bold", fontSize: 20, paddingTop: 4 }}>
+                {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
                 Position: {stats2022.games.position}
@@ -1950,12 +1947,11 @@ function DisplayPlayer(props) {
             <View
               style={{
                 height: "100%",
-                width: 150,
-                alignItems: "center",
+                width: 300,
               }}
             >
-              <Text style={{ fontWeight: "bold", fontSize: 24, paddingTop: 4 }}>
-                {player.name}
+              <Text style={{ fontWeight: "bold", fontSize: 20, paddingTop: 4 }}>
+                {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
                 Position: {stats2022.games.position}

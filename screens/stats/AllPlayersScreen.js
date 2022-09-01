@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -17,11 +18,12 @@ import CategoryList from "../../components/CategoryList";
 import LeagueFilter from "../../components/LeagueFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import LoadingOverlay from "../../components/LoadingOverlay";
+import LeagueFilterV2 from "../../components/LeagueFilterV2";
 
 export default function AllPlayersScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
-  const [league, setLeague] = useState(39);
+  const season = useSelector((state) => state.season);
+  const league = useSelector((state) => state.league);
   const [filter, setFilter] = useState("players");
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,9 +98,10 @@ export default function AllPlayersScreen() {
               height: 62,
               width: "100%",
               flexDirection: "row",
+              justifyContent: "center",
             }}
           >
-            <LeagueFilter league={league} setLeague={setLeague} />
+            <LeagueFilterV2 />
             <SeasonFilterV2 />
           </View>
         </View>
