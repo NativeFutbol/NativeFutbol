@@ -32,6 +32,7 @@
     "react-native-dotenv": "^3.3.1",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-dynamic-search-bar": "github:WrathChaos/react-native-dynamic-search-bar#expo",
+    "react-native-easy-grid": "^0.2.2",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.5.0",
     "react-native-hyperlink": "^0.0.22",

@@ -11,6 +11,8 @@ import myPlayersReducer from "./myPlayers";
 import myFormationReducer from "./myFormation";
 import leagueReducer from "./league";
 import storage from "redux-persist/lib/storage";
+import comparisonTeamIdReducer from "./comparisonTeamId";
+import comparisonLeagueIdReducer from "./comparisonLeagueId";
 
 import {
   persistStore,
@@ -36,6 +38,9 @@ const persistConfig = {
     "mostCardsData",
     "myTeamFilters",
     "myTeamFilterOptions",
+    "league",
+    "comparisonTeamId",
+    "comparisonLeagueId",
   ],
   storage,
 };
@@ -52,6 +57,8 @@ const reducer = combineReducers({
   league: leagueReducer,
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
+  comparisonTeamId: comparisonTeamIdReducer,
+  comparisonLeagueId: comparisonLeagueIdReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

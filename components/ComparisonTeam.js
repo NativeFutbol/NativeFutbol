@@ -11,21 +11,15 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
-
-import CustomSearchBar from "../../components/CustomSearchBar";
-import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
-import CategoryList from "../../components/CategoryList";
-import singleScreenData from "../../store/singleScreenData";
+import Filters from "../components/Filters";
+import SeasonFilter from "../components/SeasonFilter";
+import CategoryList from "../components/CategoryList";
+import singleScreenData from "../store/singleScreenData";
 import { useSelector } from "react-redux";
-import CoachButton from "../../components/CoachButton";
+import CoachButton from "../components/CoachButton";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import SeasonFilterV2 from "../../components/SeasonFilterV2";
-import ComparisonTeam from "../../components/ComparisonTeam";
-import TeamFilter from "../../components/TeamFilter";
-import LeagueFilterV2 from "../../components/LeagueFilterV2";
-import CompareLeagueFilter from "../../components/CompareLeagueFilter";
-export default function TeamStats() {
+import SeasonFilterV2 from "../components/SeasonFilterV2";
+export default function ComparisonTeam(props) {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
@@ -33,20 +27,21 @@ export default function TeamStats() {
   const [teamStatsInfo, setTeamStatsInfo] = useState("");
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const [coachId, setCoachId] = useState("");
-  const [isCompare, setIsCompare] = useState(false);
-  const league = useSelector((state) => state.league);
+  const [league, setLeague] = useState("39");
+
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
+  const compareLeagueId = useSelector((state) => state.comparisonLeagueId);
   const seasonInfo = useSelector((state) => state.season);
-
+  const teamidInfo = useSelector((state) => state.comparisonTeamId);
   useEffect(() => {
     getTeamStats();
-  }, [singleTeamData.id, seasonInfo]);
+  }, [singleTeamData.id, seasonInfo, teamidInfo, compareLeagueId]);
 
   const getTeamStats = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${singleTeamData.id}&league=${league}`,
+      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${teamidInfo}&league=${compareLeagueId}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -62,9 +57,9 @@ export default function TeamStats() {
         console.error(error);
       });
   };
+
   return (
     <SafeAreaView>
-      <SeasonFilterV2 />
       <ScrollView>
         <View
           style={{
@@ -237,36 +232,6 @@ export default function TeamStats() {
             </Col>
           </Row>
         </Grid>
-        <Button
-          onPress={() => setIsCompare(true)}
-          title="Choose a team to compare"
-        />
-        {isCompare ? (
-          <View>
-            <View style={{ flexDirection: "row" }}>
-              <View
-                style={{
-                  flex: 1,
-                  alignItems: "center",
-                }}
-              >
-                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
-                  League
-                </Text>
-                <CompareLeagueFilter />
-              </View>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
-                  Team
-                </Text>
-                <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={league} />
-              </View>
-            </View>
-            <ComparisonTeam seasonInfo={seasonInfo} leagueIdInfo={league} />
-          </View>
-        ) : (
-          <></>
-        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -286,23 +251,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//   logo: {
-//     width: 20,
-//     height: 20,
-//   },
-
-//   team: {
-//     fontSize: 12,
-//   },
-
-//   stat: {
-//     fontSize: 12,
-//     flex: 1,
-//     alignContent: "center",
-//     alignItems: "center",
-//     justifyContent: "cneter",
-//   },
-// });
-
-//
