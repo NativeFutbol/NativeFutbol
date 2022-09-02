@@ -32,11 +32,10 @@ export default function TeamStats() {
   const [teamStatsInfo, setTeamStatsInfo] = useState("");
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const [coachId, setCoachId] = useState("");
+  const [isCompare, setIsCompare] = useState(false);
   const league = useSelector((state) => state.league);
-
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
-
   const seasonInfo = useSelector((state) => state.season);
 
   useEffect(() => {
@@ -62,9 +61,6 @@ export default function TeamStats() {
         console.error(error);
       });
   };
-
-  console.log(teamStatsInfo.goals?.for?.average);
-
   return (
     <SafeAreaView>
       <SeasonFilterV2 />
@@ -240,12 +236,36 @@ export default function TeamStats() {
             </Col>
           </Row>
         </Grid>
-        <Button title="Compare to a team" />
-        <LeagueFilterV2 />
-
-        <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={league} />
-
-        <ComparisonTeam team={40} />
+        <Button
+          onPress={() => setIsCompare(true)}
+          title="Choose a team to compare"
+        />
+        {isCompare ? (
+          <View>
+            <View style={{ flexDirection: "row" }}>
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
+                  League
+                </Text>
+                <LeagueFilterV2 />
+              </View>
+              <View style={{ flex: 1, alignItems: "center" }}>
+                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
+                  Team
+                </Text>
+                <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={league} />
+              </View>
+            </View>
+            <ComparisonTeam seasonInfo={seasonInfo} leagueIdInfo={league} />
+          </View>
+        ) : (
+          <></>
+        )}
       </ScrollView>
     </SafeAreaView>
   );

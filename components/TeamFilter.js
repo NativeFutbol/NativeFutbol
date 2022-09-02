@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setSeasonYear } from "../store/season";
+import { setComparisonTeamId } from "../store/comparisonTeamId";
 import { Ionicons } from "@expo/vector-icons";
 import { setSingleScreenData } from "../store/singleScreenData";
 import { FOOTBALL_API_KEY } from "@env";
@@ -11,7 +12,7 @@ import axios from "axios";
 export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
   //   const data = ["2022", "2021", "2020", "2019"];
 
-  //   const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   //   const season = useSelector((state) => state.season);
   const [query, setQuery] = useState("");
@@ -43,8 +44,6 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
       .request(options)
       .then(function (response) {
         setAllTeamData(response.data.response);
-
-        console.log(allTeamData);
       })
       .catch(function (error) {
         console.error(error);
@@ -70,7 +69,7 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
           borderWidth: 1,
           padding: 5,
           borderRadius: 20,
-          width: 150,
+          width: 180,
           height: 35,
         }}
       >
@@ -81,22 +80,25 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
               fontWeight: "bold",
               marginRight: 10,
             }}
-          >
-            Team:
-          </Text>
+          ></Text>
         </View>
         <ModalDropdown
           options={teamNames}
-          defaultValue={""}
-          // style={{ borderBottomWidth: 1 }}
+          defaultValue={"---"}
+          //   style={{ width: "80%" }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
-          dropdownStyle={{}}
+          dropdownStyle={{ justifyContent: "center", alignContent: "center" }}
           dropdownTextStyle={{
-            width: 100,
+            width: 125,
             fontSize: 15,
             fontWeight: "bold",
+            textAlign: "center",
           }}
-          //   onSelect={(idx, value) => dispatch(setSingleScreenData(value))}
+          onSelect={(idx, value) => {
+            let teamiddd = teams.filter((element) => element.name === value)[0]
+              .id;
+            dispatch(setComparisonTeamId(teamiddd));
+          }}
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}

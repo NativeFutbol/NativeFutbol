@@ -66,7 +66,9 @@ export default function LeagueFilterV2() {
             fontSize: 15,
             fontWeight: "bold",
           }}
-          onSelect={(idx, value) => dispatch(setLeagueId(value))}
+          onSelect={(idx, value) => {
+            dispatch(setLeagueId(value));
+          }}
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}
