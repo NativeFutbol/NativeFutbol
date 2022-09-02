@@ -10,7 +10,7 @@ import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
-import LeagueFilter from "../../components/LeagueFilter";
+
 import LineChartComp from "../../components/LineChartComp";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";
 

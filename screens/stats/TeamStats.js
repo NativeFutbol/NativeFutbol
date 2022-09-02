@@ -24,6 +24,7 @@ import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import ComparisonTeam from "../../components/ComparisonTeam";
 import TeamFilter from "../../components/TeamFilter";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";
+import CompareLeagueFilter from "../../components/CompareLeagueFilter";
 export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
@@ -252,7 +253,7 @@ export default function TeamStats() {
                 <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
                   League
                 </Text>
-                <LeagueFilterV2 />
+                <CompareLeagueFilter />
               </View>
               <View style={{ flex: 1, alignItems: "center" }}>
                 <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>

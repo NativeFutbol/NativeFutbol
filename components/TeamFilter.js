@@ -20,15 +20,16 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
   //   const [filter, setFilter] = useState("teams");
   const [allTeamData, setAllTeamData] = useState([]);
   //   const [league, setLeague] = useState("39");
+  const compareLeagueId = useSelector((state) => state.comparisonLeagueId);
 
   useEffect(() => {
     getTeams();
-  }, [leagueIdInfo, seasonInfo]);
+  }, [compareLeagueId, seasonInfo]);
 
   const getTeams = () => {
     const searchUrl =
       query === ""
-        ? `https://v3.football.api-sports.io/teams?league=${leagueIdInfo}&season=${seasonInfo}`
+        ? `https://v3.football.api-sports.io/teams?league=${compareLeagueId}&season=${seasonInfo}`
         : `https://v3.football.api-sports.io/teams?search=${query.toLowerCase()}`;
 
     const options = {

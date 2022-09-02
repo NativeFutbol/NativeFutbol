@@ -15,7 +15,7 @@ import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
 import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
-import LeagueFilter from "../../components/LeagueFilter";
+
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";

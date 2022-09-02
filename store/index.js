@@ -12,6 +12,7 @@ import myFormationReducer from "./myFormation";
 import leagueReducer from "./league";
 import storage from "redux-persist/lib/storage";
 import comparisonTeamIdReducer from "./comparisonTeamId";
+import comparisonLeagueIdReducer from "./comparisonLeagueId";
 // import storage from "redux-persist/es/storage";
 // import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { AsyncStorage } from "react-native";
@@ -43,6 +44,7 @@ const persistConfig = {
     "myTeamFilterOptions",
     "league",
     "comparisonTeamId",
+    "comparisonLeagueId",
   ],
   storage,
   // storage,
@@ -61,6 +63,7 @@ const reducer = combineReducers({
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
   comparisonTeamId: comparisonTeamIdReducer,
+  comparisonLeagueId: comparisonLeagueIdReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

@@ -31,17 +31,17 @@ export default function ComparisonTeam(props) {
 
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
-  const leagueIdInfo = useSelector((state) => state.league);
+  const compareLeagueId = useSelector((state) => state.comparisonLeagueId);
   const seasonInfo = useSelector((state) => state.season);
   const teamidInfo = useSelector((state) => state.comparisonTeamId);
   useEffect(() => {
     getTeamStats();
-  }, [singleTeamData.id, seasonInfo, teamidInfo, leagueIdInfo]);
+  }, [singleTeamData.id, seasonInfo, teamidInfo, compareLeagueId]);
 
   const getTeamStats = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${teamidInfo}&league=${leagueIdInfo}`,
+      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${teamidInfo}&league=${compareLeagueId}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
