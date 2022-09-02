@@ -22,6 +22,7 @@ import CoachButton from "../../components/CoachButton";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import ComparisonTeam from "../../components/ComparisonTeam";
+import TeamFilter from "../../components/TeamFilter";
 export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
@@ -239,6 +240,8 @@ export default function TeamStats() {
           </Row>
         </Grid>
         <Button title="Compare to a team" />
+
+        <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={leagueIdInfo} />
 
         <ComparisonTeam team={40} />
       </ScrollView>

@@ -42,6 +42,7 @@ export default function AllTeamsScreen() {
       .request(options)
       .then(function (response) {
         setAllTeamData(response.data.response);
+        console.log("22222", allTeamData);
       })
       .catch(function (error) {
         console.error(error);
