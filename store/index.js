@@ -40,7 +40,7 @@ const persistConfig = {
     "mostCardsData",
     "myTeamFilters",
     "myTeamFilterOptions",
-    "leagueId",
+    "league",
   ],
   storage,
   // storage,
@@ -55,7 +55,7 @@ const reducer = combineReducers({
   mostCardsData: mostCardsReducer,
   myTeamFilters: myTeamFiltersReducer,
   myTeamFilterOptions: myTeamFilterOptionsReducer,
-  leagueId: leagueReducer,
+  league: leagueReducer,
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
 });

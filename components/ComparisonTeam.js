@@ -31,7 +31,7 @@ export default function ComparisonTeam(props) {
 
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
-  const leagueIdInfo = useSelector((state) => state.leagueId);
+  const leagueIdInfo = useSelector((state) => state.league);
   const seasonInfo = useSelector((state) => state.season);
 
   useEffect(() => {

@@ -23,6 +23,7 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import ComparisonTeam from "../../components/ComparisonTeam";
 import TeamFilter from "../../components/TeamFilter";
+import LeagueFilterV2 from "../../components/LeagueFilterV2";
 export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");
@@ -31,11 +32,11 @@ export default function TeamStats() {
   const [teamStatsInfo, setTeamStatsInfo] = useState("");
   const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const [coachId, setCoachId] = useState("");
-  const [league, setLeague] = useState("39");
+  const league = useSelector((state) => state.league);
 
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
-  const leagueIdInfo = useSelector((state) => state.leagueId);
+
   const seasonInfo = useSelector((state) => state.season);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function TeamStats() {
   const getTeamStats = () => {
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${singleTeamData.id}&league=${leagueIdInfo}`,
+      url: `https://v3.football.api-sports.io/teams/statistics?season=${seasonInfo}&team=${singleTeamData.id}&league=${league}`,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -240,8 +241,9 @@ export default function TeamStats() {
           </Row>
         </Grid>
         <Button title="Compare to a team" />
+        <LeagueFilterV2 />
 
-        <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={leagueIdInfo} />
+        <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={league} />
 
         <ComparisonTeam team={40} />
       </ScrollView>

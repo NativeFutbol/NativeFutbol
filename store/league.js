@@ -5,6 +5,8 @@ const leagueSlice = createSlice({
   initialState: "39",
   reducers: {
     setLeagueId: (state, action) => {
+      console.log("paylod", action.payload);
+      console.log("state....", state);
       switch (action.payload) {
         case "Premier League":
           return 39;

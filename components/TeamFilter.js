@@ -43,12 +43,16 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
       .request(options)
       .then(function (response) {
         setAllTeamData(response.data.response);
+
         console.log(allTeamData);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+  const teams = allTeamData.map((team) => team.team);
+
+  const teamNames = teams.map((team) => team.name);
 
   return (
     <View
@@ -82,7 +86,7 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
           </Text>
         </View>
         <ModalDropdown
-          options={allTeamData}
+          options={teamNames}
           defaultValue={""}
           // style={{ borderBottomWidth: 1 }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
