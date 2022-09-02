@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Alert,
-  Button,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -21,7 +14,6 @@ import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import Modal from "react-native-modal";
-import { SafeAreaView } from "react-native-safe-area-context";
 import InstructionModal from "../components/InstructionModal";
 
 export default function MyTeamsScreen({ navigation, route }) {
@@ -162,16 +154,6 @@ export default function MyTeamsScreen({ navigation, route }) {
         ) : (
           <></>
         )}
-
-        {/* {auth.currentUser ? (
-          <TouchableOpacity onPress={saveChanges}>
-            <Text style={{ color: "blue", fontWeight: "bold" }}>
-              Save Changes
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )} */}
 
         <BottomSheet
           ref={playerListRef}
@@ -367,8 +349,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "black",
     width: "40%",
-    // margin: 20,
-    // padding: 10,
     alignItems: "center",
     borderRadius: 50,
   },

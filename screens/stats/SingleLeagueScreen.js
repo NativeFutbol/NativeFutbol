@@ -1,10 +1,9 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
@@ -41,7 +40,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getStandings();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getStandings = () => {
     setIsLoading(true);
@@ -80,7 +79,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopScorers();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopScorers = () => {
     setIsLoading(true);
@@ -108,7 +107,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopAssists();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopAssists = () => {
     setIsLoading(true);
@@ -136,7 +135,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopRedCards();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopRedCards = () => {
     setIsLoading(true);
@@ -164,7 +163,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopYellowCards();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopYellowCards = () => {
     setIsLoading(true);
@@ -192,7 +191,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTeams();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTeams = () => {
     setIsLoading(true);
@@ -237,7 +236,6 @@ export default function SingleLeagueScreen() {
         onSubmit={getTeams}
       />
       <Filters />
-      {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
       <SeasonFilterV2 />
 
       <View

@@ -55,8 +55,4 @@ const myTeamFiltersOptionsSlice = createSlice({
   },
 });
 
-// export const { setmyTeamFiltersOptions } = myTeamFiltersOptionsSlice.actions;
-
 export default myTeamFiltersOptionsSlice.reducer;
-
-//

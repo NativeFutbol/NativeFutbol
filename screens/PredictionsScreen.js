@@ -6,14 +6,16 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { SafeAreaView } from "react-navigation";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { FOOTBALL_API_KEY } from "@env";
 import { useNavigation } from "@react-navigation/native";
-import { setMatchScreenData } from "../store/singleScreenData";
+import ModalDropdown from "react-native-modal-dropdown";
+import { Ionicons } from "@expo/vector-icons";
 
+import { setMatchScreenData } from "../store/singleScreenData";
 import { apiFootballDummyNextMatches } from "../constants/apiFootballDummyData";
 import LoadingOverlay from "../components/LoadingOverlay";
 
@@ -28,6 +30,7 @@ export default function PredictionsScreen() {
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const dropDownRef = useRef(null);
 
   const findId = (value) => {
     return Object.keys(myTeamsFilterOptions?.league).find(
@@ -91,10 +94,74 @@ export default function PredictionsScreen() {
         >
           Upcoming Matches
         </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+          }}
+        >
+          <View style={{ flexDirection: "row", marginBottom: 10 }}>
+            <Image
+              source={{
+                uri: nextGames[0]?.league?.logo,
+                width: 20,
+                height: 20,
+              }}
+              style={{ marginRight: 5 }}
+            />
+            <TouchableOpacity onPress={() => dropDownRef.current.show()}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                {nextGames[0]?.league?.name}
+              </Text>
+            </TouchableOpacity>
+
+            <ModalDropdown
+              ref={dropDownRef}
+              options={[
+                "Premier League",
+                "Bundesliga",
+                "Ligue 1",
+                "La Liga",
+                "Serie A",
+              ]}
+              defaultValue={""}
+              style={{
+                borderBottomWidth: 0.2,
+                borderBottomColor: "orangered",
+              }}
+              textStyle={{
+                fontSize: 15,
+                fontWeight: "bold",
+                marginRight: 3,
+              }}
+              // dropdownStyle={{ height: 200 }}
+              dropdownTextStyle={{
+                width: 200,
+                fontSize: 15,
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+              onSelect={(idx, value) => {
+                setLeague(value);
+              }}
+              renderRightComponent={() => (
+                <Ionicons
+                  name="caret-down-sharp"
+                  color={"orangered"}
+                  size={16}
+                />
+              )}
+            />
+          </View>
+        </View>
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 100 }} />}
+          ListFooterComponent={<View style={{ height: 160 }} />}
           data={nextGames}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>
