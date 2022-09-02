@@ -2,10 +2,10 @@ import { View, Text } from "react-native";
 import React from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { setLeagueId } from "../store/league";
 import { Ionicons } from "@expo/vector-icons";
+import { setCompareLeagueId } from "../store/comparisonLeagueId";
 
-export default function LeagueFilterV2() {
+export default function CompareLeagueFilter() {
   const data = [
     "Premier League",
     "Bundesliga",
@@ -15,7 +15,7 @@ export default function LeagueFilterV2() {
   ];
 
   const dispatch = useDispatch();
-  const league = useSelector((state) => state.league);
+  const league = useSelector((state) => state.comparisonLeagueId);
   let name = "Premier League";
   switch (league) {
     case 39:
@@ -67,7 +67,7 @@ export default function LeagueFilterV2() {
             fontWeight: "bold",
           }}
           onSelect={(idx, value) => {
-            dispatch(setLeagueId(value));
+            dispatch(setCompareLeagueId(value));
           }}
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />

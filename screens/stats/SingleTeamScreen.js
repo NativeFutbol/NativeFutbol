@@ -26,9 +26,16 @@ export default function SingleTeamScreen() {
   }, [singleTeamData.id]);
 
   const getTeamInfo = () => {
+    const searchUrl =
+      query === ""
+        ? `https://v3.football.api-sports.io/players/squads?team=${singleTeamData.id}`
+        : `https://v3.football.api-sports.io/players?team=${
+            singleTeamData.id
+          }&search=${query.toLowerCase()}`;
+
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/players/squads?team=${singleTeamData.id}`,
+      url: searchUrl,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -38,7 +45,11 @@ export default function SingleTeamScreen() {
     axios
       .request(options)
       .then(function (response) {
-        setSingleTeamInfo(response.data.response[0].players);
+        setSingleTeamInfo(
+          query === ""
+            ? response.data.response[0]?.players
+            : response.data.response
+        );
       })
       .catch(function (error) {
         console.error(error);
@@ -51,7 +62,7 @@ export default function SingleTeamScreen() {
         <CustomSearchBar
           query={query}
           setQuery={setQuery}
-          placeholder="Search teams..."
+          placeholder="Search players..."
           onSubmit={getTeamInfo}
         />
         <Filters />
