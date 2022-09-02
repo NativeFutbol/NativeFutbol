@@ -108,7 +108,7 @@ export default function PredictionsScreen() {
                   <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
                     {new Date(item.fixture.date).toDateString()}
                   </Text>
-                  <Text style={{ marginBottom: 10 }}>
+                  <Text style={{ marginBottom: 5 }}>
                     {item.fixture.venue.name}
                   </Text>
                 </View>
@@ -133,7 +133,7 @@ export default function PredictionsScreen() {
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    margin: 15,
+                    margin: 5,
                   }}
                 >
                   <View style={{ flexDirection: "row" }}>

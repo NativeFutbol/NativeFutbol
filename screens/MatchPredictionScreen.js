@@ -80,9 +80,9 @@ export default function MatchPredictionScreen() {
       });
   };
 
-  console.log("matchinfo", matchInfo);
-  console.log("winnerinfo", winnerInfo);
-  console.log("match", match);
+  //   console.log("matchinfo", matchInfo);
+  //   console.log("winnerinfo", winnerInfo);
+  //   console.log("match", match);
 
   return (
     <View>
@@ -91,7 +91,7 @@ export default function MatchPredictionScreen() {
           <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
             {new Date(match.fixture.date).toDateString()}
           </Text>
-          <Text style={{ marginBottom: 10 }}>{match.fixture.venue.name}</Text>
+          <Text style={{ marginBottom: 5 }}>{match.fixture.venue.name}</Text>
         </View>
         <View
           style={{

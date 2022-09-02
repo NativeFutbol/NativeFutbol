@@ -6,7 +6,7 @@ export default function PastMatches({ data }) {
     <FlatList
       numColumns={1}
       keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={<View style={{ height: 625 }} />}
+      ListFooterComponent={<View style={{ height: 600 }} />}
       data={data}
       renderItem={({ item, index }) => (
         <View style={styles.container} key={index}>
@@ -15,7 +15,7 @@ export default function PastMatches({ data }) {
               {new Date(item.fixture.date).toDateString()}
             </Text>
             <Text>{item.league.round}</Text>
-            <Text style={{ marginBottom: 10 }}>{item.fixture.venue.name}</Text>
+            <Text style={{ marginBottom: 5 }}>{item.fixture.venue.name}</Text>
           </View>
           <View
             style={{
@@ -38,7 +38,7 @@ export default function PastMatches({ data }) {
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
-              margin: 15,
+              margin: 5,
             }}
           >
             <View style={{ flexDirection: "row" }}>
