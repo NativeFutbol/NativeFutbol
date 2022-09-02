@@ -80,10 +80,6 @@ export default function MatchPredictionScreen() {
       });
   };
 
-  //   console.log("matchinfo", matchInfo);
-  //   console.log("winnerinfo", winnerInfo);
-  //   console.log("match", match);
-
   return (
     <View>
       <View style={styles.container}>
