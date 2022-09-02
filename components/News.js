@@ -1,13 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { View, StyleSheet } from "react-native";
+import React, { useRef } from "react";
 import Carousel from "react-native-snap-carousel";
 import NewsCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./NewsCard";
 
@@ -24,11 +16,8 @@ export default function News({ newsData }) {
         renderItem={NewsCard}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
-        // sliderHeight={SLIDER_WIDTH}
-        // itemHeight={ITEM_WIDTH}
         inactiveSlideShift={0}
         useScrollView={true}
-        // vertical={true}
         autoplay={true}
         autoplayInterval={5000}
       />

@@ -1,10 +1,9 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import { useSelector } from "react-redux";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
@@ -237,7 +236,6 @@ export default function SingleLeagueScreen() {
         onSubmit={getTeams}
       />
       <Filters />
-      {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
       <SeasonFilterV2 />
 
       <View

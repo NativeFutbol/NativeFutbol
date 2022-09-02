@@ -1,5 +1,5 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import React, { Component, useState } from "react";
+import React from "react";
 import {
   Ionicons,
   MaterialCommunityIcons,
@@ -298,7 +298,6 @@ const StatsStack = () => {
           const logo = route.params.logo;
 
           return {
-            // title: "League - Standings/Total Points - Last 4 Years ",
             headerTitle: () => (
               <View style={{ height: 100 }}>
                 <Text style={{ fontSize: 12, fontWeight: "bold" }}>
@@ -309,11 +308,6 @@ const StatsStack = () => {
                     {`Standings / Total Points Trend`}
                   </Text>
                 </View>
-                {/* <View style={{ marginTop: 3 }}>
-                  <Text style={{ fontSize: 10, fontWeight: "bold" }}>
-                    (Last 4 Years)
-                  </Text>
-                </View> */}
               </View>
             ),
             headerTitleStyle: {
@@ -370,40 +364,6 @@ export default function FooterTabs() {
           headerShown: false,
         }}
       />
-      {/* <Tab.Screen
-        name="MyTeam"
-        component={MyTeamsScreen}
-        initialParams={{ isInstructionOpen: false }}
-        options={{
-          tabBarLabel: "My Team",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="soccer-field"
-              color={color}
-              size={size}
-            />
-          ),
-          title: "My Dream Team",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            textAlign: "center",
-          },
-          headerTitleAlign: "center",
-          headerRight: ({ route }) => {
-            return (
-              <TouchableOpacity
-                style={{ marginRight: 20 }}
-                onPress={() =>
-                  (route.params.isInstructionOpen =
-                    !route.params.isInstructionOpen)
-                }
-              >
-                <FontAwesome5 name="question-circle" size={25} color="black" />
-              </TouchableOpacity>
-            );
-          },
-        }}
-      /> */}
       <Tab.Screen
         name="MyTeam"
         component={MyTeamsScreen}

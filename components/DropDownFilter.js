@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import ModalDropdown from "react-native-modal-dropdown";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyTeamFilters } from "../store/myTeamFilters";
@@ -85,7 +85,6 @@ export default function DropDownFilter({ label }) {
           fontWeight: "bold",
           marginRight: 3,
         }}
-        // dropdownStyle={{ height: 200 }}
         dropdownTextStyle={{
           width: 200,
           fontSize: 15,
@@ -100,7 +99,6 @@ export default function DropDownFilter({ label }) {
         renderRightComponent={() => (
           <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
         )}
-        // showSearch={true}
       />
 
       {label === "season" || label === "league" ? (

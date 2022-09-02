@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 import Player from "./Player";
@@ -18,6 +17,8 @@ const PlayersList = ({ searchPlayerName }) => {
   const position = myTeamFilters?.position;
 
   const regex = new RegExp(`(${searchPlayerName.toLowerCase()})`);
+
+  //FOR TESTING
 
   // if (searchPlayerName && searchPlayerName !== "" && players?.length) {
 
@@ -143,4 +144,3 @@ const PlayersList = ({ searchPlayerName }) => {
 };
 
 export default PlayersList;
-//

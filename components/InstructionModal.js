@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     backgroundColor: "white",
     borderRadius: 10,
-    // opacity: 0.8,
   },
 
   textView: {
