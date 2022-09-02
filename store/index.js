@@ -11,10 +11,6 @@ import myPlayersReducer from "./myPlayers";
 import myFormationReducer from "./myFormation";
 import leagueReducer from "./league";
 import storage from "redux-persist/lib/storage";
-// import storage from "redux-persist/es/storage";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { AsyncStorage } from "react-native";
-// import AsyncStorage from "@react-native-community/async-storage";
 
 import {
   persistStore,
@@ -42,7 +38,6 @@ const persistConfig = {
     "myTeamFilterOptions",
   ],
   storage,
-  // storage,
 };
 
 const reducer = combineReducers({
@@ -72,19 +67,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-// export const store = configureStore({
-//   reducer: {
-//     singleScreenData: singleScreenDataReducer,
-//     standingsData: standingsDataReducer,
-//     season: seasonReducer,
-//     topScorersData: topScorersReducer,
-//     topAssistsData: topAssistsReducer,
-//     mostCardsData: mostCardsReducer,
-//     myTeamFilters: myTeamFiltersReducer,
-//     myTeamFilterOptions: myTeamFilterOptionsReducer,
-//     myPlayers: myPlayersReducer,
-//     myFormation: myFormationReducer,
-//     persistedReducer: persistedReducer,
-//   },
-// });
