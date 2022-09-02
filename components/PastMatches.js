@@ -6,7 +6,7 @@ export default function PastMatches({ data }) {
     <FlatList
       numColumns={1}
       keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={<View style={{ height: 125 }} />}
+      ListFooterComponent={<View style={{ height: 625 }} />}
       data={data}
       renderItem={({ item, index }) => (
         <View style={styles.container} key={index}>

@@ -19,7 +19,7 @@ export default function MatchPredictionScreen() {
   const [matchInfo, setMatchInfo] = useState({});
   const [winnerId, setWinnerId] = useState("");
   const [winnerInfo, setWinnerInfo] = useState({});
-  const [isRatings, setIsRatings] = useState(true);
+  const [isRatings, setIsRatings] = useState(false);
   const [isRadar, setIsRadar] = useState(true);
 
   const match = useSelector((state) => state.singleScreenData.match);
@@ -80,17 +80,73 @@ export default function MatchPredictionScreen() {
       });
   };
 
-  console.log("matchinfo", matchInfo.predictions);
+  console.log("matchinfo", matchInfo);
   console.log("winnerinfo", winnerInfo);
+  console.log("match", match);
 
   return (
     <View>
+      <View style={styles.container}>
+        <View style={{ alignItems: "center" }}>
+          <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
+            {new Date(match.fixture.date).toDateString()}
+          </Text>
+          <Text style={{ marginBottom: 10 }}>{match.fixture.venue.name}</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginHorizontal: 20,
+          }}
+        >
+          <Text style={{ fontWeight: "bold" }}>Home</Text>
+          {match.goals.home === 0 || match.goals.home ? (
+            <Text>
+              {match.goals.home} : {match.goals.away}
+            </Text>
+          ) : (
+            <Text>vs</Text>
+          )}
+          <Text style={{ fontWeight: "bold" }}>Away</Text>
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            margin: 5,
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
+            {match.teams.home.logo ? (
+              <Image
+                source={{ uri: match.teams.home.logo }}
+                style={styles.image}
+              />
+            ) : (
+              <></>
+            )}
+            <Text>{match.teams.home.name}</Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            {match.goals.home === 0 || match.teams.away.logo ? (
+              <Image
+                source={{ uri: match.teams.away.logo }}
+                style={styles.image}
+              />
+            ) : (
+              <></>
+            )}
+            <Text>{match.teams.away.name}</Text>
+          </View>
+        </View>
+      </View>
+
       <Text
         style={{
           textAlign: "center",
           fontSize: 18,
           fontWeight: "bold",
-          padding: 5,
         }}
       >
         Predicted Winner
@@ -129,12 +185,32 @@ export default function MatchPredictionScreen() {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => setIsRatings(true)}>
+        <TouchableOpacity onPress={() => setIsRatings(false)}>
           <View
             style={[
               styles.buttonContainer2,
               {
                 marginRight: 50,
+                backgroundColor: isRatings ? "grey" : "orangered",
+              },
+            ]}
+          >
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "bold",
+                textAlign: "center",
+              }}
+            >
+              Past Matches
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setIsRatings(true)}>
+          <View
+            style={[
+              styles.buttonContainer2,
+              {
                 backgroundColor: isRatings ? "orangered" : "grey",
               },
             ]}
@@ -147,24 +223,6 @@ export default function MatchPredictionScreen() {
               }}
             >
               Team Ratings
-            </Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setIsRatings(false)}>
-          <View
-            style={[
-              styles.buttonContainer2,
-              { backgroundColor: isRatings ? "grey" : "orangered" },
-            ]}
-          >
-            <Text
-              style={{
-                color: "white",
-                fontWeight: "bold",
-                textAlign: "center",
-              }}
-            >
-              Past Matches
             </Text>
           </View>
         </TouchableOpacity>
@@ -183,7 +241,7 @@ export default function MatchPredictionScreen() {
                 style={[
                   styles.buttonContainer,
                   {
-                    marginRight: 50,
+                    marginRight: 125,
                     backgroundColor: isRadar ? "orangered" : "grey",
                   },
                 ]}
@@ -229,11 +287,8 @@ export default function MatchPredictionScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderRadius: 10,
     justifyContent: "center",
-    margin: 5,
-    backgroundColor: "white",
+    marginTop: 5,
   },
   image: {
     height: 20,
@@ -249,14 +304,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 6,
     marginTop: 10,
-    width: 100,
+    width: 125,
     alignItems: "center",
   },
   buttonContainer: {
     borderRadius: 20,
-    padding: 6,
     marginTop: 10,
-    width: 70,
+    width: 60,
     alignItems: "center",
   },
 });
