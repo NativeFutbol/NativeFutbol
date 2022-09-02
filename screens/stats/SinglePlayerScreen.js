@@ -9,6 +9,7 @@ import {
   ScrollView,
   Button,
   Dimensions,
+  Alert,
 } from "react-native";
 import BarChartComp from "../../components/BarChartComp";
 import { FOOTBALL_API_KEY } from "@env";
@@ -24,6 +25,10 @@ import {
 
 function DisplayPlayer(props) {
   const navigation = useNavigation();
+  const [count, setCount] = useState(0);
+  const [count2, setCount2] = useState(0);
+  const [count3, setCount3] = useState(0);
+  const [count4, setCount4] = useState(0);
   const [player, setPlayer] = useState({});
   const [stats2022, setStats2022] = useState({
     cards: {
@@ -84,7 +89,6 @@ function DisplayPlayer(props) {
       total: null,
     },
     substitutes: {
-      bench: 0,
       in: 0,
       out: 0,
     },
@@ -376,12 +380,18 @@ function DisplayPlayer(props) {
       .then(function (response) {
         console.log(
           "player    ",
-          response.data.response[0].player,
-          "stats     ",
-          response.data.response[0].statistics
+          props.route.params.player?.id || props.route.params.id,
+          "Response     ",
+          response.data
         );
-        setPlayer(response.data.response[0].player);
-        setStats2022(response.data.response[0].statistics[0]);
+        if (response.data.response.length !== 0) {
+          setPlayer(response?.data?.response[0]?.player);
+          setStats2022(response?.data?.response[0]?.statistics[0]);
+          setCount(count + 1);
+        } else {
+          Alert.alert("Warning!", "Player Retired. Data May Be Out Of Date.");
+          setCount(count + 1);
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -393,8 +403,16 @@ function DisplayPlayer(props) {
     axios
       .request(options2021)
       .then(function (response) {
-        console.log("2021", response.data.response[0].statistics[0]);
-        setStats2021(response.data.response[0].statistics[0]);
+        if (response.data.response.length !== 0) {
+          console.log("2021", response.data.response[0].statistics[0]);
+          setStats2021(response.data.response[0].statistics[0]);
+          setCount2(count2 + 1);
+          if (!player.name) {
+            setPlayer(response?.data?.response[0]?.player);
+          }
+        } else {
+          setCount2(count2 + 1);
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -402,8 +420,16 @@ function DisplayPlayer(props) {
     axios
       .request(options2020)
       .then(function (response) {
-        console.log("2020", response.data.response[0].statistics[0]);
-        setStats2020(response.data.response[0].statistics[0]);
+        if (response.data.response.length !== 0) {
+          console.log("2020", response.data.response[0].statistics[0]);
+          setStats2020(response.data.response[0].statistics[0]);
+          setCount3(count3 + 1);
+          if (!player.name) {
+            setPlayer(response?.data?.response[0]?.player);
+          }
+        } else {
+          setCount3(count3 + 1);
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -411,7 +437,15 @@ function DisplayPlayer(props) {
     axios
       .request(options2019)
       .then(function (response) {
-        setStats2019(response.data.response[0].statistics[0]);
+        if (response.data.response.length !== 0) {
+          setStats2019(response.data.response[0].statistics[0]);
+          setCount4(count4 + 1);
+          if (!player.name) {
+            setPlayer(response?.data?.response[0]?.player);
+          }
+        } else {
+          setCount4(count4 + 1);
+        }
       })
       .catch(function (error) {
         console.error(error);
@@ -424,8 +458,13 @@ function DisplayPlayer(props) {
       return val;
     }
   }
-
-  if (stats2022.games.position === "Attacker") {
+  console.log(count);
+  if (
+    stats2022.games.position ||
+    stats2021.games.position ||
+    stats2020.games.position ||
+    stats2019.games.position === "Attacker"
+  ) {
     return (
       <View style={styles.background}>
         <View style={styles.playerInfo}>
@@ -447,7 +486,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.league?.logo,
+                    uri:
+                      stats2022?.league?.logo ||
+                      stats2021?.league?.logo ||
+                      stats2020?.league?.logo ||
+                      stats2019?.league?.logo,
                   }}
                 />
                 <Text
@@ -457,7 +500,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.league.name}
+                  {stats2022?.league?.name ||
+                    stats2021?.league?.name ||
+                    stats2020?.league?.name ||
+                    stats2019?.league?.name}
                 </Text>
               </View>
               <View style={styles.border}>
@@ -466,7 +512,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.team.logo,
+                    uri:
+                      stats2022?.team?.logo ||
+                      stats2021?.team?.logo ||
+                      stats2020?.team?.logo ||
+                      stats2019?.team?.logo,
                   }}
                 />
                 <Text
@@ -476,7 +526,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.team.name}
+                  {stats2022?.team?.name ||
+                    stats2021?.team?.name ||
+                    stats2020?.team?.name ||
+                    stats2019?.team?.name}
                 </Text>
               </View>
             </View>
@@ -492,7 +545,11 @@ function DisplayPlayer(props) {
                 {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
-                Position: {stats2022.games.position}
+                Position:{" "}
+                {stats2022.games.position ||
+                  stats2021.games.position ||
+                  stats2020.games.position ||
+                  stats2019.games.position}
               </Text>
             </View>
           </View>
@@ -914,43 +971,52 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                <StackedBarChart
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                  }}
-                  segments={5}
-                  data={{
-                    labels: ["2019", "2020", "2021", "2022", "E.G."],
-                    legend: ["Red", "Yellow"],
-                    data: [
-                      [stats2019.cards.red, stats2019.cards.yellow],
-                      [stats2020.cards.red, stats2020.cards.yellow],
-                      [stats2021.cards.red, stats2021.cards.yellow],
-                      [stats2022.cards.red, stats2022.cards.yellow],
-                      [5, 5],
-                    ],
-                    barColors: ["red", "yellow"],
-                  }}
-                  width={370}
-                  height={180}
-                  chartConfig={{
-                    backgroundColor: "gray",
-                    backgroundGradientFrom: "gray",
-                    backgroundGradientTo: "lightgray",
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `#333`,
-                    strokeWidth: 2,
-                    decimalPlaces: 0,
-                  }}
-                />
+                {count === 1 && count2 === 1 && count3 === 1 && count4 === 1 ? (
+                  <StackedBarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                    }}
+                    segments={5}
+                    data={{
+                      labels: ["2019", "2020", "2021", "2022"],
+                      legend: ["Red", "Yellow"],
+                      data: [
+                        [stats2019.cards.red, stats2019.cards.yellow],
+                        [stats2020.cards.red, stats2020.cards.yellow],
+                        [stats2021.cards.red, stats2021.cards.yellow],
+                        [stats2022.cards.red, stats2022.cards.yellow],
+                      ],
+                      barColors: ["red", "yellow"],
+                    }}
+                    width={370}
+                    height={180}
+                    decimalPlaces={0}
+                    chartConfig={{
+                      backgroundColor: "gray",
+                      backgroundGradientFrom: "gray",
+                      backgroundGradientTo: "lightgray",
+                      decimalPlaces: 0,
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `#333`,
+                      strokeWidth: 2,
+                    }}
+                  />
+                ) : (
+                  <View />
+                )}
               </View>
             </ScrollView>
           </View>
         </View>
       </View>
     );
-  } else if (stats2022.games.position === "Defender") {
+  } else if (
+    stats2022.games.position ||
+    stats2021.games.position ||
+    stats2020.games.position ||
+    stats2019.games.position === "Defender"
+  ) {
     return (
       <View style={styles.background}>
         <View style={styles.playerInfo}>
@@ -972,7 +1038,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.league.logo,
+                    uri:
+                      stats2022?.league?.logo ||
+                      stats2021?.league?.logo ||
+                      stats2020?.league?.logo ||
+                      stats2019?.league?.logo,
                   }}
                 />
                 <Text
@@ -982,7 +1052,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.league.name}
+                  {stats2022?.league?.name ||
+                    stats2021?.league?.name ||
+                    stats2020?.league?.name ||
+                    stats2019?.league?.name}
                 </Text>
               </View>
               <View style={styles.border}>
@@ -991,7 +1064,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.team.logo,
+                    uri:
+                      stats2022?.team?.logo ||
+                      stats2021?.team?.logo ||
+                      stats2020?.team?.logo ||
+                      stats2019?.team?.logo,
                   }}
                 />
                 <Text
@@ -1001,7 +1078,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.team.name}
+                  {stats2022?.team?.name ||
+                    stats2021?.team?.name ||
+                    stats2020?.team?.name ||
+                    stats2019?.team?.name}
                 </Text>
               </View>
             </View>
@@ -1017,7 +1097,11 @@ function DisplayPlayer(props) {
                 {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
-                Position: {stats2022.games.position}
+                Position:{" "}
+                {stats2022.games.position ||
+                  stats2021.games.position ||
+                  stats2020.games.position ||
+                  stats2019.games.position}
               </Text>
             </View>
           </View>
@@ -1476,7 +1560,12 @@ function DisplayPlayer(props) {
         </View>
       </View>
     );
-  } else if (stats2022.games.position === "Goalkeeper") {
+  } else if (
+    stats2022.games.position ||
+    stats2021.games.position ||
+    stats2020.games.position ||
+    stats2019.games.position === "Goalkeeper"
+  ) {
     return (
       <View style={styles.background}>
         <View style={styles.playerInfo}>
@@ -1498,7 +1587,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.league.logo,
+                    uri:
+                      stats2022?.league?.logo ||
+                      stats2021?.league?.logo ||
+                      stats2020?.league?.logo ||
+                      stats2019?.league?.logo,
                   }}
                 />
                 <Text
@@ -1508,7 +1601,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.league.name}
+                  {stats2022?.league?.name ||
+                    stats2021?.league?.name ||
+                    stats2020?.league?.name ||
+                    stats2019?.league?.name}
                 </Text>
               </View>
               <View style={styles.border}>
@@ -1517,7 +1613,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.team.logo,
+                    uri:
+                      stats2022?.team?.logo ||
+                      stats2021?.team?.logo ||
+                      stats2020?.team?.logo ||
+                      stats2019?.team?.logo,
                   }}
                 />
                 <Text
@@ -1527,7 +1627,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.team.name}
+                  {stats2022?.team?.name ||
+                    stats2021?.team?.name ||
+                    stats2020?.team?.name ||
+                    stats2019?.team?.name}
                 </Text>
               </View>
             </View>
@@ -1543,7 +1646,11 @@ function DisplayPlayer(props) {
                 {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
-                Position: {stats2022.games.position}
+                Position:{" "}
+                {stats2022.games.position ||
+                  stats2021.games.position ||
+                  stats2020.games.position ||
+                  stats2019.games.position}
               </Text>
             </View>
           </View>
@@ -1887,7 +1994,12 @@ function DisplayPlayer(props) {
         </View>
       </View>
     );
-  } else if (stats2022.games.position === "Midfielder") {
+  } else if (
+    stats2022.games.position ||
+    stats2021.games.position ||
+    stats2020.games.position ||
+    stats2019.games.position === "Midfielder"
+  ) {
     return (
       <View style={styles.background}>
         <View style={styles.playerInfo}>
@@ -1909,7 +2021,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.league.logo,
+                    uri:
+                      stats2022?.league?.logo ||
+                      stats2021?.league?.logo ||
+                      stats2020?.league?.logo ||
+                      stats2019?.league?.logo,
                   }}
                 />
                 <Text
@@ -1919,7 +2035,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.league.name}
+                  {stats2022?.league?.name ||
+                    stats2021?.league?.name ||
+                    stats2020?.league?.name ||
+                    stats2019?.league?.name}
                 </Text>
               </View>
               <View style={styles.border}>
@@ -1928,7 +2047,11 @@ function DisplayPlayer(props) {
                   source={{
                     width: "100%",
                     height: "100%",
-                    uri: stats2022.team.logo,
+                    uri:
+                      stats2022?.team?.logo ||
+                      stats2021?.team?.logo ||
+                      stats2020?.team?.logo ||
+                      stats2019?.team?.logo,
                   }}
                 />
                 <Text
@@ -1938,7 +2061,10 @@ function DisplayPlayer(props) {
                     textAlignVertical: "center",
                   }}
                 >
-                  {stats2022.team.name}
+                  {stats2022?.team?.name ||
+                    stats2021?.team?.name ||
+                    stats2020?.team?.name ||
+                    stats2019?.team?.name}
                 </Text>
               </View>
             </View>
@@ -1954,7 +2080,11 @@ function DisplayPlayer(props) {
                 {player.firstname} {player.lastname}
               </Text>
               <Text style={{ fontWeight: "bold" }}>
-                Position: {stats2022.games.position}
+                Position:{" "}
+                {stats2022.games.position ||
+                  stats2021.games.position ||
+                  stats2020.games.position ||
+                  stats2019.games.position}
               </Text>
             </View>
           </View>
