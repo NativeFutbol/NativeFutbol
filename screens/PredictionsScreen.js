@@ -86,7 +86,7 @@ export default function PredictionsScreen() {
             textAlign: "center",
             fontSize: 18,
             fontWeight: "bold",
-            padding: 20,
+            padding: 10,
           }}
         >
           Upcoming Matches
@@ -94,7 +94,7 @@ export default function PredictionsScreen() {
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 50 }} />}
+          ListFooterComponent={<View style={{ height: 100 }} />}
           data={nextGames}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>
@@ -102,14 +102,15 @@ export default function PredictionsScreen() {
                 onPress={() => {
                   navigation.navigate("MatchPrediction", item);
                   dispatch(setMatchScreenData(item));
-                  console.log();
                 }}
               >
                 <View style={{ alignItems: "center" }}>
                   <Text style={{ fontWeight: "bold", marginBottom: 3 }}>
                     {new Date(item.fixture.date).toDateString()}
                   </Text>
-                  <Text>{item.fixture.venue.name}</Text>
+                  <Text style={{ marginBottom: 5 }}>
+                    {item.fixture.venue.name}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -119,13 +120,20 @@ export default function PredictionsScreen() {
                   }}
                 >
                   <Text style={{ fontWeight: "bold" }}>Home</Text>
+                  {item.goals.home === 0 || item.goals.home ? (
+                    <Text>
+                      {item.goals.home} : {item.goals.away}
+                    </Text>
+                  ) : (
+                    <Text>vs</Text>
+                  )}
                   <Text style={{ fontWeight: "bold" }}>Away</Text>
                 </View>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
-                    margin: 15,
+                    margin: 5,
                   }}
                 >
                   <View style={{ flexDirection: "row" }}>
@@ -139,13 +147,6 @@ export default function PredictionsScreen() {
                     )}
                     <Text>{item.teams.home.name}</Text>
                   </View>
-                  {item.goals.home === 0 || item.goals.home ? (
-                    <Text>
-                      {item.goals.home} : {item.goals.away}
-                    </Text>
-                  ) : (
-                    <Text>vs</Text>
-                  )}
                   <View style={{ flexDirection: "row" }}>
                     {item.goals.home === 0 || item.teams.away.logo ? (
                       <Image
