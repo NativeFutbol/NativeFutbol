@@ -40,7 +40,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getStandings();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getStandings = () => {
     setIsLoading(true);
@@ -79,7 +79,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopScorers();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopScorers = () => {
     setIsLoading(true);
@@ -107,7 +107,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopAssists();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopAssists = () => {
     setIsLoading(true);
@@ -135,7 +135,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopRedCards();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopRedCards = () => {
     setIsLoading(true);
@@ -163,7 +163,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTopYellowCards();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTopYellowCards = () => {
     setIsLoading(true);
@@ -191,7 +191,7 @@ export default function SingleLeagueScreen() {
 
   useEffect(() => {
     getTeams();
-  }, [season]);
+  }, [season, leagueId]);
 
   const getTeams = () => {
     setIsLoading(true);
