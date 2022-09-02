@@ -138,9 +138,9 @@ export default function PredictionsScreen() {
                 fontWeight: "bold",
                 marginRight: 3,
               }}
-              // dropdownStyle={{ height: 200 }}
+              dropdownStyle={{ height: 200, width: 150 }}
               dropdownTextStyle={{
-                width: 200,
+                width: 150,
                 fontSize: 15,
                 fontWeight: "bold",
                 textAlign: "center",
@@ -153,6 +153,7 @@ export default function PredictionsScreen() {
                   name="caret-down-sharp"
                   color={"orangered"}
                   size={16}
+                  style={{ marginLeft: 50 }}
                 />
               )}
             />

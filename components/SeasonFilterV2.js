@@ -46,7 +46,6 @@ export default function SeasonFilterV2() {
         <ModalDropdown
           options={data}
           defaultValue={season}
-          // style={{ borderBottomWidth: 1 }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
           dropdownStyle={{}}
           dropdownTextStyle={{
@@ -58,7 +57,6 @@ export default function SeasonFilterV2() {
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}
-          // showSearch={true}
         />
       </View>
     </View>

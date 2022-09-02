@@ -12,9 +12,6 @@ import { useSelector } from "react-redux";
 export default function LeagueCards() {
   const mostCardsData = useSelector((state) => state.mostCardsData);
 
-  //   console.log(mostCardsData.red);
-  //   console.log(mostCardsData.yellow[0]);
-
   const [isRed, setIsRed] = useState(false);
 
   return (
@@ -140,5 +137,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
-
-//

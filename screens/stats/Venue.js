@@ -3,20 +3,10 @@ import { FOOTBALL_API_KEY } from "@env";
 import { Image, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import CustomSearchBar from "../../components/CustomSearchBar";
-import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
-import CategoryList from "../../components/CategoryList";
-import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
-import CoachButton from "../../components/CoachButton";
 
 export default function VenueScreen() {
-  const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("teams");
   const [venueInfo, setVenueInfo] = useState({});
-  const [singleTeamInfo, setSingleTeamInfo] = useState([]);
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
   useEffect(() => {
@@ -123,4 +113,3 @@ const styles = StyleSheet.create({
     width: 400,
   },
 });
-//

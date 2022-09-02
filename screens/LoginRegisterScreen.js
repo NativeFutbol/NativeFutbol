@@ -6,13 +6,10 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  FlatList,
   Animated,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useRef, useState } from "react";
 import { auth, db } from "../firebase";
-import { useNavigation } from "@react-navigation/native";
 
 const { width, height } = Dimensions.get("screen");
 const data = [
@@ -234,4 +231,3 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-//

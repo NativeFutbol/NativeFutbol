@@ -3,14 +3,11 @@ import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import BarChartComp from "../../components/BarChartComp";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LeagueFilter from "../../components/LeagueFilter";
-import LineChartComp from "../../components/LineChartComp";
 
 export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");

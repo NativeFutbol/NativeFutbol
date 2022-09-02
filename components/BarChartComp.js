@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { LineChart, BarChart } from "react-native-chart-kit";
+import { BarChart } from "react-native-chart-kit";
 
 export default function BarChartComp({ title, labels, data, color }) {
   return (

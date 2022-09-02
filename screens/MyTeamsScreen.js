@@ -164,7 +164,6 @@ export default function MyTeamsScreen({ navigation, route }) {
           <View style={{ marginBottom: 20 }}>
             <SearchBar
               placeholder="Search by Players Name..."
-              // onPress={() => alert("onPress")}
               onChangeText={searchBarChangeHanlder}
               onClearPress={() => setSearchPlayerName("")}
             />
@@ -353,4 +352,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-//
