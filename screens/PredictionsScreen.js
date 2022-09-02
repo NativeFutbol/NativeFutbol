@@ -100,7 +100,7 @@ export default function PredictionsScreen() {
             justifyContent: "space-around",
           }}
         >
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", marginBottom: 10 }}>
             <Image
               source={{
                 uri: nextGames[0]?.league?.logo,
@@ -161,7 +161,7 @@ export default function PredictionsScreen() {
         <FlatList
           numColumns={1}
           keyExtractor={(item, index) => index.toString()}
-          ListFooterComponent={<View style={{ height: 100 }} />}
+          ListFooterComponent={<View style={{ height: 160 }} />}
           data={nextGames}
           renderItem={({ item, index }) => (
             <View style={styles.container} key={index}>
