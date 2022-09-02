@@ -205,12 +205,16 @@ export default function MatchPredictionScreen() {
             </TouchableOpacity>
           </View>
           {isRadar ? (
-            <RadarChartPrediction />
+            <RadarChartPrediction
+              predictionData={matchInfo?.comparison}
+              homeTeam={matchInfo?.teams?.home?.name}
+              awayTeam={matchInfo?.teams?.away?.name}
+            />
           ) : (
             <BarChartPrediction
-              data={matchInfo.comparison}
-              homeTeam={matchInfo.teams.home.name}
-              awayTeam={matchInfo.teams.away.name}
+              data={matchInfo?.comparison}
+              homeTeam={matchInfo?.teams?.home?.name}
+              awayTeam={matchInfo?.teams?.away?.name}
             />
           )}
         </View>
