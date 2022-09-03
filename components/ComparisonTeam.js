@@ -72,10 +72,10 @@ export default function ComparisonTeam(props) {
           <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
           <Image
             source={{ uri: teamStatsInfo.team?.logo }}
-            style={{ width: 45, height: 45, margin: 3 }}
+            style={{ width: 33, height: 33, margin: 3, padding: 2 }}
           />
         </View>
-        <Grid style={{ backgroundColor: "white", padding: 3 }}>
+        <Grid style={{ backgroundColor: "white", padding: 2 }}>
           <Row size={1.5}>
             <Row
               size={1.6}

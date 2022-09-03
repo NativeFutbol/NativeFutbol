@@ -42,8 +42,6 @@ export default function VenueScreen() {
         console.error(error);
       });
   };
-
-  console.log(venueInfo);
   return (
     <View>
       <View style={styles.container}>
