@@ -44,6 +44,7 @@ export default function VenueScreen() {
         alignItems: "center",
         justifyContent: "center",
         alignContent: "center",
+        marginTop: 10,
       }}
     >
       <View style={styles.container}>
