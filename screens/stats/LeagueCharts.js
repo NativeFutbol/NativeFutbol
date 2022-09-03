@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -20,62 +19,6 @@ import { FOOTBALL_API_KEY } from "@env";
 import Logo from "../../components/Logo";
 import Legend from "../../components/Legend";
 import { MaterialIcons } from "@expo/vector-icons";
-
-const dummyData = [
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 6,
-    rank: 8,
-    season: "2022",
-    x: "2022",
-    y: 8,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 58,
-    rank: 6,
-    season: "2021",
-    x: "2021",
-    y: 6,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 74,
-    rank: 2,
-    season: "2020",
-    x: "2020",
-    y: 2,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 66,
-    rank: 3,
-    season: "2019",
-    x: "2019",
-    y: 3,
-  },
-];
-
-const legendDummyData = [
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 66,
-    rank: 3,
-    season: "2019",
-    x: "2019",
-    y: 3,
-  },
-];
 
 export default function LeagueCharts({ route }) {
   const [isLoading, setIsLoading] = useState(false);

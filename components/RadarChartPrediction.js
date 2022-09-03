@@ -84,16 +84,7 @@ export default function RadarChartPrediction({
         style={{ data: { fillOpacity: 0.3, strokeWidth: 2 } }}
       >
         {data.map((data, i) => {
-          return (
-            <VictoryArea
-              key={i}
-              data={data}
-              //   animate={{
-              //     duration: 1000,
-              //     onLoad: { duration: 1000 },
-              //   }}
-            />
-          );
+          return <VictoryArea key={i} data={data} />;
         })}
       </VictoryGroup>
       {Object.keys(maxima).map((key, i) => {

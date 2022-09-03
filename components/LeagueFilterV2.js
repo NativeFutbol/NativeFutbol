@@ -58,7 +58,6 @@ export default function LeagueFilterV2() {
         <ModalDropdown
           options={data}
           defaultValue={name}
-          // style={{ borderBottomWidth: 1 }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
           dropdownStyle={{}}
           dropdownTextStyle={{
@@ -72,7 +71,6 @@ export default function LeagueFilterV2() {
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}
-          // showSearch={true}
         />
       </View>
     </View>

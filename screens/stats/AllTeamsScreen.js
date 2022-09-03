@@ -4,14 +4,10 @@ import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import BarChartComp from "../../components/BarChartComp";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
-
-import LineChartComp from "../../components/LineChartComp";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";
 
 export default function AllTeamsScreen() {

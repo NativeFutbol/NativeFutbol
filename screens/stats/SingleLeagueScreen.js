@@ -17,9 +17,6 @@ import SeasonFilterV2 from "../../components/SeasonFilterV2";
 
 export default function SingleLeagueScreen() {
   const [query, setQuery] = useState("");
-  // const [season, setSeason] = useState("2022");
-  const [filter, setFilter] = useState("leagues");
-
   const [isLoading, setIsLoading] = useState(false);
 
   const singleLeagueData = useSelector((state) => state.singleScreenData);
@@ -311,4 +308,3 @@ const styles = StyleSheet.create({
     margin: 5,
   },
 });
-//

@@ -1,21 +1,13 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
-
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";
@@ -170,5 +162,3 @@ export default function AllPlayersScreen() {
     );
   }
 }
-
-//
