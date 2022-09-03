@@ -72,10 +72,17 @@ export default function ComparisonTeam(props) {
           <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
           <Image
             source={{ uri: teamStatsInfo.team?.logo }}
-            style={{ width: 45, height: 45, margin: 3 }}
+            style={{ width: 33, height: 33, margin: 3, padding: 2 }}
           />
         </View>
-        <Grid style={{ backgroundColor: "white", padding: 3 }}>
+        <Grid
+          style={{
+            backgroundColor: "white",
+            padding: 2,
+            marginLeft: 10,
+            marginRight: 10,
+          }}
+        >
           <Row size={1.5}>
             <Row
               size={1.6}
@@ -98,15 +105,15 @@ export default function ComparisonTeam(props) {
             <Col size={2}></Col>
 
             <Col size={1}>
-              <Text>HOME</Text>
+              <Text style={{ fontWeight: "bold" }}>HOME</Text>
             </Col>
 
             <Col size={1}>
-              <Text>AWAY</Text>
+              <Text style={{ fontWeight: "bold" }}>AWAY</Text>
             </Col>
 
             <Col size={1}>
-              <Text>ALL</Text>
+              <Text style={{ fontWeight: "bold" }}>ALL</Text>
             </Col>
           </Row>
           <Row size={1}>
@@ -167,7 +174,7 @@ export default function ComparisonTeam(props) {
           </Row>
           <Row size={1} style={styles.subheaders}>
             <Col size={2}>
-              <Text style>GOALS</Text>
+              <Text style={{ fontWeight: "bold" }}>GOALS</Text>
             </Col>
           </Row>
           <Row size={1}>
@@ -200,7 +207,7 @@ export default function ComparisonTeam(props) {
           </Row>
           <Row size={1} style={styles.subheaders}>
             <Col size={2}>
-              <Text>GOALS AVERAGE</Text>
+              <Text style={{ fontWeight: "bold" }}>GOALS AVERAGE</Text>
             </Col>
           </Row>
           <Row size={1}>
@@ -245,7 +252,7 @@ const styles = StyleSheet.create({
   subheaders: {
     fontWeight: "bold",
     fontSize: 16,
-    backgroundColor: "lightgray",
+    backgroundColor: "lightblue",
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",

@@ -64,7 +64,9 @@ export default function TeamStats() {
   };
   return (
     <SafeAreaView>
-      <SeasonFilterV2 />
+      <View style={{ height: 55 }}>
+        <SeasonFilterV2 />
+      </View>
       <ScrollView>
         <View
           style={{
@@ -72,15 +74,23 @@ export default function TeamStats() {
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "row",
+            height: 35,
           }}
         >
           <Text style={styles.headers}>{teamStatsInfo.team?.name}</Text>
           <Image
             source={{ uri: teamStatsInfo.team?.logo }}
-            style={{ width: 45, height: 45, margin: 3 }}
+            style={{ width: 33, height: 33, margin: 3, padding: 2 }}
           />
         </View>
-        <Grid style={{ backgroundColor: "white", padding: 3 }}>
+        <Grid
+          style={{
+            backgroundColor: "white",
+            padding: 2,
+            marginLeft: 10,
+            marginRight: 10,
+          }}
+        >
           <Row size={1.5}>
             <Row
               size={1.6}
@@ -103,20 +113,20 @@ export default function TeamStats() {
             <Col size={2}></Col>
 
             <Col size={1}>
-              <Text>HOME</Text>
+              <Text style={{ fontWeight: "bold" }}>HOME</Text>
             </Col>
 
             <Col size={1}>
-              <Text>AWAY</Text>
+              <Text style={{ fontWeight: "bold" }}>AWAY</Text>
             </Col>
 
             <Col size={1}>
-              <Text>ALL</Text>
+              <Text style={{ fontWeight: "bold" }}>ALL</Text>
             </Col>
           </Row>
           <Row size={1}>
             <Col size={2}>
-              <Text>Games played</Text>
+              <Text>Games Played</Text>
             </Col>
             <Col size={1}>
               <Text>{teamStatsInfo.fixtures?.played?.home}</Text>
@@ -172,7 +182,7 @@ export default function TeamStats() {
           </Row>
           <Row size={1} style={styles.subheaders}>
             <Col size={2}>
-              <Text style>GOALS</Text>
+              <Text style={{ fontWeight: "bold" }}>GOALS</Text>
             </Col>
           </Row>
           <Row size={1}>
@@ -205,7 +215,7 @@ export default function TeamStats() {
           </Row>
           <Row size={1} style={styles.subheaders}>
             <Col size={2}>
-              <Text>GOALS AVERAGE</Text>
+              <Text style={{ fontWeight: "bold" }}>GOALS AVERAGE</Text>
             </Col>
           </Row>
           <Row size={1}>
@@ -243,26 +253,47 @@ export default function TeamStats() {
         />
         {isCompare ? (
           <View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", height: 65 }}>
               <View
                 style={{
                   flex: 1,
                   alignItems: "center",
+                  height: 30,
                 }}
               >
-                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
-                  League
-                </Text>
+                <View style={{ height: 15 }}>
+                  <Text
+                    style={{
+                      padding: 2,
+                      fontWeight: "900",
+                      fontSize: "15",
+                      height: 40,
+                    }}
+                  >
+                    League
+                  </Text>
+                </View>
                 <CompareLeagueFilter />
               </View>
-              <View style={{ flex: 1, alignItems: "center" }}>
-                <Text style={{ borderWidth: 2, padding: 5, borderRadius: 10 }}>
-                  Team
-                </Text>
+              <View style={{ flex: 1, alignItems: "center", height: 30 }}>
+                <View style={{ height: 15 }}>
+                  <Text
+                    style={{
+                      padding: 2,
+                      fontWeight: "900",
+                      fontSize: "15",
+                      height: 40,
+                    }}
+                  >
+                    Team
+                  </Text>
+                </View>
                 <TeamFilter seasonInfo={seasonInfo} leagueIdInfo={league} />
               </View>
             </View>
-            <ComparisonTeam seasonInfo={seasonInfo} leagueIdInfo={league} />
+            <View>
+              <ComparisonTeam seasonInfo={seasonInfo} leagueIdInfo={league} />
+            </View>
           </View>
         ) : (
           <></>
@@ -280,29 +311,9 @@ const styles = StyleSheet.create({
   subheaders: {
     fontWeight: "bold",
     fontSize: 16,
-    backgroundColor: "lightgray",
+    backgroundColor: "lightgreen",
     alignContent: "center",
     justifyContent: "center",
     alignItems: "center",
   },
 });
-
-//   logo: {
-//     width: 20,
-//     height: 20,
-//   },
-
-//   team: {
-//     fontSize: 12,
-//   },
-
-//   stat: {
-//     fontSize: 12,
-//     flex: 1,
-//     alignContent: "center",
-//     alignItems: "center",
-//     justifyContent: "cneter",
-//   },
-// });
-
-//

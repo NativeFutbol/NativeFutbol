@@ -16,8 +16,6 @@ export default function AllTeamsScreen() {
   const [allTeamData, setAllTeamData] = useState([]);
   const league = useSelector((state) => state.league);
   const season = useSelector((state) => state.season);
-  console.log("league.....", league);
-  console.log("season.....", season);
 
   useEffect(() => {
     getTeams();
@@ -42,7 +40,6 @@ export default function AllTeamsScreen() {
       .request(options)
       .then(function (response) {
         setAllTeamData(response.data.response);
-        console.log("22222", allTeamData);
       })
       .catch(function (error) {
         console.error(error);
