@@ -89,7 +89,7 @@ export default function PredictionsScreen() {
             textAlign: "center",
             fontSize: 18,
             fontWeight: "bold",
-            padding: 5,
+            padding: 10,
           }}
         >
           Upcoming Matches
