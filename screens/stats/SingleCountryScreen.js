@@ -7,14 +7,12 @@ import { SvgUri } from "react-native-svg";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 
 export default function AllCountriesScreen() {
   const [query, setQuery] = useState("");
-  // const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("leagues");
   const [leagueData, setLeagueData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,7 +74,6 @@ export default function AllCountriesScreen() {
           onSubmit={getLeagues}
         />
         <Filters />
-        {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
         <SeasonFilterV2 />
       </View>
 
@@ -103,4 +100,3 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 });
-//

@@ -5,9 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
-import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
 import CoachButton from "../../components/CoachButton";
 import VenueButton from "../../components/VenueButton";

@@ -3,7 +3,6 @@ import { FOOTBALL_API_KEY } from "@env";
 import React, { Component } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import Timeline from "react-native-timeline-flatlist";
-import { BottomSheetFlatList } from "@gorhom/bottom-sheet";
 
 export default class CoachCareer extends Component {
   constructor({ data, teamId }) {

@@ -4,13 +4,6 @@ import { useSelector } from "react-redux";
 import field from "../assets/field.jpg";
 import FieldPlayer from "./FieldPlayer";
 
-// const players = {
-//   Attacker: [null, null, null],
-//   Midfielder: [null, null, null],
-//   Defender: [null, null, null, null],
-//   Goalkeeper: [null],
-// };
-
 export default function Field() {
   const myPlayers = useSelector((state) => state.myPlayers);
   const myFormation = useSelector((state) => state.myFormation);

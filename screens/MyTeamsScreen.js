@@ -164,7 +164,6 @@ export default function MyTeamsScreen({ navigation, route }) {
           <View style={{ marginBottom: 20 }}>
             <SearchBar
               placeholder="Search by Players Name..."
-              // onPress={() => alert("onPress")}
               onChangeText={searchBarChangeHanlder}
               onClearPress={() => setSearchPlayerName("")}
             />
@@ -286,9 +285,14 @@ export default function MyTeamsScreen({ navigation, route }) {
             </TouchableOpacity>
           </View>
           <ScrollView>
-            <View style={{ marginVertical: 15, alignItems: "center" }}>
+            <View style={{ marginVertical: 12, alignItems: "center" }}>
               <Text style={{ fontSize: 20, fontWeight: "400" }}>
                 Select your Formation!
+              </Text>
+            </View>
+            <View style={{ alignItems: "center", marginBottom: 3 }}>
+              <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                ex. 3-3-4 (attackers - midfielders - defenders)
               </Text>
             </View>
 
@@ -353,4 +357,3 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
 });
-//

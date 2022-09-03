@@ -152,7 +152,6 @@ export default function HomeScreen() {
     return <LoadingOverlay />;
   }
 
-  console.log("NEXT GAMES", nextGames);
   return (
     <View>
       <ScrollView>
