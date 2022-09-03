@@ -39,7 +39,13 @@ export default function VenueScreen() {
       });
   };
   return (
-    <View style={{ alignItems: "center" }}>
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+    >
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -162,16 +168,17 @@ export default function VenueScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    height: 500,
-    width: 400,
-
+    height: 450,
+    width: 350,
+    borderWidth: 2,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
   },
   image: {
     alignSelf: "center",
-    height: 350,
-    width: 350,
+    height: 300,
+    width: 300,
   },
   row: {
     margin: 5,
