@@ -35,6 +35,8 @@ export default function FieldPlayer(props) {
             fontSize: 9,
             padding: 2,
             paddingHorizontal: 7,
+            width: 70,
+            textAlign: "center",
           }}
         >
           {player ? player.player.name : position}
