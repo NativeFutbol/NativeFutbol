@@ -118,8 +118,24 @@ const StatsStack = () => {
         }}
       />
       <Stack.Screen name="Venue" component={Venue} />
-      <Stack.Screen name="TeamStats" component={TeamStats} />
-      <Stack.Screen name="TopPlayersScreen" component={TopPlayersScreen} />
+      <Stack.Screen
+        name="TeamStats"
+        component={TeamStats}
+        options={() => {
+          return {
+            title: "Team Stats",
+          };
+        }}
+      />
+      <Stack.Screen
+        name="TopPlayersScreen"
+        component={TopPlayersScreen}
+        options={() => {
+          return {
+            title: "Top Players",
+          };
+        }}
+      />
       <Stack.Screen
         name="SingleCountry"
         component={SingleCountryScreen}
