@@ -9,6 +9,7 @@ import Filters from "../../components/Filters";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
 import LeagueFilterV2 from "../../components/LeagueFilterV2";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");
@@ -16,16 +17,16 @@ export default function AllTeamsScreen() {
   const [allTeamData, setAllTeamData] = useState([]);
   const league = useSelector((state) => state.league);
   const season = useSelector((state) => state.season);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getTeams();
   }, [league, season]);
 
   const getTeams = () => {
-    const searchUrl =
-      query === ""
-        ? `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`
-        : `https://v3.football.api-sports.io/teams?search=${query.toLowerCase()}`;
+    setIsLoading(true);
+
+    const searchUrl = `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`;
 
     const options = {
       method: "GET",
@@ -39,12 +40,24 @@ export default function AllTeamsScreen() {
     axios
       .request(options)
       .then(function (response) {
-        setAllTeamData(response.data.response);
+        const regex = new RegExp(`(${query.toLowerCase()})`);
+
+        const teamsData = response.data.response.filter((team) => {
+          return regex.test(team.team.name.toLowerCase());
+        });
+
+        setAllTeamData(teamsData);
+
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <SafeAreaView>
