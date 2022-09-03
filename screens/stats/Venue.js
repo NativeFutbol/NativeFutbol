@@ -35,7 +35,7 @@ export default function VenueScreen() {
 
   console.log(venueInfo);
   return (
-    <View>
+    <View style={{ alignItems: "center" }}>
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -44,53 +44,111 @@ export default function VenueScreen() {
           }}
         />
 
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-            marigin: 10,
-          }}
-        >
-          Name:{venueInfo?.name}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+              marigin: 10,
+            }}
+          >
+            Name:{" "}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              marigin: 10,
+            }}
+          >
+            {venueInfo?.name}
+          </Text>
+        </View>
 
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          City:{venueInfo?.city}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Address:{venueInfo?.address}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Surface:{venueInfo?.surface}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Capacity:{venueInfo?.capacity}
-        </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            City:{" "}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              marigin: 10,
+            }}
+          >
+            {venueInfo?.city}
+          </Text>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Address:{" "}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              marigin: 10,
+            }}
+          >
+            {venueInfo?.address}
+          </Text>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Surface:{" "}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              marigin: 10,
+            }}
+          >
+            {venueInfo?.surface[0].toUpperCase() + venueInfo?.surface.slice(1)}
+          </Text>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+          >
+            Capacity:{" "}
+          </Text>
+          <Text
+            style={{
+              alignSelf: "center",
+              fontSize: 18,
+              marigin: 10,
+            }}
+          >
+            {venueInfo?.capacity}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -99,17 +157,16 @@ export default function VenueScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    height: 550,
+    height: 500,
     width: 400,
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: "center",
-
     alignItems: "center",
   },
   image: {
     alignSelf: "center",
-    height: 440,
-    width: 400,
+    height: 350,
+    width: 350,
   },
 });
