@@ -2,6 +2,7 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { Image, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
@@ -10,6 +11,7 @@ import CategoryList from "../../components/CategoryList";
 import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
 import CoachButton from "../../components/CoachButton";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function VenueScreen() {
   const [query, setQuery] = useState("");
@@ -51,54 +53,64 @@ export default function VenueScreen() {
             uri: venueInfo?.image,
           }}
         />
-
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-            marigin: 10,
-          }}
-        >
-          Name:{venueInfo?.name}
-        </Text>
-
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          City:{venueInfo?.city}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Address:{venueInfo?.address}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Surface:{venueInfo?.surface}
-        </Text>
-        <Text
-          style={{
-            alignSelf: "center",
-            fontSize: 18,
-            fontWeight: "bold",
-          }}
-        >
-          Capacity:{venueInfo?.capacity}
-        </Text>
+        <View>
+          <View style={styles.row}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+                marigin: 10,
+              }}
+            >
+              Name:{venueInfo?.name}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              City:{venueInfo?.city}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              Address:{venueInfo?.address}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              Surface:{venueInfo?.surface}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text
+              style={{
+                alignSelf: "center",
+                fontSize: 18,
+                fontWeight: "bold",
+              }}
+            >
+              Capacity:{venueInfo?.capacity}
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -106,19 +118,20 @@ export default function VenueScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
-    height: 550,
+    height: 600,
     width: 400,
-    borderWidth: 2,
-    borderRadius: 10,
+
     justifyContent: "center",
 
     alignItems: "center",
   },
   image: {
-    alignSelf: "center",
+    alignSelf: "flex-start",
     height: 440,
     width: 400,
+  },
+  row: {
+    margin: 5,
   },
 });
 //
