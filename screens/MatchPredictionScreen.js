@@ -6,6 +6,7 @@ import { FOOTBALL_API_KEY } from "@env";
 import PastMatches from "../components/PastMatches";
 import RadarChartPrediction from "../components/RadarChartPrediction";
 import BarChartPrediction from "../components/BarChartPrediction";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function MatchPredictionScreen() {
   const [isLoading, setIsLoading] = useState(false);
@@ -72,6 +73,10 @@ export default function MatchPredictionScreen() {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <View>
