@@ -354,6 +354,17 @@ export default function FooterTabs() {
         }}
       />
       <Tab.Screen
+        name="Predictions"
+        component={PredictionsStack}
+        options={{
+          tabBarLabel: "Predictions",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="tv-outline" color={color} size={size} />
+          ),
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
         name="Stats"
         component={StatsStack}
         options={{
@@ -403,17 +414,6 @@ export default function FooterTabs() {
               );
             },
           };
-        }}
-      />
-      <Tab.Screen
-        name="Predictions"
-        component={PredictionsStack}
-        options={{
-          tabBarLabel: "Predictions",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="tv-outline" color={color} size={size} />
-          ),
-          headerShown: false,
         }}
       />
       <Tab.Screen

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 export default function VenueScreen() {
   const [venueInfo, setVenueInfo] = useState({});
+  const [venueSurface, setVenueSurface] = useState("");
   const singleTeamData = useSelector((state) => state.singleScreenData).team
     ?.team;
   useEffect(() => {
@@ -27,13 +28,16 @@ export default function VenueScreen() {
       .request(options)
       .then(function (response) {
         setVenueInfo(response.data.response[0].venue);
+        setVenueSurface(
+          response.data.response[0].venue?.surface[0].toUpperCase() +
+            response.data.response[0].venue?.surface.slice(1)
+        );
       })
       .catch(function (error) {
         console.error(error);
       });
   };
 
-  console.log(venueInfo);
   return (
     <View style={{ alignItems: "center" }}>
       <View style={styles.container}>
@@ -125,7 +129,8 @@ export default function VenueScreen() {
               marigin: 10,
             }}
           >
-            {venueInfo?.surface[0].toUpperCase() + venueInfo?.surface.slice(1)}
+            {/* {venueInfo?.surface} */}
+            {venueSurface}
           </Text>
         </View>
 
