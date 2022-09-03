@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Keyboard,
+} from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
 import BottomSheet from "@gorhom/bottom-sheet";
@@ -203,7 +210,10 @@ export default function MyTeamsScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => playerListRef.current?.close()}
+              onPress={() => {
+                playerListRef.current?.close();
+                Keyboard.dismiss();
+              }}
               style={{
                 alignItems: "flex-end",
                 marginRight: 15,
