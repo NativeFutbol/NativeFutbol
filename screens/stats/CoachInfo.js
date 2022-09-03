@@ -79,7 +79,13 @@ export default function CoachInfo() {
                   width: 100,
                 }}
               />
-              <View style={{ margin: 5 }}>
+              <View
+                style={{
+                  margin: 5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
                 <Text
                   style={{
                     alignSelf: "center",
@@ -87,10 +93,25 @@ export default function CoachInfo() {
                     fontWeight: "bold",
                   }}
                 >
-                  Name: {item?.name}
+                  Name: {}
+                </Text>
+                <Text
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  {item?.name}
                 </Text>
               </View>
-              <View style={{ margin: 5 }}>
+
+              <View
+                style={{
+                  margin: 5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
                 <Text
                   style={{
                     alignSelf: "center",
@@ -98,10 +119,25 @@ export default function CoachInfo() {
                     fontWeight: "bold",
                   }}
                 >
-                  Age: {item?.age}
+                  Age:{" "}
+                </Text>
+                <Text
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  {item?.age}
                 </Text>
               </View>
-              <View style={{ margin: 5 }}>
+
+              <View
+                style={{
+                  margin: 5,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
                 <Text
                   style={{
                     alignSelf: "center",
@@ -110,9 +146,18 @@ export default function CoachInfo() {
                     borderBottomWidth: 5,
                   }}
                 >
-                  Nationality: {item?.nationality}
+                  Nationality:{" "}
+                </Text>
+                <Text
+                  style={{
+                    alignSelf: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  {item?.nationality}
                 </Text>
               </View>
+
               <Text
                 style={{
                   alignSelf: "center",
