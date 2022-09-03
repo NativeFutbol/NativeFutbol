@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import React from "react";
 import {
   VictoryAxis,
@@ -10,28 +10,27 @@ import {
 } from "victory-native";
 
 export default function BarChartPrediction({ data, homeTeam, awayTeam }) {
-  console.log(data);
   const homeData = [
-    { x: "Head-to-head Goals", y: -Number(data?.goals?.home.slice(0, 2)) },
-    { x: "Head-to-head Strength", y: -Number(data?.h2h?.home.slice(0, 2)) },
-    { x: "Defensive Power", y: -Number(data?.def?.home.slice(0, 2)) },
-    { x: "Offensive Power", y: -Number(data?.att?.home.slice(0, 2)) },
-    { x: "Overall Strength", y: -Number(data?.total?.home.slice(0, 4)) },
+    { x: "Head-to-head Goals", y: -Number(data?.goals?.home.slice(0, -1)) },
+    { x: "Head-to-head Strength", y: -Number(data?.h2h?.home.slice(0, -1)) },
+    { x: "Defensive Power", y: -Number(data?.def?.home.slice(0, -1)) },
+    { x: "Offensive Power", y: -Number(data?.att?.home.slice(0, -1)) },
+    { x: "Overall Strength", y: -Number(data?.total?.home.slice(0, -1)) },
   ];
 
   const awayData = [
-    { x: "Head-to-head Goals", y: Number(data?.goals?.away.slice(0, 2)) },
-    { x: "Head-to-head Strength", y: Number(data?.h2h?.away.slice(0, 2)) },
-    { x: "Defensive Power", y: Number(data?.def?.away.slice(0, 2)) },
-    { x: "Offensive Power", y: Number(data?.att?.away.slice(0, 2)) },
-    { x: "Overall Strength", y: Number(data?.total?.away.slice(0, 4)) },
+    { x: "Head-to-head Goals", y: Number(data?.goals?.away.slice(0, -1)) },
+    { x: "Head-to-head Strength", y: Number(data?.h2h?.away.slice(0, -1)) },
+    { x: "Defensive Power", y: Number(data?.def?.away.slice(0, -1)) },
+    { x: "Offensive Power", y: Number(data?.att?.away.slice(0, -1)) },
+    { x: "Overall Strength", y: Number(data?.total?.away.slice(0, -1)) },
   ];
 
   return (
-    <View style={{ alignContent: "center" }}>
+    <ScrollView style={{ alignContent: "center" }}>
       <VictoryChart
         padding={60}
-        height={400}
+        height={350}
         horizontal
         responsive={false}
         animate={{
@@ -72,7 +71,7 @@ export default function BarChartPrediction({ data, homeTeam, awayTeam }) {
           data={awayData}
         />
       </VictoryChart>
-    </View>
+    </ScrollView>
   );
 }
 

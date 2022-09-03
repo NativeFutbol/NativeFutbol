@@ -151,7 +151,7 @@ export default function HomeScreen() {
   if (isLoading) {
     return <LoadingOverlay />;
   }
-
+  // console.log(nextGames);
   return (
     <View>
       <ScrollView>
