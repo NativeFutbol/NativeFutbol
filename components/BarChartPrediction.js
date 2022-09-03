@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import React from "react";
 import {
   VictoryAxis,
@@ -28,10 +28,10 @@ export default function BarChartPrediction({ data, homeTeam, awayTeam }) {
   ];
 
   return (
-    <View style={{ alignContent: "center" }}>
+    <ScrollView style={{ alignContent: "center" }}>
       <VictoryChart
         padding={60}
-        height={400}
+        height={350}
         horizontal
         responsive={false}
         animate={{
@@ -72,7 +72,7 @@ export default function BarChartPrediction({ data, homeTeam, awayTeam }) {
           data={awayData}
         />
       </VictoryChart>
-    </View>
+    </ScrollView>
   );
 }
 

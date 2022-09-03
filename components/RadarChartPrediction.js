@@ -62,7 +62,12 @@ export default function RadarChartPrediction({
   };
 
   return (
-    <VictoryChart polar theme={VictoryTheme.material} domain={{ y: [0, 1] }}>
+    <VictoryChart
+      polar
+      theme={VictoryTheme.material}
+      height={300}
+      domain={{ y: [0, 1] }}
+    >
       <VictoryLegend
         x={140}
         centerTitle
