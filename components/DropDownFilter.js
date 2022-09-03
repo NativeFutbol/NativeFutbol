@@ -104,13 +104,19 @@ export default function DropDownFilter({ label }) {
       {label === "season" || label === "league" ? (
         <></>
       ) : (
-        <View>
+        <View
+          style={{
+            justifyContent: "flex-end",
+            flexDirection: "row",
+            flex: 1,
+          }}
+        >
           <TouchableOpacity
             onPress={() => {
               dispatch(setMyTeamFilters({ id: "", label }));
               dropDownRef.current?.select(-1);
             }}
-            style={{ marginLeft: 32 }}
+            style={{ marginRight: 5 }}
           >
             <Feather name="x" color={"orangered"} size={16} />
           </TouchableOpacity>
