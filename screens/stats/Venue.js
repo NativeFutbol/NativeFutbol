@@ -2,6 +2,7 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { Image, View, Text, SafeAreaView, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 import { useSelector } from "react-redux";
 
@@ -37,9 +38,14 @@ export default function VenueScreen() {
         console.error(error);
       });
   };
-
   return (
-    <View style={{ alignItems: "center" }}>
+    <View
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+    >
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -162,8 +168,8 @@ export default function VenueScreen() {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 10,
-    height: 500,
-    width: 400,
+    height: 450,
+    width: 350,
     borderWidth: 2,
     borderRadius: 10,
     justifyContent: "center",
@@ -171,7 +177,10 @@ const styles = StyleSheet.create({
   },
   image: {
     alignSelf: "center",
-    height: 350,
-    width: 350,
+    height: 300,
+    width: 300,
+  },
+  row: {
+    margin: 5,
   },
 });

@@ -84,13 +84,26 @@ export default function SingleTeamScreen() {
           <View>
             <TeamStatsButton
               data={singleTeamInfo}
-              text="TeamStats"
+              text="Team Stats"
               screen="TeamStats"
             />
           </View>
+        </View>
+        <View>
+          <Text
+            style={{
+              textAlign: "center",
+              fontWeight: "bold",
+              marginBottom: 5,
+              fontSize: 18,
+            }}
+          >
+            Current Squad
+          </Text>
         </View>
       </View>
       <CategoryList data={singleTeamInfo} filter={filter} />
     </SafeAreaView>
   );
 }
+//
