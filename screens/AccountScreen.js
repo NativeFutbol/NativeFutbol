@@ -66,7 +66,7 @@ export default function AccountScreen() {
     } else if (!favPlayer) {
       setFavPlayer("");
     } else {
-      db.collection("User Information").doc(`${user.uid}`).set({
+      db.collection("User Information").doc(`${user.uid}`).update({
         firstName,
         lastName,
         country,
