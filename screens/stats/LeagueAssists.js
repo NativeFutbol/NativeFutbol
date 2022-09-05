@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 export default function LeagueAssists() {
   const leagueAssistsData = useSelector((state) => state.topAssistsData);
-  //   console.log(leagueGoalsData[1].player.name);
 
   return (
     <View style={{ flexGrow: 1 }}>
@@ -83,5 +82,3 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
-
-//

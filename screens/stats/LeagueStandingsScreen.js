@@ -1,18 +1,9 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Image,
-  FlatList,
-} from "react-native";
+import { View, Text, StyleSheet, Image, FlatList } from "react-native";
 import React from "react";
 import { useSelector } from "react-redux";
 
 export default function LeagueStandingsScreen() {
   const leagueStandingsData = useSelector((state) => state.standingsData);
-
-  // console.log(leagueStandingsData[0]);
 
   return (
     <View style={{ flexGrow: 1 }}>
@@ -88,5 +79,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-//

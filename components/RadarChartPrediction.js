@@ -21,18 +21,22 @@ export default function RadarChartPrediction({
   useEffect(() => {
     const radarData = [
       {
-        "Overall Strength": Number(predictionData?.total?.home?.slice(0, 4)),
-        "Offensive Power": Number(predictionData?.att?.home?.slice(0, 2)),
-        "Defensive Power": Number(predictionData?.def?.home?.slice(0, 2)),
-        "Head-to-head Strength": Number(predictionData?.h2h?.home?.slice(0, 2)),
-        "Head-to-head Goals": Number(predictionData?.goals?.home?.slice(0, 2)),
+        "Overall Strength": Number(predictionData?.total?.home?.slice(0, -1)),
+        "Offensive Power": Number(predictionData?.att?.home?.slice(0, -1)),
+        "Defensive Power": Number(predictionData?.def?.home?.slice(0, -1)),
+        "Head-to-head Strength": Number(
+          predictionData?.h2h?.home?.slice(0, -1)
+        ),
+        "Head-to-head Goals": Number(predictionData?.goals?.home?.slice(0, -1)),
       },
       {
-        "Overall Strength": Number(predictionData?.total?.away?.slice(0, 4)),
-        "Offensive Power": Number(predictionData?.att?.away?.slice(0, 2)),
-        "Defensive Power": Number(predictionData?.def?.away?.slice(0, 2)),
-        "Head-to-head Strength": Number(predictionData?.h2h?.away?.slice(0, 2)),
-        "Head-to-head Goals": Number(predictionData?.goals?.away?.slice(0, 2)),
+        "Overall Strength": Number(predictionData?.total?.away?.slice(0, -1)),
+        "Offensive Power": Number(predictionData?.att?.away?.slice(0, -1)),
+        "Defensive Power": Number(predictionData?.def?.away?.slice(0, -1)),
+        "Head-to-head Strength": Number(
+          predictionData?.h2h?.away?.slice(0, -1)
+        ),
+        "Head-to-head Goals": Number(predictionData?.goals?.away?.slice(0, -1)),
       },
     ];
 
@@ -62,7 +66,12 @@ export default function RadarChartPrediction({
   };
 
   return (
-    <VictoryChart polar theme={VictoryTheme.material} domain={{ y: [0, 1] }}>
+    <VictoryChart
+      polar
+      theme={VictoryTheme.material}
+      height={300}
+      domain={{ y: [0, 1] }}
+    >
       <VictoryLegend
         x={140}
         centerTitle
@@ -84,16 +93,7 @@ export default function RadarChartPrediction({
         style={{ data: { fillOpacity: 0.3, strokeWidth: 2 } }}
       >
         {data.map((data, i) => {
-          return (
-            <VictoryArea
-              key={i}
-              data={data}
-              //   animate={{
-              //     duration: 1000,
-              //     onLoad: { duration: 1000 },
-              //   }}
-            />
-          );
+          return <VictoryArea key={i} data={data} />;
         })}
       </VictoryGroup>
       {Object.keys(maxima).map((key, i) => {

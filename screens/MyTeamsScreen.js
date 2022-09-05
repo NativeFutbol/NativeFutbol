@@ -4,7 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Alert,
-  Button,
+  Keyboard,
 } from "react-native";
 import React, { useEffect, useMemo, useRef } from "react";
 import Field from "../components/Field";
@@ -21,7 +21,6 @@ import SearchBar from "react-native-dynamic-search-bar";
 import { useState } from "react";
 import { auth, db } from "../firebase";
 import Modal from "react-native-modal";
-import { SafeAreaView } from "react-native-safe-area-context";
 import InstructionModal from "../components/InstructionModal";
 
 export default function MyTeamsScreen({ navigation, route }) {
@@ -163,16 +162,6 @@ export default function MyTeamsScreen({ navigation, route }) {
           <></>
         )}
 
-        {/* {auth.currentUser ? (
-          <TouchableOpacity onPress={saveChanges}>
-            <Text style={{ color: "blue", fontWeight: "bold" }}>
-              Save Changes
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <></>
-        )} */}
-
         <BottomSheet
           ref={playerListRef}
           index={1}
@@ -182,7 +171,6 @@ export default function MyTeamsScreen({ navigation, route }) {
           <View style={{ marginBottom: 20 }}>
             <SearchBar
               placeholder="Search by Players Name..."
-              // onPress={() => alert("onPress")}
               onChangeText={searchBarChangeHanlder}
               onClearPress={() => setSearchPlayerName("")}
             />
@@ -222,7 +210,10 @@ export default function MyTeamsScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => playerListRef.current?.close()}
+              onPress={() => {
+                playerListRef.current?.close();
+                Keyboard.dismiss();
+              }}
               style={{
                 alignItems: "flex-end",
                 marginRight: 15,
@@ -304,9 +295,14 @@ export default function MyTeamsScreen({ navigation, route }) {
             </TouchableOpacity>
           </View>
           <ScrollView>
-            <View style={{ marginVertical: 15, alignItems: "center" }}>
+            <View style={{ marginVertical: 12, alignItems: "center" }}>
               <Text style={{ fontSize: 20, fontWeight: "400" }}>
                 Select your Formation!
+              </Text>
+            </View>
+            <View style={{ alignItems: "center", marginBottom: 3 }}>
+              <Text style={{ fontSize: 14, fontWeight: "400" }}>
+                ex. 3-3-4 (attackers - midfielders - defenders)
               </Text>
             </View>
 
@@ -367,10 +363,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "black",
     width: "40%",
-    // margin: 20,
-    // padding: 10,
     alignItems: "center",
     borderRadius: 50,
   },
 });
-//

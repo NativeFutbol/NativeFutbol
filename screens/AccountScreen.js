@@ -246,11 +246,30 @@ export default function AccountScreen() {
 
         <View style={styles.accountInfo}>
           <Text style={styles.title}>Account Information</Text>
-          <Text>First Name: {userInfo?.firstName}</Text>
-          <Text>Last Name: {userInfo?.lastName}</Text>
-          <Text>Country: {userInfo?.country}</Text>
-          <Text>Favorite Team: {userInfo?.favTeam}</Text>
-          <Text>Favorite Player: {userInfo?.favPlayer}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>First Name: </Text>
+            <Text>{userInfo?.firstName}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>Last Name: </Text>
+            <Text>{userInfo?.lastName}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>Country: </Text>
+            <Text>{userInfo?.country}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>Favorite Team: </Text>
+            <Text>{userInfo?.favTeam}</Text>
+          </View>
+
+          <View style={{ flexDirection: "row" }}>
+            <Text style={{ fontWeight: "bold" }}>Favorite Player: </Text>
+            <Text>{userInfo?.favPlayer}</Text>
+          </View>
         </View>
 
         <TouchableOpacity
@@ -260,10 +279,10 @@ export default function AccountScreen() {
           <Text style={styles.buttonText}>Edit Info</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleDelete} style={styles.button}>
-          <Text style={styles.buttonText}>Delete account</Text>
+          <Text style={styles.buttonText}>Delete Account</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSignOut} style={styles.button}>
-          <Text style={styles.buttonText}>Sign out</Text>
+          <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -283,12 +302,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "600",
+    marginBottom: 5,
   },
   accountInfo: { marginTop: 20, marginLeft: 10, alignSelf: "flex-start" },
   updateButton: {
     backgroundColor: "#0782F9",
     width: "60%",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 20,
@@ -296,7 +316,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "red",
     width: "60%",
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
     alignItems: "center",
     marginTop: 20,
@@ -315,4 +335,3 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 });
-//

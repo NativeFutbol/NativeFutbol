@@ -1,20 +1,11 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableHighlight,
-  TouchableOpacity,
-} from "react-native";
 import React, { useState, useEffect } from "react";
 
 import CategoryList from "../../components/CategoryList";
 import { useNavigation } from "@react-navigation/native";
 
 export default function TopPlayersScreen(props) {
-  // const [season, setSeason] = useState("2022");
-  // const [league, setLeague] = useState(39);
   const [filter, setFilter] = useState("players");
   const [data, setData] = useState([]);
 

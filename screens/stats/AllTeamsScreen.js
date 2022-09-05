@@ -2,31 +2,35 @@ import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
 import { View, Text, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import BarChartComp from "../../components/BarChartComp";
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import CategoryList from "../../components/CategoryList";
-import LeagueFilter from "../../components/LeagueFilter";
-import LineChartComp from "../../components/LineChartComp";
+import LeagueFilterV2 from "../../components/LeagueFilterV2";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 export default function AllTeamsScreen() {
   const [query, setQuery] = useState("");
-  const [season, setSeason] = useState("2022");
   const [filter, setFilter] = useState("teams");
   const [allTeamData, setAllTeamData] = useState([]);
-  const [league, setLeague] = useState("39");
+  const league = useSelector((state) => state.league);
+  const season = useSelector((state) => state.season);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getTeams();
   }, [league, season]);
 
   const getTeams = () => {
+    setIsLoading(true);
+
+    const searchUrl = `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`;
+
     const options = {
       method: "GET",
-      url: `https://v3.football.api-sports.io/teams?league=${league}&season=${season}`,
+      url: searchUrl,
       headers: {
         "X-RapidAPI-Key": FOOTBALL_API_KEY,
         "X-RapidAPI-Host": "v3.football.api-sports.io",
@@ -36,12 +40,24 @@ export default function AllTeamsScreen() {
     axios
       .request(options)
       .then(function (response) {
-        setAllTeamData(response.data.response);
+        const regex = new RegExp(`(${query.toLowerCase()})`);
+
+        const teamsData = response.data.response.filter((team) => {
+          return regex.test(team.team.name.toLowerCase());
+        });
+
+        setAllTeamData(teamsData);
+
+        setIsLoading(false);
       })
       .catch(function (error) {
         console.error(error);
       });
   };
+
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <SafeAreaView>
@@ -59,17 +75,15 @@ export default function AllTeamsScreen() {
         <Filters />
         <View
           style={{
+            height: 62,
+            width: "100%",
             flexDirection: "row",
-            marginBottom: 55,
-            left: 60,
+            justifyContent: "center",
           }}
         >
-          <View>
-            <LeagueFilter league={league} setLeague={setLeague} />
-          </View>
-          <View style={{ marginRight: 370, width: "28%" }}>
-            <SeasonFilterV2 season={season} setSeason={setSeason} />
-          </View>
+          <LeagueFilterV2 league={league} />
+
+          <SeasonFilterV2 season={season} />
         </View>
       </View>
       <CategoryList data={allTeamData} filter={filter} />

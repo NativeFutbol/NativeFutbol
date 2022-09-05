@@ -1,11 +1,10 @@
 import axios from "axios";
 import { FOOTBALL_API_KEY } from "@env";
-import { View, Text, SafeAreaView } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useState } from "react";
 
 import CustomSearchBar from "../../components/CustomSearchBar";
 import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
 import CategoryList from "../../components/CategoryList";
 import LoadingOverlay from "../../components/LoadingOverlay";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
@@ -74,7 +73,6 @@ export default function AllLeaguesScreen() {
           onSubmit={getLeagues}
         />
         <Filters />
-        {/* <SeasonFilter season={season} setSeason={setSeason} /> */}
 
         <SeasonFilterV2 />
       </View>
@@ -82,5 +80,3 @@ export default function AllLeaguesScreen() {
     </View>
   );
 }
-
-//

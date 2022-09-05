@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import React from "react";
 import { Image } from "react-native-svg";
 
@@ -10,7 +9,6 @@ export default function Logo({ x, y, datum }) {
       width="20"
       height="20"
       xlinkHref={datum.logo}
-      //   xlinkHref="https://media.api-sports.io/football/teams/33.png"
     />
   );
 }

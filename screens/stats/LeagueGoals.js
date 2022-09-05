@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 export default function LeagueGoals() {
   const leagueGoalsData = useSelector((state) => state.topScorersData);
-  //   console.log(leagueGoalsData[0].player.photo);
 
   return (
     <View style={{ flexGrow: 1 }}>
@@ -83,5 +82,3 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
-
-//

@@ -1,14 +1,5 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
-import { FOOTBALL_API_KEY } from "@env";
-import axios from "axios";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import GamesCard, { ITEM_WIDTH, SLIDER_WIDTH } from "./GamesCard";
 import ModalDropdown from "react-native-modal-dropdown";
@@ -83,7 +74,6 @@ export default function Games({ matchesData, label, setLeague }) {
                   fontWeight: "bold",
                   marginRight: 3,
                 }}
-                // dropdownStyle={{ height: 200 }}
                 dropdownTextStyle={{
                   width: 200,
                   fontSize: 15,
@@ -121,12 +111,9 @@ export default function Games({ matchesData, label, setLeague }) {
         renderItem={GamesCard}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
-        // sliderHeight={SLIDER_WIDTH}
-        // itemHeight={ITEM_WIDTH}
         inactiveSlideShift={0}
         useScrollView={true}
         onSnapToItem={(index) => setIndex(index)}
-        // vertical={true}
         autoplay={true}
         autoplayInterval={5000}
       />

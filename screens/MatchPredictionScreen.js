@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -13,6 +6,7 @@ import { FOOTBALL_API_KEY } from "@env";
 import PastMatches from "../components/PastMatches";
 import RadarChartPrediction from "../components/RadarChartPrediction";
 import BarChartPrediction from "../components/BarChartPrediction";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 export default function MatchPredictionScreen() {
   const [isLoading, setIsLoading] = useState(false);
@@ -80,9 +74,9 @@ export default function MatchPredictionScreen() {
       });
   };
 
-  //   console.log("matchinfo", matchInfo);
-  //   console.log("winnerinfo", winnerInfo);
-  //   console.log("match", match);
+  if (isLoading) {
+    return <LoadingOverlay />;
+  }
 
   return (
     <View>

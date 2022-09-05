@@ -4,16 +4,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
-  VictoryLine,
   VictoryAxis,
   VictoryScatter,
   VictoryChart,
   VictoryTheme,
-  VictoryLabel,
   VictoryLegend,
 } from "victory-native";
 import LoadingOverlay from "../../components/LoadingOverlay";
@@ -22,62 +19,6 @@ import { FOOTBALL_API_KEY } from "@env";
 import Logo from "../../components/Logo";
 import Legend from "../../components/Legend";
 import { MaterialIcons } from "@expo/vector-icons";
-
-const dummyData = [
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 6,
-    rank: 8,
-    season: "2022",
-    x: "2022",
-    y: 8,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 58,
-    rank: 6,
-    season: "2021",
-    x: "2021",
-    y: 6,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 74,
-    rank: 2,
-    season: "2020",
-    x: "2020",
-    y: 2,
-  },
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 66,
-    rank: 3,
-    season: "2019",
-    x: "2019",
-    y: 3,
-  },
-];
-
-const legendDummyData = [
-  {
-    id: 33,
-    logo: "https://media.api-sports.io/football/teams/33.png",
-    name: "Manchester United",
-    points: 66,
-    rank: 3,
-    season: "2019",
-    x: "2019",
-    y: 3,
-  },
-];
 
 export default function LeagueCharts({ route }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -186,14 +127,7 @@ export default function LeagueCharts({ route }) {
             }),
           ];
 
-          // const Year2SixTeams = Year2.filter((team) => +team.rank <= 6).map(
-          //   (team) => team.team.id
-          // );
           const Year2SixTeams = getSixTeams(Year2);
-
-          // const manULeagueStandings = standingsByYear.filter(
-          //   (team) => +team.id === +33
-          // );
 
           const filteredStandingsByYear = standingsByYear.filter((team) =>
             Year2SixTeams.includes(team.id)
@@ -234,8 +168,6 @@ export default function LeagueCharts({ route }) {
   if (isLoading) {
     return <LoadingOverlay />;
   }
-
-  //   console.log(standings);
 
   return (
     <View style={{ flex: 1, marginBottom: 20 }}>
@@ -307,8 +239,6 @@ export default function LeagueCharts({ route }) {
           <VictoryChart
             theme={VictoryTheme.material}
             minDomain={0}
-            // padding={{ top: 5, bottom: 5 }}
-            // range={{ x: [2019, 2022], y: [1, 20] }}
             height={450}
           >
             <VictoryScatter
@@ -318,7 +248,6 @@ export default function LeagueCharts({ route }) {
                 parent: { border: "1px solid #ccc" },
               }}
               data={standings}
-              // labelComponent={<VictoryLabel dy={-4} />}
               dataComponent={<Logo />}
               categories={{ x: ["2019", "2020", "2021", "2022"] }}
             />
@@ -349,9 +278,6 @@ export default function LeagueCharts({ route }) {
           <VictoryChart
             theme={VictoryTheme.material}
             minDomain={0}
-            // padding={{ top: 5, bottom: 5 }}
-            // range={{ x: [2019, 2022], y: [0, 120] }}
-            // domain={{ y: [0, 120] }}
             height={700}
           >
             <VictoryScatter
@@ -361,7 +287,6 @@ export default function LeagueCharts({ route }) {
                 parent: { border: "1px solid #ccc" },
               }}
               data={points}
-              // labelComponent={<VictoryLabel dy={-4} />}
               dataComponent={<Logo />}
               categories={{ x: ["2019", "2020", "2021", "2022"] }}
             />
@@ -387,24 +312,6 @@ export default function LeagueCharts({ route }) {
             />
           </VictoryChart>
         </View>
-
-        {/* <VictoryLegend
-          x={30}
-          y={20}
-          title="Legends"
-          centerTitle
-          orientation="vertical"
-          gutter={30}
-          style={{
-            border: { stroke: "black" },
-            title: { fontSize: 12, fontWeight: "bold" },
-            labels: { fontSize: 10, fontWeight: "bold" },
-            data: { size: 12 },
-          }}
-          borderPadding={{ left: 10, right: 10, bottom: 10 }}
-          dataComponent={<Legend />}
-          data={legends}
-        /> */}
       </ScrollView>
 
       {!isClosed ? (
@@ -428,14 +335,11 @@ export default function LeagueCharts({ route }) {
             </TouchableOpacity>
           </View>
           <VictoryLegend
-            // x={10}
-            // y={0}
             title="Teams"
             centerTitle
             orientation="vertical"
             gutter={30}
             style={{
-              // border: { stroke: "grey", strokeWidth: 2 },
               title: { fontSize: 12, fontWeight: "bold" },
               labels: { fontSize: 10, fontWeight: "bold" },
               data: { size: 12 },
@@ -485,12 +389,8 @@ const styles = StyleSheet.create({
   bottomView: {
     width: "40%",
     height: 210,
-    // backgroundColor: "#EE5407",
-    // justifyContent: "flex-start",
-    // alignItems: "flex-start",
     position: "absolute",
     marginLeft: 5,
-    // marginBottom: 2,
     bottom: 0,
     left: 0,
     borderWidth: 1,
@@ -498,15 +398,9 @@ const styles = StyleSheet.create({
   },
   bottomViewTwo: {
     width: "35%",
-    height: 40,
-    // backgroundColor: "#EE5407",
-    // justifyContent: "flex-start",
-    // alignItems: "flex-start",
     position: "absolute",
     marginLeft: 5,
-    // marginBottom: 2,
     bottom: 0,
     left: 15,
-    // borderWidth: 1,
   },
 });

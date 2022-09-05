@@ -11,10 +11,8 @@ import myPlayersReducer from "./myPlayers";
 import myFormationReducer from "./myFormation";
 import leagueReducer from "./league";
 import storage from "redux-persist/lib/storage";
-// import storage from "redux-persist/es/storage";
-// import AsyncStorage from "@react-native-async-storage/async-storage";
-// import { AsyncStorage } from "react-native";
-// import AsyncStorage from "@react-native-community/async-storage";
+import comparisonTeamIdReducer from "./comparisonTeamId";
+import comparisonLeagueIdReducer from "./comparisonLeagueId";
 
 import {
   persistStore,
@@ -40,9 +38,11 @@ const persistConfig = {
     "mostCardsData",
     "myTeamFilters",
     "myTeamFilterOptions",
+    "league",
+    "comparisonTeamId",
+    "comparisonLeagueId",
   ],
   storage,
-  // storage,
 };
 
 const reducer = combineReducers({
@@ -57,6 +57,8 @@ const reducer = combineReducers({
   league: leagueReducer,
   myPlayers: myPlayersReducer,
   myFormation: myFormationReducer,
+  comparisonTeamId: comparisonTeamIdReducer,
+  comparisonLeagueId: comparisonLeagueIdReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -72,19 +74,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-// export const store = configureStore({
-//   reducer: {
-//     singleScreenData: singleScreenDataReducer,
-//     standingsData: standingsDataReducer,
-//     season: seasonReducer,
-//     topScorersData: topScorersReducer,
-//     topAssistsData: topAssistsReducer,
-//     mostCardsData: mostCardsReducer,
-//     myTeamFilters: myTeamFiltersReducer,
-//     myTeamFilterOptions: myTeamFilterOptionsReducer,
-//     myPlayers: myPlayersReducer,
-//     myFormation: myFormationReducer,
-//     persistedReducer: persistedReducer,
-//   },
-// });
