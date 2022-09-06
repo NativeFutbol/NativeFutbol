@@ -1,5 +1,4 @@
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TextInput,
