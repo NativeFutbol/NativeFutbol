@@ -10,16 +10,10 @@ import { FOOTBALL_API_KEY } from "@env";
 import axios from "axios";
 
 export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
-  //   const data = ["2022", "2021", "2020", "2019"];
-
   const dispatch = useDispatch();
 
-  //   const season = useSelector((state) => state.season);
   const [query, setQuery] = useState("");
-  //   const [season, setSeason] = useState("2022");
-  //   const [filter, setFilter] = useState("teams");
   const [allTeamData, setAllTeamData] = useState([]);
-  //   const [league, setLeague] = useState("39");
   const compareLeagueId = useSelector((state) => state.comparisonLeagueId);
 
   useEffect(() => {
@@ -86,7 +80,6 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
         <ModalDropdown
           options={teamNames}
           defaultValue={"---"}
-          //   style={{ width: "80%" }}
           textStyle={{ fontSize: 15, fontWeight: "bold", marginRight: 3 }}
           dropdownStyle={{ justifyContent: "center", alignContent: "center" }}
           dropdownTextStyle={{
@@ -103,7 +96,6 @@ export default function TeamFilter({ seasonInfo, leagueIdInfo }) {
           renderRightComponent={() => (
             <Ionicons name="caret-down-sharp" color={"orangered"} size={16} />
           )}
-          // showSearch={true}
         />
       </View>
     </View>
