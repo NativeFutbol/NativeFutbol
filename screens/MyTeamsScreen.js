@@ -105,7 +105,7 @@ export default function MyTeamsScreen({ navigation, route }) {
           dispatch(setMyFormationStore(snapshot.data()?.myFormation));
           dispatch(setMyPlayersStore(snapshot.data()?.myPlayers));
         } else {
-          console.log("No data available");
+          // console.log("No data available");
         }
       })
       .catch((error) => alert(error.message));
@@ -179,7 +179,10 @@ export default function MyTeamsScreen({ navigation, route }) {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <TouchableOpacity
-              onPress={() => filterPlayerListRef.current?.expand()}
+              onPress={() => {
+                filterPlayerListRef.current?.expand();
+                Keyboard.dismiss();
+              }}
               style={{
                 alignItems: "flex-start",
                 marginLeft: 15,
@@ -195,7 +198,10 @@ export default function MyTeamsScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => dispatch(resetMyPlayer())}
+              onPress={() => {
+                dispatch(resetMyPlayer());
+                Keyboard.dismiss();
+              }}
               style={{
                 alignItems: "flex-start",
                 borderWidth: 1,
