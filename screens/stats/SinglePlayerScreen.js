@@ -637,12 +637,12 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 15, width: 90 }}>
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1197,12 +1197,12 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 15, width: 90 }}>
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1758,12 +1758,12 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 15, width: 90 }}>
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
                   >
                     {player.nationality}
                   </Text>
@@ -2204,12 +2204,12 @@ function DisplayPlayer(props) {
                 </View>
               </View>
               <View style={styles.infoBox}>
-                <Text style={{ fontWeight: "bold", fontSize: 15 }}>
+                <Text style={{ fontWeight: "bold", fontSize: 15, width: 90 }}>
                   Nationality:
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
                   >
                     {player.nationality}
                   </Text>
