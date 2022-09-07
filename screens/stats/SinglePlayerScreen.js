@@ -642,7 +642,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1202,7 +1202,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1763,7 +1763,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -2209,7 +2209,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -2657,8 +2657,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   playerLogos: {
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 60,
   },
   infoBar: {
     marginTop: 10,
@@ -2680,6 +2680,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default DisplayPlayer;
