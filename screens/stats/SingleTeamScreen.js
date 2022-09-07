@@ -102,7 +102,7 @@ export default function SingleTeamScreen() {
           </Text>
         </View>
       </View>
-      <CategoryList data={singleTeamInfo} filter={filter} />
+      <CategoryList data={singleTeamInfo} filter={filter} footer={200} />
     </SafeAreaView>
   );
 }

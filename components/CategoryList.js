@@ -38,7 +38,7 @@ export default function CategoryList({ data, filter, footer = true }) {
       ref={flatListRef}
       numColumns={2}
       keyExtractor={(item, index) => index.toString()}
-      ListFooterComponent={footer ? <View style={{ height: 250 }} /> : <></>}
+      ListFooterComponent={footer ? <View style={{ height: footer }} /> : <></>}
       data={data}
       renderItem={({ item }) => (
         <View style={styles.container}>

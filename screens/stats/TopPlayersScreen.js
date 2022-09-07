@@ -33,5 +33,5 @@ export default function TopPlayersScreen(props) {
       });
   }, []);
 
-  return <CategoryList data={data} filter={filter} />;
+  return <CategoryList data={data} filter={filter} footer={25} />;
 }

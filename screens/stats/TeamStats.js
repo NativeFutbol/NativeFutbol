@@ -6,25 +6,18 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  FlatList,
   Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 
-import CustomSearchBar from "../../components/CustomSearchBar";
-import Filters from "../../components/Filters";
-import SeasonFilter from "../../components/SeasonFilter";
-import CategoryList from "../../components/CategoryList";
-import singleScreenData from "../../store/singleScreenData";
 import { useSelector } from "react-redux";
-import CoachButton from "../../components/CoachButton";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import SeasonFilterV2 from "../../components/SeasonFilterV2";
 import ComparisonTeam from "../../components/ComparisonTeam";
 import TeamFilter from "../../components/TeamFilter";
-import LeagueFilterV2 from "../../components/LeagueFilterV2";
 import CompareLeagueFilter from "../../components/CompareLeagueFilter";
+
 export default function TeamStats() {
   const [query, setQuery] = useState("");
   const [season, setSeason] = useState("2022");

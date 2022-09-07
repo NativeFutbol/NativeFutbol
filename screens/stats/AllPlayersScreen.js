@@ -157,7 +157,7 @@ export default function AllPlayersScreen() {
             <Text>{"   >>"}</Text>
           </TouchableOpacity>
         </View>
-        <CategoryList data={data} filter={filter} />
+        <CategoryList data={data} filter={filter} footer={250} />
       </SafeAreaView>
     );
   }

@@ -295,7 +295,7 @@ export default function SingleLeagueScreen() {
       </View>
 
       <View style={{ zIndex: -1 }}>
-        <CategoryList data={teams} filter="teams" />
+        <CategoryList data={teams} filter="teams" footer={475} />
       </View>
     </View>
   );
