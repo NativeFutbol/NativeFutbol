@@ -22,6 +22,7 @@ import {
   ContributionGraph,
   StackedBarChart,
 } from "react-native-chart-kit";
+import LoadingOverlay from "../../components/LoadingOverlay";
 
 function DisplayPlayer(props) {
   const navigation = useNavigation();
@@ -385,18 +386,19 @@ function DisplayPlayer(props) {
           response.data
         );
         if (response.data.response.length !== 0) {
-          setPlayer(response?.data?.response[0]?.player);
+          setPlayer(response?.data?.response[0].player);
           setStats2022(response?.data?.response[0]?.statistics[0]);
           setCount(count + 1);
+          getStats();
         } else {
           Alert.alert("Warning!", "Player Retired. Data May Be Out Of Date.");
           setCount(count + 1);
+          getStats();
         }
       })
       .catch(function (error) {
         console.error(error);
       });
-    getStats();
   }, []);
 
   function getStats() {
@@ -452,21 +454,53 @@ function DisplayPlayer(props) {
       });
   }
   function isNull(val) {
-    if (val === null) {
+    if (val === null || val === undefined) {
       return 0;
     } else {
       return val;
     }
   }
-  console.log(count);
-  if (
-    stats2022.games.position ||
-    stats2021.games.position ||
-    stats2020.games.position ||
-    stats2019.games.position === "Attacker"
-  ) {
+  let position = "";
+  if (stats2022.games.position === "Attacker") {
+    position = "Attacker";
+  } else if (stats2021.games.position === "Attacker") {
+    position = "Attacker";
+  } else if (stats2020.games.position === "Attacker") {
+    position = "Attacker";
+  } else if (stats2019.games.position === "Attacker") {
+    position = "Attacker";
+  } else if (stats2022.games.position === "Defender") {
+    position = "Defender";
+  } else if (stats2021.games.position === "Defender") {
+    position = "Defender";
+  } else if (stats2020.games.position === "Defender") {
+    position = "Defender";
+  } else if (stats2019.games.position === "Defender") {
+    position = "Defender";
+  } else if (stats2022.games.position === "Goalkeeper") {
+    position = "Goalkeeper";
+  } else if (stats2021.games.position === "Goalkeeper") {
+    position = "Goalkeeper";
+  } else if (stats2020.games.position === "Goalkeeper") {
+    position = "Goalkeeper";
+  } else if (stats2019.games.position === "Goalkeeper") {
+    position = "Goalkeeper";
+  } else if (stats2022.games.position === "Midfielder") {
+    position = "Midfielder";
+  } else if (stats2021.games.position === "Midfielder") {
+    position = "Midfielder";
+  } else if (stats2020.games.position === "Midfielder") {
+    position = "Midfielder";
+  } else if (stats2019.games.position === "Midfielder") {
+    position = "Midfielder";
+  }
+  console.log(position);
+  if (position === "") {
+    return <LoadingOverlay />;
+  } else if (position === "Attacker") {
     return (
       <View style={styles.background}>
+        {console.log("hit attack")}
         <View style={styles.playerInfo}>
           <View style={styles.playerImages}>
             <View style={styles.playerImageBorder}>
@@ -608,7 +642,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -971,7 +1005,7 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                {count === 1 && count2 === 1 && count3 === 1 && count4 === 1 ? (
+                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
                   <StackedBarChart
                     style={{
                       marginVertical: 8,
@@ -982,10 +1016,22 @@ function DisplayPlayer(props) {
                       labels: ["2019", "2020", "2021", "2022"],
                       legend: ["Red", "Yellow"],
                       data: [
-                        [stats2019.cards.red, stats2019.cards.yellow],
-                        [stats2020.cards.red, stats2020.cards.yellow],
-                        [stats2021.cards.red, stats2021.cards.yellow],
-                        [stats2022.cards.red, stats2022.cards.yellow],
+                        [
+                          isNull(stats2019.cards.red),
+                          isNull(stats2019.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2020.cards.red),
+                          isNull(stats2020.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2021.cards.red),
+                          isNull(stats2021.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2022.cards.red),
+                          isNull(stats2022.cards.yellow),
+                        ],
                       ],
                       barColors: ["red", "yellow"],
                     }}
@@ -996,14 +1042,14 @@ function DisplayPlayer(props) {
                       backgroundColor: "gray",
                       backgroundGradientFrom: "gray",
                       backgroundGradientTo: "lightgray",
-                      decimalPlaces: 0,
                       color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
                       labelColor: (opacity = 1) => `#333`,
                       strokeWidth: 2,
+                      decimalPlaces: 0,
                     }}
                   />
                 ) : (
-                  <View />
+                  <LoadingOverlay />
                 )}
               </View>
             </ScrollView>
@@ -1011,14 +1057,10 @@ function DisplayPlayer(props) {
         </View>
       </View>
     );
-  } else if (
-    stats2022.games.position ||
-    stats2021.games.position ||
-    stats2020.games.position ||
-    stats2019.games.position === "Defender"
-  ) {
+  } else if (position === "Defender") {
     return (
       <View style={styles.background}>
+        {console.log("hit defense")}
         <View style={styles.playerInfo}>
           <View style={styles.playerImages}>
             <View style={styles.playerImageBorder}>
@@ -1160,7 +1202,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1524,50 +1566,62 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                <StackedBarChart
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                  }}
-                  segments={5}
-                  data={{
-                    labels: ["2019", "2020", "2021", "2022", "E.G."],
-                    legend: ["Red", "Yellow"],
-                    data: [
-                      [stats2019.cards.red, stats2019.cards.yellow],
-                      [stats2020.cards.red, stats2020.cards.yellow],
-                      [stats2021.cards.red, stats2021.cards.yellow],
-                      [stats2022.cards.red, stats2022.cards.yellow],
-                      [5, 5],
-                    ],
-                    barColors: ["red", "yellow"],
-                  }}
-                  width={370}
-                  height={180}
-                  chartConfig={{
-                    backgroundColor: "gray",
-                    backgroundGradientFrom: "gray",
-                    backgroundGradientTo: "lightgray",
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `#333`,
-                    strokeWidth: 2,
-                    decimalPlaces: 0,
-                  }}
-                />
+                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
+                  <StackedBarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                    }}
+                    segments={5}
+                    data={{
+                      labels: ["2019", "2020", "2021", "2022"],
+                      legend: ["Red", "Yellow"],
+                      data: [
+                        [
+                          isNull(stats2019.cards.red),
+                          isNull(stats2019.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2020.cards.red),
+                          isNull(stats2020.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2021.cards.red),
+                          isNull(stats2021.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2022.cards.red),
+                          isNull(stats2022.cards.yellow),
+                        ],
+                      ],
+                      barColors: ["red", "yellow"],
+                    }}
+                    width={370}
+                    height={180}
+                    decimalPlaces={0}
+                    chartConfig={{
+                      backgroundColor: "gray",
+                      backgroundGradientFrom: "gray",
+                      backgroundGradientTo: "lightgray",
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `#333`,
+                      strokeWidth: 2,
+                      decimalPlaces: 0,
+                    }}
+                  />
+                ) : (
+                  <LoadingOverlay />
+                )}
               </View>
             </ScrollView>
           </View>
         </View>
       </View>
     );
-  } else if (
-    stats2022.games.position ||
-    stats2021.games.position ||
-    stats2020.games.position ||
-    stats2019.games.position === "Goalkeeper"
-  ) {
+  } else if (position === "Goalkeeper") {
     return (
       <View style={styles.background}>
+        {console.log("hit goalie")}
         <View style={styles.playerInfo}>
           <View style={styles.playerImages}>
             <View style={styles.playerImageBorder}>
@@ -1709,7 +1763,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -1958,50 +2012,62 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                <StackedBarChart
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                  }}
-                  segments={5}
-                  data={{
-                    labels: ["2019", "2020", "2021", "2022", "E.G."],
-                    legend: ["Red", "Yellow"],
-                    data: [
-                      [stats2019.cards.red, stats2019.cards.yellow],
-                      [stats2020.cards.red, stats2020.cards.yellow],
-                      [stats2021.cards.red, stats2021.cards.yellow],
-                      [stats2022.cards.red, stats2022.cards.yellow],
-                      [5, 5],
-                    ],
-                    barColors: ["red", "yellow"],
-                  }}
-                  width={370}
-                  height={180}
-                  chartConfig={{
-                    backgroundColor: "gray",
-                    backgroundGradientFrom: "gray",
-                    backgroundGradientTo: "lightgray",
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `#333`,
-                    strokeWidth: 2,
-                    decimalPlaces: 0,
-                  }}
-                />
+                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
+                  <StackedBarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                    }}
+                    segments={5}
+                    data={{
+                      labels: ["2019", "2020", "2021", "2022"],
+                      legend: ["Red", "Yellow"],
+                      data: [
+                        [
+                          isNull(stats2019.cards.red),
+                          isNull(stats2019.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2020.cards.red),
+                          isNull(stats2020.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2021.cards.red),
+                          isNull(stats2021.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2022.cards.red),
+                          isNull(stats2022.cards.yellow),
+                        ],
+                      ],
+                      barColors: ["red", "yellow"],
+                    }}
+                    width={370}
+                    height={180}
+                    decimalPlaces={0}
+                    chartConfig={{
+                      backgroundColor: "gray",
+                      backgroundGradientFrom: "gray",
+                      backgroundGradientTo: "lightgray",
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `#333`,
+                      strokeWidth: 2,
+                      decimalPlaces: 0,
+                    }}
+                  />
+                ) : (
+                  <LoadingOverlay />
+                )}
               </View>
             </ScrollView>
           </View>
         </View>
       </View>
     );
-  } else if (
-    stats2022.games.position ||
-    stats2021.games.position ||
-    stats2020.games.position ||
-    stats2019.games.position === "Midfielder"
-  ) {
+  } else if (position === "Midfielder") {
     return (
       <View style={styles.background}>
+        {console.log("hit midfield")}
         <View style={styles.playerInfo}>
           <View style={styles.playerImages}>
             <View style={styles.playerImageBorder}>
@@ -2143,7 +2209,7 @@ function DisplayPlayer(props) {
                 </Text>
                 <View style={{ width: 50, alignItems: "center" }}>
                   <Text
-                    style={{ textAlign: "center", fontSize: 13, width: 80 }}
+                    style={{ textAlign: "center", fontSize: 13, width: 90 }}
                   >
                     {player.nationality}
                   </Text>
@@ -2506,36 +2572,52 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                <StackedBarChart
-                  style={{
-                    marginVertical: 8,
-                    borderRadius: 16,
-                  }}
-                  segments={5}
-                  data={{
-                    labels: ["2019", "2020", "2021", "2022", "E.G."],
-                    legend: ["Red", "Yellow"],
-                    data: [
-                      [stats2019.cards.red, stats2019.cards.yellow],
-                      [stats2020.cards.red, stats2020.cards.yellow],
-                      [stats2021.cards.red, stats2021.cards.yellow],
-                      [stats2022.cards.red, stats2022.cards.yellow],
-                      [5, 5],
-                    ],
-                    barColors: ["red", "yellow"],
-                  }}
-                  width={370}
-                  height={180}
-                  chartConfig={{
-                    backgroundColor: "gray",
-                    backgroundGradientFrom: "gray",
-                    backgroundGradientTo: "lightgray",
-                    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                    labelColor: (opacity = 1) => `#333`,
-                    strokeWidth: 2,
-                    decimalPlaces: 0,
-                  }}
-                />
+                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
+                  <StackedBarChart
+                    style={{
+                      marginVertical: 8,
+                      borderRadius: 16,
+                    }}
+                    segments={5}
+                    data={{
+                      labels: ["2019", "2020", "2021", "2022"],
+                      legend: ["Red", "Yellow"],
+                      data: [
+                        [
+                          isNull(stats2019.cards.red),
+                          isNull(stats2019.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2020.cards.red),
+                          isNull(stats2020.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2021.cards.red),
+                          isNull(stats2021.cards.yellow),
+                        ],
+                        [
+                          isNull(stats2022.cards.red),
+                          isNull(stats2022.cards.yellow),
+                        ],
+                      ],
+                      barColors: ["red", "yellow"],
+                    }}
+                    width={370}
+                    height={180}
+                    decimalPlaces={0}
+                    chartConfig={{
+                      backgroundColor: "gray",
+                      backgroundGradientFrom: "gray",
+                      backgroundGradientTo: "lightgray",
+                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                      labelColor: (opacity = 1) => `#333`,
+                      strokeWidth: 2,
+                      decimalPlaces: 0,
+                    }}
+                  />
+                ) : (
+                  <LoadingOverlay />
+                )}
               </View>
             </ScrollView>
           </View>
@@ -2575,8 +2657,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   playerLogos: {
-    height: 80,
-    width: 80,
+    height: 60,
+    width: 60,
   },
   infoBar: {
     marginTop: 10,
@@ -2598,6 +2680,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
   },
 });
 export default DisplayPlayer;
