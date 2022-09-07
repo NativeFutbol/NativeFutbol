@@ -1,11 +1,10 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 <!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** Thanks for checking out Native Futbol. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
 *** or simply open an issue with the tag "enhancement".
-*** Don't forget to give the project a star!
-*** Thanks again! Now go create something AMAZING! :D
+*** Don't forget to give the project a star! Thanks! 
 -->
 
 
@@ -20,7 +19,7 @@
 -->
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
-[![Stargazersfsd][stars-shield]][stars-url]
+[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
@@ -33,13 +32,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Native Futbol</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
+    Your go-to for all Europe's "Big Five" Football Leagues related!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
     ·
@@ -82,18 +78,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]]
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Native Futbol is a mobile app designed to make soccer/football statistics and news accessible and easy to understand. The app provides numerous graphics based on the sport's history and recent events. It also presents the user with important recent and upcoming matches in a specified league, including useful analytics on the teams in those upcoming matches. Users are able to create a "Dream Team" with their favorite players to be engaged with the sport as well! The aim of this app is to make soccer data more accessible and to interest newcomers into the world of soccer while keeping them engaged.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,54 +88,53 @@ Use the `BLANK_README.md` to get started.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![ReactNative][ReactNative.js]][ReactNative-url]
+* [![Expo][Expo.js]][Expo-url]
+* [![ReduxToolkit][ReduxToolkit.js]][ReduxToolkit-url]
+* [Victory](https://formidable.com/open-source/victory/docs/native/)
+* [React Native Chart Kit](https://github.com/indiespirit/react-native-chart-kit)
+* [![Firebase][Firebase.js]][Firebase-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+* Download your mobile simulator of choice.
+  * [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) - iOS Simulator for Mac
+  * [Android Studio](https://developer.android.com/studio) - Android Simulator
+  * [Expo Go](https://expo.dev/client) - Mobile Developer Simulator
+      * Make an account with Expo.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Get free API keys from [API-Football](https://www.api-football.com/) and [News API](https://newsapi.org/).
 
 ### Installation
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+1. Clone the repo.
    ```
-3. Install NPM packages
-   ```sh
+   git clone https://github.com/NativeFutbol/NativeFutbol.git
+   ```
+2. Switch to installed directory and install NPM packages.
+   ```
+   cd [DIRECTORYLOCATION]
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   A force installation may be needed.
    ```
-
+   npm install -f
+3. Create a .env file in the root directory and enter your API keys.
+   ```
+   FOOTBALL_API_KEY = "[YOURAPIFOOTBALLKEY]"
+   NEWS_API_KEY = "[YOURNEWSAPIKEY]"
+   ```
+4. Start the simulation environment and follow the instructions.
+   ```
+   npm start
+   ```
+  
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- USAGE EXAMPLES -->
 ## Usage
@@ -166,13 +150,17 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] Deploy to mobile platforms
+    - [ ] Apple App Store
+    - [ ] Google Play Store
+- [ ] Add Fantasy Football experienct
+    - [ ] Scoring system for Dream Team performance
+    - [ ] Ability to make and share games for friends to join
+- [ ] Add Google Maps to Team Venue screen
+- [ ] Add Google authentication to Login/Register
+- [ ] Add forget password feature
+- [ ] Add betting feature
+- [ ] Explore D3.js for more advanced graphics
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
@@ -207,12 +195,16 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 
 
-<!-- CONTACT -->
-## Contact
+<!-- Meet the Team -->
+## Meet the Team
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
+![Connor_Choi (1)](https://raw.githubusercontent.com/NativeFutbol/README-assets/main/Team_Profiles/Connor_Choi.png?token=GHSAT0AAAAAABUVIKT73GUVKKS5AQPJ7O22YYY6LYQ)  | ![Alexis_Jimenez (1)](https://raw.githubusercontent.com/NativeFutbol/README-assets/main/Team_Profiles/Alexis_Jimenez.png?token=GHSAT0AAAAAABUVIKT6FKJYAN5MZNVLNBRUYYY6LVQ) | ![Fei_Li (1)](https://raw.githubusercontent.com/NativeFutbol/README-assets/main/Team_Profiles/Fei_Li.png?token=GHSAT0AAAAAABUVIKT7PAP4E7U66EPQPYJKYYY6L3A)  | ![Kevin_Liang (1)](https://raw.githubusercontent.com/NativeFutbol/README-assets/main/Team_Profiles/Kevin_Liang.png?token=GHSAT0AAAAAABUVIKT7C5I7XUBKSPQVCR5UYYY6L4A) |
+|     :---:     |     :---:     |     :---:     |     :---:     |
+| Connor Choi  | Alexis Jimenez  | Fei Li  | Kevin Liang  |
+| [Github](https://github.com/cc8516)  | [Github](https://github.com/AlexisJimenez0728)  | [Github](https://github.com/fei19904287)  | [Github](https://github.com/kevinliang327)  |
+| -  | [LinkedIn](https://www.linkedin.com/in/alexis-jimenez-fwd/)  | [LinkedIn](https://www.linkedin.com/in/feili4287/)  | [LinkedIn](https://www.linkedin.com/in/kliang327/)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [Native Futbol](https://github.com/NativeFutbol/NativeFutbol)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -221,16 +213,9 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+The data used in this app was provided by the APIs below:
+* [API-Footbal](https://www.api-football.com/)
+* [News API](https://newsapi.org/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -246,22 +231,14 @@ Use this space to list resources you find helpful and would like to give credit 
 [stars-url]: https://github.com/NativeFutbol/NativeFutbol/stargazers
 [issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
 [issues-url]: https://github.com/NativeFutbol/NativeFutbol/issues
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
+
 [product-screenshot]: /assets/field.jpg
-[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
-[Next-url]: https://nextjs.org/
-[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
-[React-url]: https://reactjs.org/
-[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
-[Vue-url]: https://vuejs.org/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
-[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
-[Svelte-url]: https://svelte.dev/
-[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
-[Laravel-url]: https://laravel.com
-[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
-[Bootstrap-url]: https://getbootstrap.com
-[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
-[JQuery-url]: https://jquery.com 
+
+[ReactNative.js]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[ReactNative-url]: https://nextjs.org/](https://reactnative.dev/
+[Expo.js]: https://img.shields.io/badge/Expo-1B1F23?style=for-the-badge&logo=expo&logoColor=white
+[Expo-url]: https://expo.dev/
+[ReduxToolkit.js]: https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white
+[ReduxToolkit-url]: https://redux-toolkit.js.org/
+[Firebase.js]: https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black
+[Firebase-url]: https://firebase.google.com/
