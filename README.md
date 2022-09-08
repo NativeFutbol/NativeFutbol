@@ -106,7 +106,7 @@ Native Futbol is a mobile app created with React Native and Expo, focused on dat
 
 ### Home Page
 
-On the home page, there are automatic carousel views that the user can scroll through. The top section shows infomation about upcoming and recent matches of a football league, which can be changed by the dropdown. Recent events are displayed at the bottom, and they can be clicked on for the user to read more about. 
+On the home page, there are automatic carousel views that the user can scroll through. The top section shows information about upcoming and recent matches of a football league, which can be changed by the dropdown. Recent events are displayed at the bottom, and they can be clicked on for the user to read more about. 
 
 <div align="center">
 <img src="https://media3.giphy.com/media/0VbGQi0icGMhXGjbz8/giphy.gif" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -117,7 +117,7 @@ On the home page, there are automatic carousel views that the user can scroll th
 
 ### Predictions
 
-The predictions tab shows upcoming matches of the selected league. Users can click on a match to gain insight on the outcome of that match. Past matches between the two teams will be shown below, and performance graphs based on the teams' past performances can be viewed. 
+The predictions tab displays upcoming matches of the selected league. Users can click on a match to gain insight on the match's outcome. Past matches between the two teams will be shown below, and performance graphs based on the teams' past performances can be viewed. 
 
 <div align="center">
 <img src="https://media3.giphy.com/media/9M63o6kUG7h5XPtCEh/giphy.gif?cid=790b76112f4569fa37a65063cbbdc3a74f6a02aa3e2cd9ef&rid=giphy.gif&ct=g" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -128,7 +128,7 @@ The predictions tab shows upcoming matches of the selected league. Users can cli
 
 ### Stats
 
-Tabs at the top of the stats tab allow the user to navigate to the category that they are interested in. Some of the screens have a search bar, which can be used to filter for the desired data. The season and league can be selected via their dropdowns, and both will persist between stat pages.
+Tabs at the top of the stats tab allow the user to navigate to the category that they are interested in. Some of the screens have a search bar, which can be used to filter for the desired data. The season and league can be selected via their dropdowns, and both persist between stat pages.
 
 <div align="center">
 <img src="https://media0.giphy.com/media/uCnvNSiQXVXBiV4G0M/giphy.gif" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -138,7 +138,7 @@ Tabs at the top of the stats tab allow the user to navigate to the category that
 
 #### Countries
 
-Displayed is a world map, in which countries with data currently are highlighted in red. A country can be selected and deselected on the map, which will zoom accordingly. The selected country will appear above the map for the user to press on to be redirected. A list view of the countries is also available.
+Displayed is a world map, in which countries with data currently are highlighted in red. A country can be selected and deselected on the map, which zooms accordingly. The selected country appears above the map for the user to press on to be redirected. A list view of the countries is also available.
 
 <div align="center">
 <img src="https://media0.giphy.com/media/Uz808FpRi4Z0UbP9Dy/giphy.gif?cid=790b761175c3db30ee5c3844187a5d0a8fa293847b4e03e3&rid=giphy.gif&ct=g" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -148,7 +148,7 @@ Displayed is a world map, in which countries with data currently are highlighted
 
 #### Leagues
 
-Leagues can be pressed on to reveal the selected season's teams, which can be pressed on to be redirected. Available league stats are: team standings, top goal and assist makers, top red and yellow card receivers, and team rankings based on ranking and points.
+Leagues can be pressed on to reveal the selected season's teams, which can also be pressed on to navigate to team pages. Available league stats are: team standings, top goal and assist makers, top red and yellow card receivers, and team rankings based on ranking and points.
 
 <div align="center">
 <img src="https://media0.giphy.com/media/YfLx7NzVOZQrzluf7F/giphy.gif?cid=790b76112888c5571d315e060cec4a28b9bafd2fe658c7dc&rid=giphy.gif&ct=g" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -159,7 +159,7 @@ Leagues can be pressed on to reveal the selected season's teams, which can be pr
 
 #### Teams
 
-The current squad of the selected team will be displayed on a team's page. Users can view information about the team's current coach, venue, and season stats. In addition, the team can be compared to another team from any league.
+The current squad of the selected team is displayed on a team's page. Users can view information about the team's current coach, venue, and season stats. In addition, the team can be compared to another team from any league.
 
 <div align="center">
 <img src="https://media1.giphy.com/media/9yhHEpSMhUGO2Y3JOn/giphy.gif?cid=790b7611310f8b3e5d128a5a996c2df1bbf38ed8b004cc6e&rid=giphy.gif&ct=g" width="250"/>&nbsp;&nbsp;&nbsp;
@@ -170,7 +170,7 @@ The current squad of the selected team will be displayed on a team's page. Users
 
 #### Players
 
-Players of a team's season are displayed with twenty players on each page and can be filtered by the season's top performers. Demographics of a player can be viewed along with the player's performance over the years based on their position. Example statistics include minutes, rating, passes, goals and fouls.
+Players of a team's season are shown by twenty players on a page and can be filtered by the season's top performers. Demographics of a player can be viewed along with the player's performance over the years based on their position. Example statistics include minutes, rating, passes, goals and fouls.
 
 <div align="center">
 <img src="https://media2.giphy.com/media/MQqdnpT9f2iof8PUyv/giphy.gif?cid=790b76116faf02e966c4bff9c1eb16892a9cb180d6ec1ec6&rid=giphy.gif&ct=g" width="250"/>&nbsp;&nbsp;&nbsp;
