@@ -102,7 +102,7 @@ Native Futbol is a mobile app created with React Native and Expo, focused on dat
 
 ## App Demo
 
-### ![Video Demo](youtube.com)
+### [Video Demo](https://youtu.be/EIKfiyfFbps)
 
 ### Home Page
 
@@ -128,7 +128,7 @@ The predictions tab shows upcoming matches of the selected league. Users can cli
 
 ### Stats
 
-Tabs at the top of the stats tab allow the user to navigate to the category that they are interested in. Some of the screens have a search bar, which can be used to filter for the desired data. The season and league can be selected via their dropdowns, and both will persists between pages.
+Tabs at the top of the stats tab allow the user to navigate to the category that they are interested in. Some of the screens have a search bar, which can be used to filter for the desired data. The season and league can be selected via their dropdowns, and both will persist between stat pages.
 
 <div align="center">
 <img src="https://media0.giphy.com/media/uCnvNSiQXVXBiV4G0M/giphy.gif" width="250"/>&nbsp;&nbsp;&nbsp;
