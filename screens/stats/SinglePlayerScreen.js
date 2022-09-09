@@ -1005,52 +1005,28 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
-                  <StackedBarChart
-                    style={{
-                      marginVertical: 8,
-                      borderRadius: 16,
-                    }}
-                    segments={5}
-                    data={{
-                      labels: ["2019", "2020", "2021", "2022"],
-                      legend: ["Red", "Yellow"],
-                      data: [
-                        [
-                          isNull(stats2019.cards.red),
-                          isNull(stats2019.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2020.cards.red),
-                          isNull(stats2020.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2021.cards.red),
-                          isNull(stats2021.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2022.cards.red),
-                          isNull(stats2022.cards.yellow),
-                        ],
-                      ],
-                      barColors: ["red", "yellow"],
-                    }}
-                    width={370}
-                    height={180}
-                    decimalPlaces={0}
-                    chartConfig={{
-                      backgroundColor: "gray",
-                      backgroundGradientFrom: "gray",
-                      backgroundGradientTo: "lightgray",
-                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `#333`,
-                      strokeWidth: 2,
-                      decimalPlaces: 0,
-                    }}
-                  />
-                ) : (
-                  <LoadingOverlay />
-                )}
+                <BarChartComp
+                  title="Yellow"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.yellow,
+                    stats2020.cards.yellow,
+                    stats2021.cards.yellow,
+                    stats2022.cards.yellow,
+                  ]}
+                  color="#FFFF00"
+                />
+                <BarChartComp
+                  title="Red"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.red,
+                    stats2020.cards.red,
+                    stats2021.cards.red,
+                    stats2022.cards.red,
+                  ]}
+                  color="#ff0000"
+                />
               </View>
             </ScrollView>
           </View>
@@ -1566,52 +1542,28 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
-                  <StackedBarChart
-                    style={{
-                      marginVertical: 8,
-                      borderRadius: 16,
-                    }}
-                    segments={5}
-                    data={{
-                      labels: ["2019", "2020", "2021", "2022"],
-                      legend: ["Red", "Yellow"],
-                      data: [
-                        [
-                          isNull(stats2019.cards.red),
-                          isNull(stats2019.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2020.cards.red),
-                          isNull(stats2020.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2021.cards.red),
-                          isNull(stats2021.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2022.cards.red),
-                          isNull(stats2022.cards.yellow),
-                        ],
-                      ],
-                      barColors: ["red", "yellow"],
-                    }}
-                    width={370}
-                    height={180}
-                    decimalPlaces={0}
-                    chartConfig={{
-                      backgroundColor: "gray",
-                      backgroundGradientFrom: "gray",
-                      backgroundGradientTo: "lightgray",
-                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `#333`,
-                      strokeWidth: 2,
-                      decimalPlaces: 0,
-                    }}
-                  />
-                ) : (
-                  <LoadingOverlay />
-                )}
+                <BarChartComp
+                  title="Yellow"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.yellow,
+                    stats2020.cards.yellow,
+                    stats2021.cards.yellow,
+                    stats2022.cards.yellow,
+                  ]}
+                  color="#FFFF00"
+                />
+                <BarChartComp
+                  title="Red"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.red,
+                    stats2020.cards.red,
+                    stats2021.cards.red,
+                    stats2022.cards.red,
+                  ]}
+                  color="#ff0000"
+                />
               </View>
             </ScrollView>
           </View>
@@ -2012,52 +1964,28 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
-                  <StackedBarChart
-                    style={{
-                      marginVertical: 8,
-                      borderRadius: 16,
-                    }}
-                    segments={5}
-                    data={{
-                      labels: ["2019", "2020", "2021", "2022"],
-                      legend: ["Red", "Yellow"],
-                      data: [
-                        [
-                          isNull(stats2019.cards.red),
-                          isNull(stats2019.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2020.cards.red),
-                          isNull(stats2020.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2021.cards.red),
-                          isNull(stats2021.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2022.cards.red),
-                          isNull(stats2022.cards.yellow),
-                        ],
-                      ],
-                      barColors: ["red", "yellow"],
-                    }}
-                    width={370}
-                    height={180}
-                    decimalPlaces={0}
-                    chartConfig={{
-                      backgroundColor: "gray",
-                      backgroundGradientFrom: "gray",
-                      backgroundGradientTo: "lightgray",
-                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `#333`,
-                      strokeWidth: 2,
-                      decimalPlaces: 0,
-                    }}
-                  />
-                ) : (
-                  <LoadingOverlay />
-                )}
+                <BarChartComp
+                  title="Yellow"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.yellow,
+                    stats2020.cards.yellow,
+                    stats2021.cards.yellow,
+                    stats2022.cards.yellow,
+                  ]}
+                  color="#FFFF00"
+                />
+                <BarChartComp
+                  title="Red"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.red,
+                    stats2020.cards.red,
+                    stats2021.cards.red,
+                    stats2022.cards.red,
+                  ]}
+                  color="#ff0000"
+                />
               </View>
             </ScrollView>
           </View>
@@ -2572,52 +2500,28 @@ function DisplayPlayer(props) {
                 <Text style={{ fontWeight: "bold", fontSize: 18 }}>
                   Red/Yellow Cards
                 </Text>
-                {count >= 1 && count2 >= 1 && count3 >= 1 && count4 >= 1 ? (
-                  <StackedBarChart
-                    style={{
-                      marginVertical: 8,
-                      borderRadius: 16,
-                    }}
-                    segments={5}
-                    data={{
-                      labels: ["2019", "2020", "2021", "2022"],
-                      legend: ["Red", "Yellow"],
-                      data: [
-                        [
-                          isNull(stats2019.cards.red),
-                          isNull(stats2019.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2020.cards.red),
-                          isNull(stats2020.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2021.cards.red),
-                          isNull(stats2021.cards.yellow),
-                        ],
-                        [
-                          isNull(stats2022.cards.red),
-                          isNull(stats2022.cards.yellow),
-                        ],
-                      ],
-                      barColors: ["red", "yellow"],
-                    }}
-                    width={370}
-                    height={180}
-                    decimalPlaces={0}
-                    chartConfig={{
-                      backgroundColor: "gray",
-                      backgroundGradientFrom: "gray",
-                      backgroundGradientTo: "lightgray",
-                      color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                      labelColor: (opacity = 1) => `#333`,
-                      strokeWidth: 2,
-                      decimalPlaces: 0,
-                    }}
-                  />
-                ) : (
-                  <LoadingOverlay />
-                )}
+                <BarChartComp
+                  title="Yellow"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.yellow,
+                    stats2020.cards.yellow,
+                    stats2021.cards.yellow,
+                    stats2022.cards.yellow,
+                  ]}
+                  color="#FFFF00"
+                />
+                <BarChartComp
+                  title="Red"
+                  labels={["2019", "2020", "2021", "2022"]}
+                  data={[
+                    stats2019.cards.red,
+                    stats2020.cards.red,
+                    stats2021.cards.red,
+                    stats2022.cards.red,
+                  ]}
+                  color="#ff0000"
+                />
               </View>
             </ScrollView>
           </View>
