@@ -14,7 +14,7 @@
   </a>
   
   <p align="center">
-    Your go-to for all Europe's "Big Five" Football Leagues related!
+    Your go-to app for all things related to Europe's "Big Five" Football Leagues!
     <br />
     <a href="https://github.com/NativeFutbol/NativeFutbol">View Demo</a>
     ·
