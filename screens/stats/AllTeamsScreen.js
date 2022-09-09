@@ -86,7 +86,7 @@ export default function AllTeamsScreen() {
           <SeasonFilterV2 season={season} />
         </View>
       </View>
-      <CategoryList data={allTeamData} filter={filter} />
+      <CategoryList data={allTeamData} filter={filter} footer={175} />
     </SafeAreaView>
   );
 }
